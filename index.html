@@ -36,8 +36,7 @@
       gap: 10px;
     }
     .header-logo img {
-      height: 32px;
-      filter: brightness(0);
+      height: 24px;
     }
     .header-divider {
       width: 1px;
@@ -86,308 +85,199 @@
     .hero p {
       font-size: 18px;
       color: #797783;
-      max-width: 600px;
+      max-width: 620px;
       margin: 0 auto;
       position: relative;
     }
 
-    /* ── Templates Grid ── */
-    .templates-grid {
+    /* ── Search ── */
+    .search-bar {
+      max-width: 500px;
+      margin: 32px auto 0;
+      position: relative;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      border: 1px solid #E9E9EB;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 15px;
+      background: #fff;
+      color: #2C2A36;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-bar input::placeholder { color: #BCBBC3; }
+    .search-bar input:focus { border-color: #C3B5F7; box-shadow: 0 0 0 3px rgba(106, 73, 236, 0.08); }
+    .search-bar svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      color: #BCBBC3;
+    }
+
+    /* ── Category Tabs ── */
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .category-tab {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      background: none;
+      border: 1px solid #E9E9EB;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .category-tab:hover { border-color: #C3B5F7; color: #6A49EC; }
+    .category-tab.active { background: #6A49EC; color: #fff; border-color: #6A49EC; }
+
+    /* ── Integration Grid ── */
+    .integrations-grid {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 40px 80px;
+      padding: 48px 40px 80px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
     }
-    .template-card {
+
+    .integration-card {
       background: #fff;
       border: 1px solid #E9E9EB;
-      border-radius: 16px;
-      padding: 32px;
-      cursor: pointer;
+      border-radius: 14px;
+      padding: 24px;
       transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
       gap: 16px;
+      cursor: pointer;
     }
-    .template-card:hover {
+    .integration-card:hover {
       border-color: #C3B5F7;
       box-shadow: 0 8px 24px rgba(106, 73, 236, 0.08);
       transform: translateY(-2px);
     }
-    .template-card-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #EFEBFF;
-      color: #6A49EC;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 6px;
-      width: fit-content;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .template-card h3 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #0C0A09;
-      letter-spacing: -0.02em;
-    }
-    .template-card p {
-      font-size: 15px;
-      color: #797783;
-      line-height: 1.6;
-      flex-grow: 1;
-    }
-    .template-card-built {
-      font-size: 13px;
-      color: #52505C;
-      margin-top: 4px;
-    }
-    .template-card-built span {
-      color: #BCBBC3;
-      margin: 0 4px;
-    }
-    .template-card-platforms {
+
+    /* Logos row */
+    .integration-logos {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding-top: 16px;
-      border-top: 1px solid #F3F2EC;
     }
-    .template-card-platforms span {
-      font-size: 12px;
-      color: #BCBBC3;
-      font-weight: 500;
-    }
-    .platform-logo {
-      height: 32px;
-    }
-
-    /* ── Detail View ── */
-    .detail-view {
-      display: none;
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 0 40px 80px;
-    }
-    .detail-view.active { display: block; }
-    .templates-grid.hidden { display: none; }
-    .hero.hidden { display: none; }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #797783;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 12px 0;
-      margin-bottom: 24px;
-      transition: color 0.2s;
-    }
-    .back-btn:hover { color: #6A49EC; }
-    .back-btn svg { width: 16px; height: 16px; }
-
-    .detail-header {
-      margin-bottom: 40px;
-    }
-    .detail-header h2 {
-      font-size: 36px;
-      font-weight: 800;
-      color: #0C0A09;
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-    }
-    .detail-header p {
-      font-size: 17px;
-      color: #797783;
-      line-height: 1.7;
-    }
-
-    /* ── Platform Tabs ── */
-    .platform-tabs {
-      display: flex;
-      gap: 0;
-      border-bottom: 2px solid #E9E9EB;
-      margin-bottom: 40px;
-    }
-    .platform-tab {
+    .integration-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid #F0F0F2;
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 16px 28px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #797783;
-      background: none;
-      border: none;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -2px;
-      transition: all 0.2s;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
     }
-    .platform-tab:hover { color: #2C2A36; }
-    .platform-tab.active {
-      color: #6A49EC;
-      border-bottom-color: #6A49EC;
-    }
-    .platform-tab img {
-      height: 22px;
-      width: 22px;
+    .integration-logo img {
+      width: 28px;
+      height: 28px;
       object-fit: contain;
     }
+    .integration-plus {
+      font-size: 18px;
+      font-weight: 500;
+      color: #BCBBC3;
+    }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    /* ── Steps ── */
-    .step {
-      margin-bottom: 36px;
-    }
-    .step-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background: #EFEBFF;
-      color: #6A49EC;
-      font-size: 14px;
-      font-weight: 700;
-      border-radius: 10px;
-      margin-bottom: 12px;
-    }
-    .step h3 {
-      font-size: 19px;
-      font-weight: 700;
-      color: #0C0A09;
-      margin-bottom: 10px;
-      letter-spacing: -0.01em;
-    }
-    .step p, .step li {
+    /* Card content */
+    .integration-title {
       font-size: 15px;
-      color: #52505C;
-      line-height: 1.75;
+      font-weight: 600;
+      color: #0C0A09;
+      line-height: 1.4;
     }
-    .step ol, .step ul {
-      padding-left: 20px;
-      margin-top: 8px;
-    }
-    .step li { margin-bottom: 6px; }
-    .step code {
-      background: #F3F2EC;
-      padding: 2px 8px;
-      border-radius: 6px;
+    .integration-apps {
       font-size: 13px;
-      color: #6A49EC;
-      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: #797783;
+      font-weight: 500;
     }
 
-    .callout {
-      background: #EFEBFF;
-      border-left: 3px solid #6A49EC;
-      padding: 16px 20px;
-      border-radius: 0 10px 10px 0;
-      margin-top: 16px;
-      font-size: 14px;
-      color: #3C04AA;
-      line-height: 1.6;
-    }
-    .callout strong { font-weight: 700; }
-
-    /* ── Screenshot Placeholder ── */
-    .screenshot-placeholder {
-      margin-top: 20px;
-      margin-bottom: 8px;
-      border: 2px dashed #C3B5F7;
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-      background: #F9F7FF;
-    }
-    .screenshot-placeholder img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-    .screenshot-placeholder .placeholder-label {
+    /* Card footer */
+    .integration-footer {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid #F3F2EC;
+      margin-top: auto;
+    }
+    .integration-platforms {
+      display: flex;
+      align-items: center;
       gap: 8px;
+    }
+    .integration-platforms img {
+      height: 20px;
+      opacity: 1;
+    }
+    .integration-btn {
+      padding: 6px 16px;
+      border-radius: 8px;
       font-size: 13px;
       font-weight: 600;
       color: #6A49EC;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      background: #EFEBFF;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
     }
-    .screenshot-placeholder .placeholder-desc {
-      font-size: 14px;
-      color: #797783;
-      margin-top: 8px;
-      line-height: 1.5;
+    .integration-btn:hover {
+      background: #6A49EC;
+      color: #fff;
     }
 
-    /* ── Troubleshooting ── */
-    .troubleshooting {
-      margin-top: 48px;
-      padding-top: 40px;
-      border-top: 1px solid #E9E9EB;
+    /* ── Hidden state for filtering ── */
+    .integration-card.hidden { display: none; }
+
+    /* ── Coming soon (greyed out) ── */
+    .integration-card.coming-soon {
+      opacity: 0.45;
+      pointer-events: none;
+      position: relative;
     }
-    .troubleshooting h3 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #0C0A09;
-      margin-bottom: 20px;
-      letter-spacing: -0.01em;
-    }
-    .troubleshooting table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      border: 1px solid #E9E9EB;
-      border-radius: 12px;
-      overflow: hidden;
-      font-size: 14px;
-    }
-    .troubleshooting th {
-      background: #F3F2EC;
-      text-align: left;
-      padding: 14px 20px;
+    .integration-card.coming-soon::after {
+      content: 'Coming soon';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 11px;
       font-weight: 600;
-      color: #0C0A09;
-    }
-    .troubleshooting td {
-      padding: 14px 20px;
-      border-top: 1px solid #E9E9EB;
-      color: #52505C;
-      line-height: 1.5;
-    }
-    .troubleshooting td code {
+      color: #797783;
       background: #F3F2EC;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12px;
-      color: #6A49EC;
+      padding: 3px 10px;
+      border-radius: 6px;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 768px) {
-      .header { padding: 16px 20px; }
-      .hero { padding: 48px 20px 40px; }
-      .hero h1 { font-size: 32px; }
-      .hero p { font-size: 16px; }
-      .templates-grid { padding: 0 20px 60px; grid-template-columns: 1fr; }
-      .detail-view { padding: 0 20px 60px; }
-      .detail-header h2 { font-size: 28px; }
-      .platform-tabs { overflow-x: auto; }
-      .platform-tab { padding: 14px 18px; font-size: 14px; white-space: nowrap; }
+    /* ── Section divider ── */
+    .section-label {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #BCBBC3;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
   </style>
 </head>
@@ -395,1513 +285,330 @@
 
   <!-- Header -->
   <header class="header">
-    <div class="header-logo"><img src="https://images.ctfassets.net/un655fb9wln6/appIcon-fullenrich/e4502a91edca0d12fe06d76c6c68f657/fullenrich.png" alt="FullEnrich"></div>
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
     <div class="header-divider"></div>
-    <div class="header-label">Templates</div>
+    <span class="header-label">Automation Templates</span>
   </header>
 
   <!-- Hero -->
-  <section class="hero" id="hero">
-    <h1>Ready-to-use <em>Automation Templates</em></h1>
-    <p>Import, connect your accounts, and start enriching contacts in minutes. Each template is available for Zapier, Make, and n8n.</p>
+  <section class="hero">
+    <h1>Connect FullEnrich to <em>your favorite tools</em></h1>
+    <p>Pre-built automation templates to enrich contacts, verify emails, and push data to your CRM, outreach tools, and more.</p>
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="search" placeholder="Search for an integration..." oninput="filterCards()">
+    </div>
+    <div class="category-tabs">
+      <button class="category-tab active" onclick="filterCategory('all')">All</button>
+      <button class="category-tab" onclick="filterCategory('crm')">CRMs</button>
+      <button class="category-tab" onclick="filterCategory('outreach')">Outreach</button>
+      <button class="category-tab" onclick="filterCategory('spreadsheet')">Spreadsheets</button>
+      <button class="category-tab" onclick="filterCategory('ads')">Ads</button>
+    </div>
   </section>
 
-  <!-- Templates Grid -->
-  <section class="templates-grid" id="templates-grid">
+  <!-- Integration Grid — Priority Templates -->
+  <section class="integrations-grid" id="grid">
 
-    <div class="template-card" onclick="showDetail('mobile-dialer')">
-      <div class="template-card-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        Enrichment
+    <!-- 1. Google Sheets + FullEnrich -->
+    <div class="integration-card" data-category="spreadsheet" data-keywords="google sheets spreadsheet enrich rows">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://mailmeteor.com/logos/assets/PNG/Google_Sheets_Logo_512px.png" alt="Google Sheets"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <h3>The 1-Click Mobile Dialer</h3>
-      <p>Automatically enrich every new CRM contact with a verified mobile phone number using FullEnrich, ready to call in seconds.</p>
-      <div class="template-card-built">→ Built with HubSpot <span>·</span> easily adaptable to Salesforce, Pipedrive or any CRM</div>
-      <div class="template-card-platforms">
-        <span>Available on</span>
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+      <div class="integration-title">Automatically find verified emails and phones for every new row in Google Sheets</div>
+      <div class="integration-apps">Google Sheets + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="googlesheets-fullenrich.html" class="integration-btn">Details</a>
       </div>
     </div>
 
-    <div class="template-card" onclick="showDetail('ad-lead-converter')">
-      <div class="template-card-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-        Reverse Email
+    <!-- Monday.com + FullEnrich -->
+    <div class="integration-card" data-category="crm" data-keywords="monday crm project management enrich items contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqIvjWjRTI1JvYoPEfUp3ielEzlFHcJGfSjg&s" alt="Monday.com"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <h3>Ad Lead Converter</h3>
-      <p>Turn ad leads with personal emails into full professional profiles using FullEnrich Reverse Email Lookup.</p>
-      <div class="template-card-built">→ Built with Google Ads <span>·</span> easily adaptable to Meta, LinkedIn Ads, TikTok and more</div>
-      <div class="template-card-platforms">
-        <span>Available on</span>
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+      <div class="integration-title">Automatically enrich new Monday.com items with verified emails and phone numbers</div>
+      <div class="integration-apps">Monday.com + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="monday-fullenrich.html" class="integration-btn">Details</a>
       </div>
     </div>
 
-    <div class="template-card" onclick="showDetail('zero-bounce')">
-      <div class="template-card-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-        Email Verification
+    <!-- 2. Airtable + FullEnrich -->
+    <div class="integration-card" data-category="spreadsheet" data-keywords="airtable database enrich records">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://images.seeklogo.com/logo-png/29/1/airtable-logo-png_seeklogo-294322.png" alt="Airtable"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <h3>Zero-Bounce Outreach</h3>
-      <p>Upload leads to a Google Sheet, only verified emails get added to your campaign. Catch-all and invalid addresses are filtered out automatically.</p>
-      <div class="template-card-built">→ Built with Google Sheets + Instantly <span>·</span> easily adaptable to Lemlist, Smartlead or any outreach tool</div>
-      <div class="template-card-platforms">
-        <span>Available on</span>
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
-        <img class="platform-logo" src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+      <div class="integration-title">Automatically find verified emails and phones for every new Airtable record</div>
+      <div class="integration-apps">Airtable + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="airtable-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- 3. Instantly + FullEnrich (Zero-Bounce) -->
+    <div class="integration-card" data-category="outreach" data-keywords="instantly outreach email campaign leads verified zero bounce">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://play-lh.googleusercontent.com/RRxOvw7vrGpQG4H0I22YF0_0rmJMEavZ6W-3kMaOpL1sZC0p-_3XELxKHd372w_ooQ" alt="Instantly"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Find verified emails, filter out bounces, and only send to deliverable addresses via Instantly</div>
+      <div class="integration-apps">Instantly + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="instantly-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- 4. Meta Ads + FullEnrich (Reverse Email Lookup) -->
+    <div class="integration-card" data-category="ads" data-keywords="meta ads facebook reverse email lookup b2b profile job title company">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://static.vecteezy.com/system/resources/thumbnails/004/201/564/small/meta-social-network-emblem-blue-stylish-letter-m-or-mobius-band-vector.jpg" alt="Meta Ads"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Turn personal emails from Meta Ad leads into full B2B profiles with job title, company, and work email</div>
+      <div class="integration-apps">Meta Ads + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="reverse-email-lookup.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- 5. Salesforce + FullEnrich -->
+    <div class="integration-card" data-category="crm" data-keywords="salesforce crm enrich contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/3840px-Salesforce.com_logo.svg.png" alt="Salesforce"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Salesforce lead</div>
+      <div class="integration-apps">Salesforce + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="salesforce-fullenrich.html" class="integration-btn">Details</a>
       </div>
     </div>
 
   </section>
 
-  <!-- Detail View -->
-  <section class="detail-view" id="detail-view">
-    <button class="back-btn" onclick="showGrid()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-      Back to templates
-    </button>
+  <!-- Coming Soon -->
+  <div class="section-label">More templates coming soon</div>
+  <section class="integrations-grid">
 
-    <div class="detail-header">
-      <h2 id="detail-title"></h2>
-      <p id="detail-description"></p>
-    </div>
-
-    <!-- Platform Tabs -->
-    <div class="platform-tabs">
-      <button class="platform-tab active" onclick="switchTab('zapier')" data-tab="zapier">
-        <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
-        Zapier
-      </button>
-      <button class="platform-tab" onclick="switchTab('make')" data-tab="make">
-        <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
-        Make
-      </button>
-      <button class="platform-tab" onclick="switchTab('n8n')" data-tab="n8n">
-        <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
-        n8n
-      </button>
-    </div>
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- TEMPLATE: mobile-dialer                 -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="template-content" data-template="mobile-dialer">
-
-    <!-- Zapier Content -->
-    <div class="tab-content active" id="tab-zapier">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Create a New Zap</h3>
-        <ol>
-          <li>Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong> (top-left corner)</li>
-          <li>Name your Zap <em>"FullEnrich Mobile Enrichment"</em></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 1 — The Zapier editor showing a blank new Zap -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 1
-          </div>
-          <div class="placeholder-desc">The Zapier editor with a blank new Zap open</div>
-        </div>
+    <div class="integration-card coming-soon" data-category="crm" data-keywords="pipedrive crm enrich contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://play-lh.googleusercontent.com/XAKratCqSJUb3ZmItve16p8RjiF0ZvN_czysEoqtGET7i-tsdJEozbnOYRM6jQNHEg" alt="Pipedrive"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Set Up the HubSpot Trigger</h3>
-        <p>This tells Zapier to watch your HubSpot CRM for new contacts. Every time someone is added, the Zap will run automatically.</p>
-        <ol>
-          <li>In the trigger box, search for <strong>HubSpot</strong> and select it</li>
-          <li>For the event, choose <strong>New Contact</strong></li>
-          <li>Click <strong>Continue</strong></li>
-          <li>Connect your HubSpot account (sign in when prompted, or select an existing connection)</li>
-          <li>Click <strong>Test trigger</strong> — Zapier will pull in a real contact from your CRM to use as a test</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 2 — HubSpot trigger configured with "New Contact" selected -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 2
-          </div>
-          <div class="placeholder-desc">HubSpot trigger configured — "New Contact" selected as the event</div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Pipedrive contact</div>
+      <div class="integration-apps">Pipedrive + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
         </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 3 — Test trigger result showing a sample contact -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 3
-          </div>
-          <div class="placeholder-desc">Test trigger result — a real contact pulled from HubSpot (name, email, company visible)</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Add the FullEnrich Enrichment</h3>
-        <p>This step sends the contact's details to FullEnrich, which will find their verified mobile phone number.</p>
-        <ol>
-          <li>Click the <strong>+</strong> button below the HubSpot step to add a new action</li>
-          <li>Search for <strong>FullEnrich</strong> and select it</li>
-          <li>Choose the action: <strong>Enrich Contact</strong></li>
-          <li>Connect your FullEnrich account by entering your API key (you'll find it in your FullEnrich dashboard under <strong>Settings → API</strong>)</li>
-          <li>Map the following fields — click each field and pick the matching value from HubSpot:
-            <ul>
-              <li><strong>First Name</strong> → select <code>First Name</code> from HubSpot</li>
-              <li><strong>Last Name</strong> → select <code>Last Name</code> from HubSpot</li>
-              <li><strong>Company Name</strong> → select <code>Company Name</code> from HubSpot</li>
-              <li><strong>LinkedIn URL</strong> → select <code>LinkedIn URL</code> from HubSpot (if available)</li>
-            </ul>
-          </li>
-          <li>Click <strong>Test step</strong> — FullEnrich will return the enrichment result, including the phone number</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 4 — FullEnrich "Enrich Contact" selected as the action -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 4
-          </div>
-          <div class="placeholder-desc">FullEnrich selected — "Enrich Contact" chosen as the action</div>
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 5 — Field mapping: First Name, Last Name, Company, LinkedIn all mapped -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 5 — Key screenshot
-          </div>
-          <div class="placeholder-desc">The field mapping screen — First Name, Last Name, Company Name, and LinkedIn URL all mapped to HubSpot values</div>
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 6 — Test result showing "Most Probable Phone Number" -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 6 — Key screenshot
-          </div>
-          <div class="placeholder-desc">The test result from FullEnrich — "Most Probable Phone Number" visible with a real phone number returned</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Update the Contact in HubSpot</h3>
-        <p>This final step writes the phone number back into HubSpot so it appears on the contact record, ready to call.</p>
-        <ol>
-          <li>Click the <strong>+</strong> button below the FullEnrich step</li>
-          <li>Search for <strong>HubSpot</strong> and select it</li>
-          <li>Choose the action: <strong>Update Contact</strong></li>
-          <li>Select the same HubSpot account you used in Step 2</li>
-          <li>Map the following fields:
-            <ul>
-              <li><strong>Contact to Update</strong> → select <code>Contact ID</code> from the HubSpot trigger (Step 2)</li>
-              <li><strong>Mobile Phone Number</strong> → select <code>Most Probable Phone Number</code> from FullEnrich (Step 3)</li>
-            </ul>
-          </li>
-          <li>Click <strong>Test step</strong> — check your HubSpot contact to confirm the phone number appeared</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 7 — HubSpot Update Contact with Contact ID + Mobile Phone mapped -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 7 — Key screenshot
-          </div>
-          <div class="placeholder-desc">HubSpot "Update Contact" field mapping — Contact ID and Mobile Phone Number both mapped</div>
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 8 — Test result showing successful update -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 8
-          </div>
-          <div class="placeholder-desc">Test result — successful update confirmed (green success message)</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Turn It On</h3>
-        <ol>
-          <li>You should now see your complete Zap with all 3 steps: <strong>HubSpot</strong> → <strong>FullEnrich</strong> → <strong>HubSpot</strong></li>
-          <li>Click <strong>Publish</strong> to activate it</li>
-          <li>That's it! From now on, every new contact added to HubSpot will automatically receive a verified mobile phone number</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 9 — Full Zap overview showing all 3 steps + Publish button -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 9
-          </div>
-          <div class="placeholder-desc">The full Zap overview — all 3 steps connected (HubSpot → FullEnrich → HubSpot) with the Publish button visible</div>
-        </div>
-      </div>
-
-      <div class="callout">
-        <strong>Using Salesforce, Pipedrive, or another CRM?</strong> Simply replace the HubSpot steps with your CRM of choice. Use your CRM's trigger for "New Contact" in Step 2, and your CRM's "Update Contact" action in Step 4. The FullEnrich enrichment step in the middle stays exactly the same.
+        <button class="integration-btn">Details</button>
       </div>
     </div>
 
-    <!-- Make Content -->
-    <div class="tab-content" id="tab-make">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Import the Blueprint</h3>
-        <p>We provide a ready-made blueprint so you don't have to build the scenario from scratch. Just import it and connect your accounts.</p>
-        <ol>
-          <li>Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong></li>
-          <li>In the scenario editor, click the <strong>three dots</strong> (⋯) at the bottom of the screen</li>
-          <li>Select <strong>Import Blueprint</strong></li>
-          <li>Upload the blueprint JSON file provided by FullEnrich</li>
-          <li>You'll see 3 modules appear in a row: <strong>Watch Contacts</strong> → <strong>Enrich a Contact</strong> → <strong>Update Contact</strong></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 1 — The three dots menu with "Import Blueprint" option -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 1
-          </div>
-          <div class="placeholder-desc">The three dots (⋯) menu at the bottom of the Make editor showing the "Import Blueprint" option</div>
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 2 — The 3 modules after importing the blueprint -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 2
-          </div>
-          <div class="placeholder-desc">The scenario after import — 3 modules connected: Watch Contacts → Enrich a Contact → Update Contact</div>
-        </div>
+    <div class="integration-card coming-soon" data-category="crm" data-keywords="zoho crm enrich contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAV4qLFKg2lsHAPpPOjbGdKAj66-CM4Bqaw&s" alt="Zoho CRM"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Connect HubSpot</h3>
-        <p>You need to connect your HubSpot account to two modules: the first one (which watches for new contacts) and the last one (which updates the contact with the phone number).</p>
-        <ol>
-          <li>Click on the first module (<strong>Watch Contacts</strong>)</li>
-          <li>Click <strong>Create a connection</strong></li>
-          <li>Sign in to your HubSpot account when prompted and grant Make access</li>
-          <li>Click <strong>OK</strong> to save</li>
-          <li>Now click on the third module (<strong>Update Contact</strong>)</li>
-          <li>Select the same HubSpot connection you just created from the dropdown</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 3 — The Watch Contacts module open with the HubSpot connection dialog -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 3
-          </div>
-          <div class="placeholder-desc">The Watch Contacts module open — showing the "Create a connection" button for HubSpot</div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Zoho CRM lead</div>
+      <div class="integration-apps">Zoho CRM + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
         </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Connect FullEnrich</h3>
-        <p>This connects the middle module to your FullEnrich account so it can look up phone numbers.</p>
-        <ol>
-          <li>Click on the middle module (<strong>Enrich a Contact</strong>)</li>
-          <li>Click <strong>Create a connection</strong></li>
-          <li>Enter your FullEnrich API key (you'll find it in your FullEnrich dashboard under <strong>Settings → API</strong>)</li>
-          <li>Click <strong>Save</strong></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 4 — The FullEnrich module open showing the connection/API key field -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 4
-          </div>
-          <div class="placeholder-desc">The Enrich a Contact module open — showing the connection setup with API key field</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Verify the Field Mapping</h3>
-        <p>The blueprint comes pre-configured, but it's good to double-check that everything is mapped correctly.</p>
-        <ol>
-          <li>Click on the <strong>Enrich a Contact</strong> module and verify:
-            <ul>
-              <li><strong>First Name</strong> → mapped to <code>firstname</code> from the Watch Contacts module</li>
-              <li><strong>Last Name</strong> → mapped to <code>lastname</code> from the Watch Contacts module</li>
-              <li><strong>Company Name</strong> → mapped to <code>company</code> from the Watch Contacts module</li>
-              <li><strong>Enrich with</strong> → both <code>Emails</code> and <code>Phones</code> selected</li>
-            </ul>
-          </li>
-          <li>Click on the <strong>Update Contact</strong> module and verify:
-            <ul>
-              <li><strong>Contact ID</strong> → mapped to <code>id</code> from the Watch Contacts module</li>
-              <li><strong>Mobile Phone Number</strong> → mapped to <code>Most Probable Phone</code> from FullEnrich</li>
-            </ul>
-          </li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 5 — The FullEnrich module fields mapped (First Name, Last Name, Company, Enrich with) -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 5 — Key screenshot
-          </div>
-          <div class="placeholder-desc">The Enrich a Contact module — First Name, Last Name, Company Name mapped, and "Emails" + "Phones" selected in Enrich with</div>
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 6 — The Update Contact module with Contact ID + Mobile Phone Number mapped -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 6 — Key screenshot
-          </div>
-          <div class="placeholder-desc">The Update Contact module — Contact ID and Mobile Phone Number both mapped</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Add LinkedIn URL (Optional)</h3>
-        <p>Adding the LinkedIn URL significantly improves enrichment accuracy. If your HubSpot contacts have a LinkedIn field, add it here.</p>
-        <ol>
-          <li>Click on the <strong>Enrich a Contact</strong> module</li>
-          <li>Find the <strong>LinkedIn URL</strong> field</li>
-          <li>Click inside the field and select <code>hs_linkedinid</code> (or <code>linkedin_url</code>) from the Watch Contacts module</li>
-        </ol>
-        <div class="callout">
-          <strong>Tip:</strong> This step is optional, but it helps FullEnrich find the right person more accurately — especially for common names.
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">6</div>
-        <h3>Test &amp; Turn It On</h3>
-        <ol>
-          <li>Click <strong>Run once</strong> at the bottom-left of the editor</li>
-          <li>Make will process one contact from HubSpot — you should see green checkmarks on all 3 modules</li>
-          <li>Check the contact in HubSpot — the mobile phone field should now be filled in</li>
-          <li>Toggle the scenario <strong>ON</strong> (bottom-left switch) and set the schedule (e.g., every 15 minutes)</li>
-          <li>That's it! Every new HubSpot contact will automatically receive a verified mobile phone number</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 7 — The scenario after a successful "Run once" with green checkmarks on all modules -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 7
-          </div>
-          <div class="placeholder-desc">Successful test run — all 3 modules show green checkmarks after clicking "Run once"</div>
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 8 — The scheduling toggle ON with the frequency dropdown -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 8
-          </div>
-          <div class="placeholder-desc">The scenario turned ON — toggle switch active and schedule set (e.g., every 15 minutes)</div>
-        </div>
-      </div>
-
-      <div class="callout">
-        <strong>Using Salesforce, Pipedrive, or another CRM?</strong> Simply replace the HubSpot modules with your CRM of choice. Use your CRM's trigger module for "Watch Contacts" and your CRM's "Update Contact" module. The FullEnrich module in the middle stays exactly the same.
+        <button class="integration-btn">Details</button>
       </div>
     </div>
 
-    <!-- n8n Content -->
-    <div class="tab-content" id="tab-n8n">
-      <div class="callout" style="margin-bottom: 32px;">
-        <strong>How this workflow is different:</strong> Unlike Zapier and Make, n8n uses an <strong>async (two-flow) pattern</strong>. FullEnrich takes a few minutes to find phone numbers, so the workflow is split in two: one flow <em>sends</em> the request, and a second flow <em>receives</em> the result via a webhook. Don't worry — it all happens automatically once set up!
+    <div class="integration-card coming-soon" data-category="crm" data-keywords="attio crm enrich contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://media.licdn.com/dms/image/v2/C4D0BAQF16UXOMcHaCA/company-logo_200_200/company-logo_200_200/0/1670519496148/attio_logo?e=2147483647&v=beta&t=1Tgkqt6FWRN84JYVjo1GitVkZnUIe2cOX4x3syrRE-U" alt="Attio"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Import the Workflow</h3>
-        <p>First, you need to load the pre-built workflow into your n8n instance. This saves you from building everything from scratch — all the nodes and connections are already configured.</p>
-        <ol>
-          <li>Open your n8n instance and go to the <strong>Workflows</strong> page</li>
-          <li>Click the <strong>⋯</strong> menu (top right) → select <strong>Import from File</strong></li>
-          <li>Upload the workflow JSON file we provide</li>
-          <li>You'll see <strong>two separate flows</strong> on the canvas:
-            <ul>
-              <li><strong>Top flow (3 nodes):</strong> HubSpot Trigger → FullEnrich — this <em>sends</em> new contacts for enrichment</li>
-              <li><strong>Bottom flow (2 nodes):</strong> Webhook → HubSpot Update — this <em>receives</em> results and updates the contact</li>
-            </ul>
-          </li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 1 — Full workflow canvas -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 1 — The full workflow canvas
-          </div>
-          <div class="placeholder-desc">Show the entire canvas after import — both flows visible with sticky notes. The top flow has "Get recently created/updated contacts" → "Start FullEnrich", the bottom flow has "FullEnrich Result Webhook" → "Create or update a contact".</div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Attio contact</div>
+      <div class="integration-apps">Attio + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
         </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Connect HubSpot (Trigger Node)</h3>
-        <p>The top flow starts with HubSpot detecting new contacts. You need to connect your HubSpot account so n8n can watch for new contacts automatically.</p>
-        <ol>
-          <li>Double-click the <strong>"Get recently created/updated contacts"</strong> node (first node in the top flow)</li>
-          <li>Next to <strong>Credential to connect with</strong>, click the dropdown → <strong>Create New Credential</strong></li>
-          <li>Select <strong>OAuth2</strong> and sign in to your HubSpot account</li>
-          <li>Once connected, click <strong>Back to canvas</strong></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 2 — HubSpot trigger node open -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 2 — HubSpot trigger node
-          </div>
-          <div class="placeholder-desc">Show the "Get recently created/updated contacts" node open, with the credential dropdown visible and a HubSpot account connected.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Connect FullEnrich</h3>
-        <p>This is the node that sends each new contact to FullEnrich for enrichment. It automatically passes the contact's name, company, and domain. It also sends a <strong>webhook URL</strong> so FullEnrich knows where to send the results back.</p>
-        <ol>
-          <li>Double-click the <strong>"Start FullEnrich"</strong> node (second node in the top flow)</li>
-          <li>Next to <strong>Credential to connect with</strong>, click the dropdown → <strong>Create New Credential</strong></li>
-          <li>Paste your <strong>FullEnrich API key</strong> (find it in your FullEnrich dashboard under Settings → API)</li>
-          <li>Click <strong>Save</strong></li>
-        </ol>
-        <p>The fields are already mapped for you:</p>
-        <ul>
-          <li><strong>First Name, Last Name, Company Name, Company Domain</strong> — pulled from the HubSpot contact</li>
-          <li><strong>LinkedIn URL</strong> — pulled from the contact if available (helps get better results)</li>
-          <li><strong>Webhook URL</strong> — automatically set to the webhook in the bottom flow</li>
-          <li><strong>Custom Fields</strong> — passes the HubSpot contact ID so the result can be matched back</li>
-        </ul>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 3 — FullEnrich node fields -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 3 — Key screenshot
-          </div>
-          <div class="placeholder-desc">Show the "Start FullEnrich" node open, scrolled to show all the mapped fields: firstName, lastName, companyName, companyDomain, linkedinUrl, webhookUrl, and customFields with the contact ID.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Connect HubSpot (Update Node)</h3>
-        <p>The bottom flow ends with updating the contact back in HubSpot. This node writes the phone number that FullEnrich found. You need to connect your HubSpot account here too (you can reuse the same credential).</p>
-        <ol>
-          <li>Double-click the <strong>"Create or update a contact"</strong> node (second node in the bottom flow)</li>
-          <li>Next to <strong>Credential to connect with</strong>, select the <strong>same HubSpot account</strong> you connected in Step 2</li>
-          <li>Verify the field mapping is set:
-            <ul>
-              <li><strong>Contact ID</strong> — comes from the webhook data (matches back to the original contact)</li>
-              <li><strong>Mobile Phone Number</strong> — mapped to FullEnrich's most probable phone number</li>
-              <li><strong>Email</strong> — mapped to FullEnrich's most probable email</li>
-            </ul>
-          </li>
-          <li>Click <strong>Back to canvas</strong></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 4 — HubSpot update node fields -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 4 — Key screenshot
-          </div>
-          <div class="placeholder-desc">Show the "Create or update a contact" node open, with the field mapping visible: Contact ID, Mobile Phone Number, and Email all mapped to the webhook data from FullEnrich.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Check the Webhook Node</h3>
-        <p>The webhook is what allows FullEnrich to send the enrichment results back to n8n. It's already configured — you just need to make sure it's working. The webhook URL only becomes active when the workflow is turned on (next step).</p>
-        <ol>
-          <li>Double-click the <strong>"FullEnrich Result Webhook"</strong> node (first node in the bottom flow)</li>
-          <li>You'll see the <strong>Webhook URL</strong> — this is the address FullEnrich will call when enrichment is done</li>
-          <li>Make sure the HTTP method is set to <strong>POST</strong></li>
-          <li>No other changes needed — click <strong>Back to canvas</strong></li>
-        </ol>
-        <div class="callout">
-          <strong>Important:</strong> The webhook URL has two versions: a <strong>test URL</strong> (with <code>webhook-test</code>) and a <strong>production URL</strong> (with <code>webhook</code>). The production URL only works when the workflow is <strong>Active</strong>. Make sure the URL in the FullEnrich node uses the production version.
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 5 — Webhook node -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 5 — Webhook node
-          </div>
-          <div class="placeholder-desc">Show the "FullEnrich Result Webhook" node open, with the production webhook URL visible and HTTP method set to POST.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">6</div>
-        <h3>Activate the Workflow</h3>
-        <p>Turning on the workflow does two things at once: it starts watching HubSpot for new contacts <em>and</em> it activates the webhook so FullEnrich can send results back. Both flows need to be active for the automation to work end-to-end.</p>
-        <ol>
-          <li>Click the <strong>Active</strong> toggle in the top-right corner of the canvas</li>
-          <li>The toggle should turn <strong>green</strong> — this means both flows are now live</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 6 — Active toggle -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 6 — Workflow activated
-          </div>
-          <div class="placeholder-desc">Show the workflow canvas with the Active toggle turned ON (green) in the top-right corner.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">7</div>
-        <h3>Test the Full Flow</h3>
-        <p>Now let's make sure everything works. Since this is an async workflow, you'll see <strong>two separate executions</strong> in the log — one for each flow. The second one arrives a few minutes after the first.</p>
-        <ol>
-          <li>Go to HubSpot and <strong>create a new contact</strong> (or update an existing one)</li>
-          <li>Go back to n8n → click <strong>Executions</strong> (left sidebar)</li>
-          <li>Within a minute, you should see the <strong>first execution</strong> (top flow: HubSpot → FullEnrich)</li>
-          <li>Wait 1–5 minutes. You'll see a <strong>second execution</strong> (bottom flow: Webhook → HubSpot Update)</li>
-          <li>Go back to HubSpot and check the contact — the <strong>Mobile Phone Number</strong> field should now have a value</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 7 — Execution log -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 7 — Execution log
-          </div>
-          <div class="placeholder-desc">Show the n8n Executions page with two successful executions listed — the first one from the HubSpot trigger and the second one from the webhook, a few minutes apart.</div>
-        </div>
-        <div class="callout">
-          <strong>Don't panic if the second execution takes a few minutes!</strong> FullEnrich searches multiple data sources to find the most accurate phone number. This is normal and expected.
-        </div>
-      </div>
-
-      <div class="callout">
-        <strong>Using Salesforce, Pipedrive, or another CRM?</strong> Simply replace the two HubSpot nodes with your CRM of choice. Use your CRM's trigger node in the top flow, and your CRM's update node in the bottom flow. The FullEnrich node, the webhook, and the async pattern all stay exactly the same.
+        <button class="integration-btn">Details</button>
       </div>
     </div>
 
-    <!-- Troubleshooting -->
-    <div class="troubleshooting">
-      <h3>Troubleshooting</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Issue</th>
-            <th>Solution</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>No phone number returned</td>
-            <td>The contact may not have a findable mobile number. Check your FullEnrich dashboard for the enrichment result.</td>
-          </tr>
-          <tr>
-            <td>Phone field empty in HubSpot</td>
-            <td>Make sure you're selecting <strong>Most Probable Phone Number</strong> from the FullEnrich step when mapping the field in HubSpot.</td>
-          </tr>
-          <tr>
-            <td>FullEnrich returns an error</td>
-            <td>Check that your API key is valid and you have remaining credits in your FullEnrich account.</td>
-          </tr>
-          <tr>
-            <td>HubSpot connection expired</td>
-            <td>Re-authenticate your HubSpot connection in your automation platform's settings.</td>
-          </tr>
-          <tr>
-            <td>Zap not triggering</td>
-            <td>Make sure your Zap is <strong>published</strong> (not just saved). Also check that the HubSpot trigger is set to <strong>New Contact</strong> and not a different event.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    </div><!-- end mobile-dialer -->
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- TEMPLATE: ad-lead-converter             -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="template-content" data-template="ad-lead-converter" style="display:none;">
-
-    <!-- Zapier Content -->
-    <div class="tab-content active" id="tab-zapier-alc">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Create a New Zap</h3>
-        <ol>
-          <li>Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong></li>
-          <li>Name it <em>"Ad Lead Converter — Reverse Email Lookup"</em></li>
-        </ol>
+    <div class="integration-card coming-soon" data-category="outreach" data-keywords="lemlist outreach email campaign leads verified">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLO6Rl2B4uo3qup62mrXn0tQREYAjlz1aL-Q&s" alt="Lemlist"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Set Up the Ad Platform Trigger</h3>
-        <ol>
-          <li>Search for your ad platform: <strong>Google Ads</strong>, <strong>Facebook Lead Ads</strong>, or <strong>LinkedIn Lead Gen Forms</strong></li>
-          <li>Choose the event: <strong>New Lead</strong> (or equivalent)</li>
-          <li>Connect your ad account</li>
-          <li>Select the form/campaign to watch</li>
-          <li>Click <strong>Test trigger</strong> — Zapier will pull in a sample lead (e.g. <code>john.doe@gmail.com</code>)</li>
-        </ol>
-        <div class="callout">
-          <strong>Tip:</strong> This works with any ad platform that captures an email. Google Ads, Meta (Facebook/Instagram), LinkedIn Ads, TikTok Lead Gen, etc.
+      <div class="integration-title">Find verified emails, filter out bounces, and only send to deliverable addresses via Lemlist</div>
+      <div class="integration-apps">Lemlist + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
         </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Add the FullEnrich Reverse Email Lookup</h3>
-        <ol>
-          <li>Click <strong>+</strong> to add a new step</li>
-          <li>Search for <strong>FullEnrich</strong> and select it</li>
-          <li>Choose the action: <strong>Reverse Email Lookup</strong></li>
-          <li>Connect your FullEnrich account using your API key</li>
-          <li>Map the field:
-            <ul>
-              <li><strong>Email</strong> → the lead's email from Step 2 (e.g. <code>john.doe@gmail.com</code>)</li>
-            </ul>
-          </li>
-          <li>Click <strong>Test step</strong> — FullEnrich will return the full professional profile: company, job title, professional email, LinkedIn URL, phone number</li>
-        </ol>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Add the CRM Update Action</h3>
-        <ol>
-          <li>Click <strong>+</strong> to add a final step</li>
-          <li>Search for your CRM (<strong>HubSpot</strong>, <strong>Salesforce</strong>, <strong>Pipedrive</strong>, etc.) or <strong>Google Sheets</strong></li>
-          <li>Choose the action: <strong>Create/Update Contact</strong></li>
-          <li>Map the enriched fields:
-            <ul>
-              <li><strong>Company</strong> → FullEnrich <code>Company Name</code></li>
-              <li><strong>Job Title</strong> → FullEnrich <code>Job Title</code></li>
-              <li><strong>Professional Email</strong> → FullEnrich <code>Professional Email</code></li>
-              <li><strong>LinkedIn URL</strong> → FullEnrich <code>LinkedIn URL</code></li>
-              <li><strong>Phone</strong> → FullEnrich <code>Phone Number</code></li>
-            </ul>
-          </li>
-          <li>Click <strong>Test step</strong> to confirm the enriched data is written</li>
-        </ol>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Activate</h3>
-        <ol>
-          <li>Review all steps</li>
-          <li>Click <strong>Publish</strong> to turn on your Zap</li>
-          <li>From now on, every ad lead with a personal email will automatically be enriched with their full professional profile</li>
-        </ol>
+        <button class="integration-btn">Details</button>
       </div>
     </div>
 
-    <!-- Make Content -->
-    <div class="tab-content" id="tab-make-alc">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Create a New Scenario</h3>
-        <ol>
-          <li>Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong></li>
-          <li>You'll build 3 modules: <strong>Ad Platform Trigger</strong> → <strong>FullEnrich Reverse Email Lookup</strong> → <strong>CRM Update</strong></li>
-        </ol>
+    <div class="integration-card coming-soon" data-category="outreach" data-keywords="smartlead outreach email campaign leads verified">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://play-lh.googleusercontent.com/3TRenpb3zBDoRTurTpPFsmFPQYeByFoqKDxBIQ_nayEo3qUYw8bDiB0lYGUf9d3QiQ=w240-h480-rw" alt="Smartlead"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Add the Ad Platform Trigger</h3>
-        <ol>
-          <li>Click the <strong>+</strong> button and search for your ad platform:
-            <ul>
-              <li><strong>Google Ads</strong> → Watch New Leads</li>
-              <li><strong>Facebook Lead Ads</strong> → Watch New Leads</li>
-              <li><strong>LinkedIn Ads</strong> → Watch New Lead Gen Form Responses</li>
-            </ul>
-          </li>
-          <li>Connect your ad account and select the campaign/form to watch</li>
-        </ol>
-        <div class="callout">
-          <strong>Tip:</strong> You can also use a <strong>Custom Webhook</strong> trigger if your ad platform isn't natively available. Just forward the lead data to the Make webhook URL.
+      <div class="integration-title">Find verified emails, filter out bounces, and only send to deliverable addresses via Smartlead</div>
+      <div class="integration-apps">Smartlead + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
         </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Add FullEnrich Reverse Email Lookup</h3>
-        <ol>
-          <li>Click <strong>+</strong> and search for <strong>FullEnrich</strong></li>
-          <li>Select <strong>Make an API Call</strong></li>
-          <li>Connect your FullEnrich account</li>
-          <li>Configure the API call:
-            <ul>
-              <li><strong>URL:</strong> <code>/api/v1/contact/reverse-email</code></li>
-              <li><strong>Method:</strong> POST</li>
-              <li><strong>Body:</strong> map the lead's email from Step 2</li>
-            </ul>
-          </li>
-        </ol>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Add the CRM Update</h3>
-        <ol>
-          <li>Click <strong>+</strong> and add your CRM module (HubSpot, Salesforce, Pipedrive, etc.) or Google Sheets</li>
-          <li>Choose <strong>Create/Update a Contact</strong> (or <strong>Add a Row</strong> for Sheets)</li>
-          <li>Map the enriched fields from FullEnrich: company, job title, professional email, LinkedIn URL, phone</li>
-        </ol>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Test &amp; Activate</h3>
-        <ol>
-          <li>Click <strong>Run once</strong> to test with a real lead</li>
-          <li>Check your CRM to confirm the enriched data was written</li>
-          <li>Toggle the scenario <strong>ON</strong> and set the schedule</li>
-        </ol>
+        <button class="integration-btn">Details</button>
       </div>
     </div>
 
-    <!-- n8n Content -->
-    <div class="tab-content" id="tab-n8n-alc">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Create a New Workflow</h3>
-        <ol>
-          <li>Open your n8n instance and create a new workflow</li>
-          <li>You'll build 3 nodes: <strong>Webhook/Trigger</strong> → <strong>FullEnrich HTTP Request</strong> → <strong>CRM Update</strong></li>
-        </ol>
+    <div class="integration-card coming-soon" data-category="ads" data-keywords="google ads leads enrich ad form">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/google-ads-icon.png" alt="Google Ads"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Add the Trigger</h3>
-        <ol>
-          <li>Add a <strong>Webhook</strong> node (to receive leads from your ad platform) or a platform-specific trigger node</li>
-          <li>If using a webhook, configure your ad platform to send lead data to the n8n webhook URL</li>
-          <li>The incoming data should contain at minimum the lead's <strong>email address</strong></li>
-        </ol>
-        <div class="callout">
-          <strong>Tip:</strong> Most ad platforms support webhook integrations or Zapier-to-webhook forwarding if they don't have a native n8n node.
+      <div class="integration-title">Turn personal emails from Google Ads leads into full B2B profiles with job title, company, and work email</div>
+      <div class="integration-apps">Google Ads + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
         </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Add FullEnrich Reverse Email Lookup</h3>
-        <ol>
-          <li>Add an <strong>HTTP Request</strong> node</li>
-          <li>Configure it:
-            <ul>
-              <li><strong>Method:</strong> POST</li>
-              <li><strong>URL:</strong> <code>https://api.fullenrich.com/api/v1/contact/reverse-email</code></li>
-              <li><strong>Authentication:</strong> add your FullEnrich API key as a Bearer token in the header</li>
-              <li><strong>Body:</strong> <code>{ "email": "{{ $json.email }}" }</code></li>
-            </ul>
-          </li>
-          <li>This returns the full professional profile: company, job title, LinkedIn, professional email, phone</li>
-        </ol>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Add the CRM Update</h3>
-        <ol>
-          <li>Add a <strong>HubSpot</strong>, <strong>Salesforce</strong>, <strong>Pipedrive</strong>, or <strong>Google Sheets</strong> node</li>
-          <li>Choose <strong>Create or Update Contact</strong> (or <strong>Append Row</strong> for Sheets)</li>
-          <li>Map the enriched fields from the FullEnrich response to your CRM fields</li>
-        </ol>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Activate &amp; Test</h3>
-        <ol>
-          <li>Toggle the workflow to <strong>Active</strong></li>
-          <li>Submit a test lead from your ad platform (or send a test POST to the webhook)</li>
-          <li>Check your CRM — the lead should now have the full professional profile attached</li>
-        </ol>
+        <button class="integration-btn">Details</button>
       </div>
     </div>
 
-    <!-- Troubleshooting -->
-    <div class="troubleshooting">
-      <h3>Troubleshooting</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Issue</th>
-            <th>Solution</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>No professional profile found</td>
-            <td>Not all personal emails can be matched. FullEnrich works best with real personal emails (Gmail, Outlook, Yahoo). Generic or disposable emails may not return results.</td>
-          </tr>
-          <tr>
-            <td>Only partial data returned</td>
-            <td>Some fields may be unavailable depending on the person's online presence. The more data available publicly, the more FullEnrich can find.</td>
-          </tr>
-          <tr>
-            <td>FullEnrich returns an error</td>
-            <td>Check that your API key is valid and you have remaining credits in your FullEnrich account.</td>
-          </tr>
-          <tr>
-            <td>Ad platform not sending leads</td>
-            <td>Verify the trigger connection in your automation tool. For webhooks, make sure the URL is correct and the workflow/scenario is active.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    </div><!-- end ad-lead-converter -->
-
-    <!-- ═══════════════════════════════════════ -->
-    <!-- TEMPLATE: zero-bounce                   -->
-    <!-- ═══════════════════════════════════════ -->
-    <div class="template-content" data-template="zero-bounce" style="display:none;">
-
-    <!-- Zapier Content -->
-    <div class="tab-content active" id="tab-zapier-zb">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Create a New Zap</h3>
-        <p>This Zap has 4 steps: a Google Sheets trigger picks up new leads, FullEnrich verifies their email, a filter blocks bad emails, and Instantly adds verified leads to your campaign.</p>
-        <ol>
-          <li>Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong></li>
-          <li>Name it <em>"Zero-Bounce Outreach"</em></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 1 — New Zap created -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 1
-          </div>
-          <div class="placeholder-desc">The Zap editor with the name "Zero-Bounce Outreach" at the top.</div>
-        </div>
+    <div class="integration-card coming-soon" data-category="ads" data-keywords="meta facebook ads leads enrich ad form instagram">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/meta-icon.png" alt="Meta Ads"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Set Up the Google Sheets Trigger</h3>
-        <p>The trigger watches your lead spreadsheet for new rows. Every time you (or your team) add a lead to the sheet, the Zap fires automatically.</p>
-        <ol>
-          <li>For the trigger, search for <strong>Google Sheets</strong></li>
-          <li>Select the event: <strong>New Spreadsheet Row</strong></li>
-          <li>Connect your <strong>Google account</strong></li>
-          <li>Select your spreadsheet (e.g., "FullEnrich - Instantly")</li>
-          <li>Select the worksheet (e.g., "Sheet 1")</li>
-          <li>Click <strong>Test trigger</strong> — Zapier will pull in a sample row</li>
-        </ol>
-        <p>Your spreadsheet should have these columns:</p>
-        <ul>
-          <li><strong>Column A:</strong> First Name</li>
-          <li><strong>Column B:</strong> Last Name</li>
-          <li><strong>Column C:</strong> Company</li>
-          <li><strong>Column D:</strong> Domain (optional)</li>
-          <li><strong>Column E:</strong> LinkedIn URL (optional)</li>
-        </ul>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 2 — Google Sheets trigger configured -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 2 — Google Sheets trigger
-          </div>
-          <div class="placeholder-desc">The Google Sheets trigger configured: event set to "New Spreadsheet Row", spreadsheet and worksheet selected, with a successful test showing a sample row.</div>
+      <div class="integration-title">Turn personal emails from Meta Lead Ads into full B2B profiles with job title, company, and work email</div>
+      <div class="integration-apps">Meta Ads + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
         </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Add FullEnrich Email Verification</h3>
-        <p>This step sends each lead to FullEnrich for email enrichment and triple verification. FullEnrich finds the work email and checks if the inbox actually exists — not just if the domain is valid.</p>
-        <ol>
-          <li>Click <strong>+</strong> to add a new step</li>
-          <li>Search for <strong>FullEnrich</strong> and select it</li>
-          <li>Choose the action: <strong>Enrich Contact</strong></li>
-          <li>Connect your FullEnrich account using your <strong>API key</strong></li>
-          <li>Set <strong>Enrichment</strong> to <strong>Email Only</strong> — this tells FullEnrich to focus on finding and verifying emails</li>
-          <li>Map the fields from your Google Sheet:
-            <ul>
-              <li><strong>First Name</strong> → Column A</li>
-              <li><strong>Last Name</strong> → Column B</li>
-              <li><strong>Company Name</strong> → Column C</li>
-            </ul>
-          </li>
-          <li>Click <strong>Test step</strong> — you'll see the enrichment result including the email and its verification status</li>
-        </ol>
-        <div class="callout">
-          <strong>Tip:</strong> You can also map <strong>Domain</strong> (column D) and <strong>LinkedIn URL</strong> (column E) if your sheet has them. These are optional but help FullEnrich find the right email faster and more accurately.
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 3 — FullEnrich field mapping -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 3 — Key screenshot
-          </div>
-          <div class="placeholder-desc">The FullEnrich step configured: Enrichment set to "Email Only", First Name, Last Name, and Company Name mapped from the Google Sheet columns.</div>
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 4 — FullEnrich test result -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 4 — Key screenshot
-          </div>
-          <div class="placeholder-desc">The FullEnrich test result showing: Most Probable Email, Most Probable Email Status (e.g., "DELIVERABLE"), and the list of found emails with their statuses.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Add a Filter</h3>
-        <p>This is the step that protects your sender reputation. It checks the email verification status from FullEnrich and only lets leads with a confirmed, deliverable email continue to Instantly. Everything else is blocked.</p>
-        <ol>
-          <li>Click <strong>+</strong> to add a new step</li>
-          <li>Search for <strong>Filter by Zapier</strong> (it's a built-in Zapier tool, no account needed)</li>
-          <li>Set the condition:
-            <ul>
-              <li><strong>Field</strong>: select <strong>Most Probable Email Status</strong> from the FullEnrich step</li>
-              <li><strong>Condition</strong>: <strong>(Text) Exactly matches</strong></li>
-              <li><strong>Value</strong>: <code>DELIVERABLE</code></li>
-            </ul>
-          </li>
-        </ol>
-        <p>When the filter blocks a lead, the Zap simply stops for that contact — no error, no notification. Catch-all and invalid emails are silently filtered out.</p>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 5 — Filter configuration -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 5 — Key screenshot
-          </div>
-          <div class="placeholder-desc">The Filter by Zapier step: "Most Probable Email Status" selected from the FullEnrich step, condition set to "(Text) Exactly matches", value set to "DELIVERABLE".</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Add Instantly</h3>
-        <p>The final step adds the verified lead to your Instantly campaign. Only leads that passed the filter (deliverable emails) reach this step.</p>
-        <ol>
-          <li>Click <strong>+</strong> to add a new step</li>
-          <li>Search for <strong>Instantly</strong> and select it</li>
-          <li>Choose the action: <strong>Add Lead to Campaign</strong></li>
-          <li>Connect your <strong>Instantly account</strong></li>
-          <li>Select the <strong>campaign</strong> you want leads added to</li>
-          <li>Map the fields:
-            <ul>
-              <li><strong>Email</strong> → <strong>Most Probable Email</strong> from the FullEnrich step (this is the verified email)</li>
-              <li><strong>First Name</strong> → Column A from Google Sheets</li>
-              <li><strong>Last Name</strong> → Column B from Google Sheets</li>
-              <li><strong>Company Name</strong> → Column C from Google Sheets</li>
-            </ul>
-          </li>
-          <li>Click <strong>Test step</strong> to confirm the lead is added to your campaign</li>
-        </ol>
-        <div class="callout">
-          <strong>Using Lemlist, Smartlead, or another tool?</strong> Simply replace this last step with your outreach tool of choice. Search for your tool instead of Instantly, select its "Add Lead" action, and map the same fields (email, first name, last name, company). Everything before this step — the Google Sheet trigger, FullEnrich verification, and the filter — stays exactly the same.
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 6 — Instantly step configured -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 6 — Instantly step
-          </div>
-          <div class="placeholder-desc">The Instantly step configured: campaign selected, Email mapped to "Most Probable Email" from FullEnrich, First Name and Last Name mapped from Google Sheets.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">6</div>
-        <h3>Turn It On</h3>
-        <p>You should now see your complete Zap with all 4 steps: Google Sheets → FullEnrich → Filter → Instantly.</p>
-        <ol>
-          <li>Review all steps to make sure everything is connected</li>
-          <li>Click <strong>Publish</strong> to activate your Zap</li>
-          <li>From now on, every new lead you add to the Google Sheet is automatically verified — only deliverable emails make it into your Instantly campaign</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 7 — Full Zap overview -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 7 — Full Zap overview
-          </div>
-          <div class="placeholder-desc">The complete Zap overview showing all 4 steps connected (Google Sheets → FullEnrich → Filter → Instantly) with the Publish button visible.</div>
-        </div>
+        <button class="integration-btn">Details</button>
       </div>
     </div>
 
-    <!-- Make Content -->
-    <div class="tab-content" id="tab-make-zb">
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Import the Blueprint</h3>
-        <p>We provide a pre-built blueprint so you don't have to create everything from scratch. It contains 3 modules with a filter already configured between FullEnrich and Instantly.</p>
-        <ol>
-          <li>Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong></li>
-          <li>Click the <strong>⋯</strong> menu (bottom of the editor) → select <strong>Import Blueprint</strong></li>
-          <li>Upload the blueprint JSON file we provide</li>
-          <li>You'll see 3 modules connected in a line: <strong>Google Sheets</strong> → <strong>FullEnrich</strong> → <strong>Instantly</strong>, with a filter between FullEnrich and Instantly</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 1 — Full scenario after import -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 1 — The full scenario
-          </div>
-          <div class="placeholder-desc">Show the Make scenario after import — 3 modules in a line (Google Sheets → FullEnrich → Instantly) with the filter icon visible on the line between FullEnrich and Instantly.</div>
-        </div>
+    <div class="integration-card coming-soon" data-category="ads" data-keywords="linkedin ads leads enrich ad form">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/linkedin-app-icon.png" alt="LinkedIn Ads"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Connect Google Sheets</h3>
-        <p>The first module watches your lead spreadsheet for new rows. Each time you add a lead to the sheet, the scenario picks it up automatically.</p>
-        <ol>
-          <li>Click on the <strong>Google Sheets</strong> module (first module)</li>
-          <li>Under <strong>Connection</strong>, click <strong>Add</strong> and sign in to your Google account</li>
-          <li>Select your spreadsheet (e.g., "FullEnrich - Instantly")</li>
-          <li>Select the sheet (e.g., "Sheet 1")</li>
-          <li>Make sure <strong>Table contains headers</strong> is set to <strong>Yes</strong></li>
-          <li>Your sheet should have these columns: <strong>First Name (A)</strong>, <strong>Last Name (B)</strong>, <strong>Company (C)</strong>, <strong>Domain (optional) (D)</strong>, <strong>LinkedIn URL (Optional) (E)</strong></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 2 — Google Sheets module settings -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 2 — Google Sheets module
-          </div>
-          <div class="placeholder-desc">Show the Google Sheets module open, with the connection established, spreadsheet selected, and "Table contains headers" set to Yes.</div>
+      <div class="integration-title">Automatically find verified emails and phones for every new LinkedIn Ads lead</div>
+      <div class="integration-apps">LinkedIn Ads + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
         </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Connect FullEnrich</h3>
-        <p>This module sends each new lead to FullEnrich for email verification. It uses the native FullEnrich integration, so Make handles the waiting for you — no webhook needed.</p>
-        <ol>
-          <li>Click on the <strong>FullEnrich</strong> module (second module)</li>
-          <li>Under <strong>Connection</strong>, click <strong>Add</strong></li>
-          <li>Paste your <strong>FullEnrich API key</strong> (find it in your FullEnrich dashboard under Settings → API)</li>
-          <li>Click <strong>Save</strong></li>
-        </ol>
-        <p>The fields are already mapped for you:</p>
-        <ul>
-          <li><strong>First Name</strong> → column A from the Google Sheet</li>
-          <li><strong>Last Name</strong> → column B</li>
-          <li><strong>Company Name</strong> → column C</li>
-          <li><strong>Enrich with</strong> → set to <strong>Emails</strong> only (this triggers the triple verification)</li>
-        </ul>
-        <div class="callout">
-          <strong>Tip:</strong> You can also map the <strong>Domain</strong> (column D) and <strong>LinkedIn URL</strong> (column E) fields if available. These are optional but help FullEnrich find the right email faster and more accurately.
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 3 — FullEnrich module fields -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 3 — Key screenshot
-          </div>
-          <div class="placeholder-desc">Show the FullEnrich module open, with the connection established and the field mapping visible: First Name, Last Name, Company Name, and Enrich with set to "Emails".</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Verify the Filter</h3>
-        <p>The filter sits between FullEnrich and Instantly. It checks the email verification status and only lets leads with a <strong>DELIVERABLE</strong> email pass through. Catch-all and invalid emails are automatically stopped.</p>
-        <ol>
-          <li>Hover over the <strong>line between FullEnrich and Instantly</strong> — you'll see a small filter icon</li>
-          <li>Click the filter icon to open the settings</li>
-          <li>Verify the condition is set:
-            <ul>
-              <li><strong>Field</strong>: Most Probable Email Status (from FullEnrich)</li>
-              <li><strong>Operator</strong>: Equal to</li>
-              <li><strong>Value</strong>: <code>DELIVERABLE</code></li>
-            </ul>
-          </li>
-          <li>Click <strong>OK</strong></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 4 — Filter settings -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 4 — Key screenshot
-          </div>
-          <div class="placeholder-desc">Show the filter settings open, with the condition visible: most_probable_email_status equals DELIVERABLE.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Connect Instantly</h3>
-        <p>The last module adds the verified lead to your Instantly campaign. Only leads that passed the filter (deliverable emails) reach this step.</p>
-        <ol>
-          <li>Click on the <strong>Instantly</strong> module (third module)</li>
-          <li>Under <strong>Connection</strong>, click <strong>Add</strong> and connect your Instantly account</li>
-          <li>Select the <strong>campaign</strong> you want leads added to</li>
-          <li>Map the fields:
-            <ul>
-              <li><strong>Email</strong> → FullEnrich's most probable email</li>
-              <li><strong>First Name</strong> → from the Google Sheet (column A)</li>
-              <li><strong>Last Name</strong> → from the Google Sheet (column B)</li>
-              <li><strong>Company</strong> → from the Google Sheet (column C)</li>
-            </ul>
-          </li>
-        </ol>
-        <div class="callout">
-          <strong>Using Lemlist, Smartlead, or another tool?</strong> Simply replace this last module with your outreach tool of choice. Delete the Instantly module, add your tool's module, and map the same fields (email, first name, last name, company). Everything before this step — the Google Sheet trigger, FullEnrich verification, and the filter — stays exactly the same.
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 5 — Instantly module fields -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 5 — Instantly module
-          </div>
-          <div class="placeholder-desc">Show the Instantly module open, with the campaign selected and field mapping visible: Email, First Name, Last Name, Company.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">6</div>
-        <h3>Test &amp; Turn It On</h3>
-        <p>Let's make sure everything works before turning it on for real.</p>
-        <ol>
-          <li>Click <strong>Run once</strong> at the bottom-left of the editor</li>
-          <li>Add a test row to your Google Sheet with a real lead's info</li>
-          <li>Make will process it through all 3 modules — you should see green checkmarks on each one</li>
-          <li>If the email is <strong>DELIVERABLE</strong>: the lead appears in your Instantly campaign</li>
-          <li>If the email is <strong>catch-all or invalid</strong>: the filter stops it — the Instantly module shows as skipped</li>
-          <li>Once confirmed, toggle the scenario <strong>ON</strong> (bottom-left switch) and set the schedule (e.g., every 15 minutes)</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 6 — Successful test run -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 6 — Successful test
-          </div>
-          <div class="placeholder-desc">Show a successful "Run once" with green checkmarks on all 3 modules, or show the Instantly module skipped when the filter blocks an invalid email.</div>
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 7 — Scenario ON with schedule -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 7 — Scenario turned ON
-          </div>
-          <div class="placeholder-desc">The scenario turned ON — toggle switch active and schedule set (e.g., every 15 minutes).</div>
-        </div>
+        <button class="integration-btn">Details</button>
       </div>
     </div>
-
-    <!-- n8n Content -->
-    <div class="tab-content" id="tab-n8n-zb">
-      <div class="callout" style="margin-bottom: 32px;">
-        <strong>How this workflow is different:</strong> This n8n workflow uses an <strong>async (two-flow) pattern</strong>. FullEnrich takes a few minutes to verify emails, so the workflow is split in two: one flow <em>sends</em> the lead for verification, and a second flow <em>receives</em> the result and adds verified leads to your outreach tool.
-      </div>
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Import the Workflow</h3>
-        <p>We provide a pre-built workflow file so you don't have to create everything from scratch. All the nodes and connections are already configured for you.</p>
-        <ol>
-          <li>Open your n8n instance and go to the <strong>Workflows</strong> page</li>
-          <li>Click the <strong>⋯</strong> menu (top right) → select <strong>Import from File</strong></li>
-          <li>Upload the workflow JSON file we provide</li>
-          <li>You'll see <strong>two separate flows</strong> on the canvas:
-            <ul>
-              <li><strong>Top flow (2 nodes):</strong> Google Sheets Trigger → FullEnrich — this <em>sends</em> new leads for email verification</li>
-              <li><strong>Bottom flow (3 nodes):</strong> Webhook → Filter → Instantly — this <em>receives</em> results and only adds verified leads</li>
-            </ul>
-          </li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 1 — Full workflow canvas -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 1 — The full workflow canvas
-          </div>
-          <div class="placeholder-desc">Show the entire canvas after import — both flows visible. Top flow: "Watch New Rows" → "Start enrichment". Bottom flow: "Webhook" → "Filter" → "Create a lead".</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Connect Google Sheets</h3>
-        <p>The top flow starts by watching your lead spreadsheet for new rows. Each time you add a lead to the sheet, the workflow picks it up automatically.</p>
-        <ol>
-          <li>Double-click the <strong>"Watch New Rows"</strong> node (first node in the top flow)</li>
-          <li>Next to <strong>Credential to connect with</strong>, click the dropdown → <strong>Create New Credential</strong></li>
-          <li>Sign in to your <strong>Google account</strong></li>
-          <li>Select your spreadsheet (e.g., "FullEnrich - Instantly")</li>
-          <li>Select the sheet (e.g., "Sheet 1")</li>
-          <li>Make sure your sheet has these columns: <strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, <strong>Domain (optional)</strong>, <strong>LinkedIn URL (Optional)</strong></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 2 — Google Sheets trigger node -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 2 — Google Sheets trigger node
-          </div>
-          <div class="placeholder-desc">Show the "Watch New Rows" node open, with the Google account connected, the spreadsheet selected, and the sheet selected.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Connect FullEnrich</h3>
-        <p>This node sends each new lead to FullEnrich for email verification. It maps the lead's name and company from the Google Sheet, and tells FullEnrich to only look for <strong>emails</strong> (not phones).</p>
-        <ol>
-          <li>Double-click the <strong>"Start enrichment"</strong> node (second node in the top flow)</li>
-          <li>Next to <strong>Credential to connect with</strong>, click the dropdown → <strong>Create New Credential</strong></li>
-          <li>Paste your <strong>FullEnrich API key</strong> (find it in your FullEnrich dashboard under Settings → API)</li>
-          <li>Click <strong>Save</strong></li>
-        </ol>
-        <p>The fields are already mapped for you:</p>
-        <ul>
-          <li><strong>First Name, Last Name, Company Name</strong> — pulled from the Google Sheet columns</li>
-          <li><strong>Enrich with</strong> — set to <strong>Emails</strong> only (this is what triggers the triple verification)</li>
-          <li><strong>Webhook URL</strong> — automatically points to the webhook in the bottom flow</li>
-        </ul>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 3 — FullEnrich node fields -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 3 — Key screenshot
-          </div>
-          <div class="placeholder-desc">Show the "Start enrichment" node open, with all the mapped fields visible: firstName, lastName, companyName, enrichFields set to "Emails", and the webhookUrl.</div>
-        </div>
-
-        <div class="callout">
-          <strong>About Custom Fields:</strong> By default, the webhook only returns the enrichment results (email, phone, verification status). It does <em>not</em> include the lead's original info like their name or company. That's why we use <strong>Custom Fields</strong> in the FullEnrich node — they let you pass any extra data (name, company, source, etc.) that you'll need later when creating the lead in Instantly. Whatever you add as a Custom Field comes back with the webhook response, so you can use it in the bottom flow.
-        </div>
-
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 4 — Custom Fields section -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 4 — Key screenshot
-          </div>
-          <div class="placeholder-desc">Show the Custom Fields section of the FullEnrich node, with "Company Name" added as a custom field mapped to the Company column from Google Sheets. You can add more fields here (e.g., LinkedIn URL, lead source) if you need them later in the flow.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <h3>Check the Webhook Node</h3>
-        <p>The webhook is what allows FullEnrich to send the verification results back to n8n. It's already configured — you just need to verify it's set up correctly.</p>
-        <ol>
-          <li>Double-click the <strong>"Webhook"</strong> node (first node in the bottom flow)</li>
-          <li>You'll see the <strong>Webhook URL</strong> — this is the address FullEnrich will call when verification is done</li>
-          <li>Make sure the HTTP method is set to <strong>POST</strong></li>
-          <li>No other changes needed — click <strong>Back to canvas</strong></li>
-        </ol>
-        <div class="callout">
-          <strong>Important:</strong> The webhook URL has two versions: a <strong>test URL</strong> (with <code>webhook-test</code>) and a <strong>production URL</strong> (with <code>webhook</code>). Make sure the URL in the FullEnrich node uses the <strong>production version</strong> (without <code>-test</code>). The production URL only works when the workflow is <strong>Active</strong>.
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 5 — Webhook node -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 5 — Webhook node
-          </div>
-          <div class="placeholder-desc">Show the "Webhook" node open, with the production webhook URL visible and HTTP method set to POST.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <h3>Understand the Filter</h3>
-        <p>This is where the magic happens. The Filter node checks the email verification status returned by FullEnrich. Only leads with a <strong>DELIVERABLE</strong> email pass through to Instantly. Catch-all, invalid, and risky emails are automatically stopped.</p>
-        <ol>
-          <li>Double-click the <strong>"Filter"</strong> node (second node in the bottom flow)</li>
-          <li>You'll see the condition is already set:
-            <ul>
-              <li><strong>Field</strong>: Most Probable Email Status (from the FullEnrich webhook data)</li>
-              <li><strong>Condition</strong>: Equals</li>
-              <li><strong>Value</strong>: <code>DELIVERABLE</code></li>
-            </ul>
-          </li>
-          <li>No changes needed — click <strong>Back to canvas</strong></li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 6 — Filter node -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 6 — Key screenshot
-          </div>
-          <div class="placeholder-desc">Show the "Filter" node open, with the condition visible: most_probable_email_status equals DELIVERABLE.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">6</div>
-        <h3>Connect Instantly</h3>
-        <p>The final node adds the verified lead to your Instantly campaign. It uses the email found by FullEnrich, plus the lead's name and company that were passed through Custom Fields.</p>
-        <ol>
-          <li>Double-click the <strong>"Create a lead"</strong> node (last node in the bottom flow)</li>
-          <li>Connect your <strong>Instantly account</strong></li>
-          <li>Select the <strong>campaign</strong> you want leads added to</li>
-          <li>Verify the field mapping:
-            <ul>
-              <li><strong>Email</strong> — mapped to FullEnrich's most probable email</li>
-              <li><strong>First Name</strong> — mapped from FullEnrich's enrichment data</li>
-              <li><strong>Last Name</strong> — mapped from FullEnrich's enrichment data</li>
-              <li><strong>Company Name</strong> — mapped from the Custom Fields you set in Step 3</li>
-            </ul>
-          </li>
-        </ol>
-        <div class="callout">
-          <strong>Using Lemlist, Smartlead, or another tool?</strong> Simply replace this last node with your outreach tool of choice. Delete the "Create a lead" node, add a new node for your tool (e.g., Lemlist, Smartlead, Woodpecker), and map the same fields (email, first name, last name, company). Everything before this step — the Google Sheet trigger, FullEnrich verification, and the filter — stays exactly the same.
-        </div>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 7 — Instantly node -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 7 — Instantly node fields
-          </div>
-          <div class="placeholder-desc">Show the "Create a lead" node open, with the campaign selected and the field mapping visible: Email, First Name, Last Name, and Company Name.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">7</div>
-        <h3>Activate the Workflow</h3>
-        <p>Turning on the workflow does two things at once: it starts watching your Google Sheet for new leads <em>and</em> it activates the webhook so FullEnrich can send results back.</p>
-        <ol>
-          <li>Click the <strong>Active</strong> toggle in the top-right corner of the canvas</li>
-          <li>The toggle should turn <strong>green</strong> — both flows are now live</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 8 — Active toggle -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 8 — Workflow activated
-          </div>
-          <div class="placeholder-desc">Show the workflow canvas with the Active toggle turned ON (green) in the top-right corner.</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">8</div>
-        <h3>Test the Full Flow</h3>
-        <p>Since this is an async workflow, you'll see <strong>two separate executions</strong> in the log — one for each flow.</p>
-        <ol>
-          <li>Go to your Google Sheet and <strong>add a new row</strong> with a real lead (first name, last name, company)</li>
-          <li>Go back to n8n → click <strong>Executions</strong> (left sidebar)</li>
-          <li>Within a minute, you should see the <strong>first execution</strong> (top flow: Google Sheets → FullEnrich)</li>
-          <li>Wait 1–5 minutes. You'll see a <strong>second execution</strong> (bottom flow: Webhook → Filter → Instantly)</li>
-          <li>If the email is <strong>DELIVERABLE</strong>: the lead appears in your Instantly campaign</li>
-          <li>If the email is <strong>catch-all or invalid</strong>: the filter stops it — nothing is added to Instantly</li>
-        </ol>
-        <div class="screenshot-placeholder">
-          <!-- TODO: Screenshot 9 — Execution log -->
-          <div class="placeholder-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            Screenshot 9 — Execution log
-          </div>
-          <div class="placeholder-desc">Show the n8n Executions page with two successful executions — the first from the Google Sheets trigger and the second from the webhook, a few minutes apart.</div>
-        </div>
-        <div class="callout">
-          <strong>Don't panic if the second execution takes a few minutes!</strong> FullEnrich checks multiple data sources and runs triple verification (syntax, domain/MX, mailbox ping) to make sure the email is real. This is what keeps your bounce rate under 1%.
-        </div>
-      </div>
-    </div>
-
-    <!-- Troubleshooting -->
-    <div class="troubleshooting">
-      <h3>Troubleshooting</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Issue</th>
-            <th>Solution</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Bounce rate still above 1%</td>
-            <td>Make sure the filter step is active and correctly checking the verification status. Only <strong>valid</strong> emails should pass through — exclude catch-all and unknown statuses.</td>
-          </tr>
-          <tr>
-            <td>Too many emails filtered out</td>
-            <td>This is expected for low-quality lists. FullEnrich is protecting your sender reputation by removing risky addresses. Consider sourcing higher-quality prospects.</td>
-          </tr>
-          <tr>
-            <td>Lead not appearing in Instantly</td>
-            <td>Check that your Instantly API key is correct and the campaign ID is valid. Verify the lead isn't already in the campaign (Instantly deduplicates by email).</td>
-          </tr>
-          <tr>
-            <td>FullEnrich returns an error</td>
-            <td>Check that your API key is valid and you have remaining credits in your FullEnrich account.</td>
-          </tr>
-          <tr>
-            <td>Catch-all emails passing through</td>
-            <td>Update your filter to explicitly exclude <code>catch-all</code> status in addition to <code>invalid</code>. Catch-all domains accept all emails but may still bounce.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    </div><!-- end zero-bounce -->
 
   </section>
 
   <script>
-    let currentTemplate = null;
-
-    const templates = {
-      'mobile-dialer': {
-        title: 'The 1-Click Mobile Dialer',
-        description: 'Automatically enrich every new CRM contact with a verified mobile phone number using FullEnrich, ready to call in seconds. Built with HubSpot, easily adaptable to Salesforce, Pipedrive or any CRM.',
-        tabs: { zapier: 'tab-zapier', make: 'tab-make', n8n: 'tab-n8n' }
-      },
-      'ad-lead-converter': {
-        title: 'Ad Lead Converter',
-        description: 'Turn ad leads with personal emails into full professional profiles using FullEnrich Reverse Email Lookup. Built with Google Ads, easily adaptable to Meta, LinkedIn Ads, TikTok and more.',
-        tabs: { zapier: 'tab-zapier-alc', make: 'tab-make-alc', n8n: 'tab-n8n-alc' }
-      },
-      'zero-bounce': {
-        title: 'Zero-Bounce Outreach',
-        description: 'Upload leads to a Google Sheet, only verified emails get added to your Instantly campaign. Catch-all and invalid addresses are filtered out automatically, keeping your bounce rate under 1%. Built with Google Sheets + Instantly, easily adaptable to Lemlist, Smartlead or any outreach tool.',
-        tabs: { zapier: 'tab-zapier-zb', make: 'tab-make-zb', n8n: 'tab-n8n-zb' }
-      }
-    };
-
-    function showDetail(templateId) {
-      currentTemplate = templateId;
-      const template = templates[templateId];
-      document.getElementById('detail-title').textContent = template.title;
-      document.getElementById('detail-description').textContent = template.description;
-      document.getElementById('hero').classList.add('hidden');
-      document.getElementById('templates-grid').classList.add('hidden');
-      document.getElementById('detail-view').classList.add('active');
-
-      // Show the right template content, hide others
-      document.querySelectorAll('.template-content').forEach(el => {
-        el.style.display = el.dataset.template === templateId ? 'block' : 'none';
+    function filterCards() {
+      const query = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.integration-card').forEach(card => {
+        const keywords = card.dataset.keywords + ' ' + card.querySelector('.integration-title').textContent.toLowerCase();
+        card.classList.toggle('hidden', !keywords.includes(query));
       });
-
-      switchTab('zapier');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function showGrid() {
-      document.getElementById('hero').classList.remove('hidden');
-      document.getElementById('templates-grid').classList.remove('hidden');
-      document.getElementById('detail-view').classList.remove('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    function filterCategory(cat) {
+      document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('search').value = '';
 
-    function switchTab(platform) {
-      // Update tab buttons
-      document.querySelectorAll('.platform-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.tab === platform);
+      document.querySelectorAll('.integration-card').forEach(card => {
+        if (cat === 'all') {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.toggle('hidden', card.dataset.category !== cat);
+        }
       });
-
-      // Hide all tab content in current template, show selected
-      if (currentTemplate) {
-        const tabs = templates[currentTemplate].tabs;
-        Object.entries(tabs).forEach(([key, id]) => {
-          const el = document.getElementById(id);
-          if (el) el.classList.toggle('active', key === platform);
-        });
-      }
     }
+
+    // Click anywhere on card to open detail page
+    document.querySelectorAll('.integration-card:not(.coming-soon)').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.integration-btn')) return; // let button handle itself
+        const link = card.querySelector('.integration-btn');
+        if (link && link.href) window.location.href = link.href;
+      });
+    });
   </script>
+
 </body>
 </html>
