@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enrich Salesforce Leads with FullEnrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    /* ── Hero ── */
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-plus { font-size: 22px; font-weight: 500; color: #BCBBC3; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    /* ── Platform Tabs ── */
+    .platform-tabs {
+      max-width: 800px;
+      margin: 40px auto 0;
+      padding: 0 40px;
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid #E9E9EB;
+    }
+    .platform-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #797783;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .platform-tab img { height: 18px; }
+    .platform-tab:hover { color: #6A49EC; }
+    .platform-tab.active {
+      color: #6A49EC;
+      border-bottom-color: #6A49EC;
+    }
+
+    /* ── Tab Content ── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    /* ── Step ── */
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+    .step-desc li {
+      margin-bottom: 4px;
+    }
+
+    /* ── Screenshot placeholder ── */
+    .screenshot-placeholder {
+      margin-top: 16px;
+      background: #F3F2EC;
+      border: 2px dashed #D5D4CE;
+      border-radius: 12px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #BCBBC3;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ── Callout ── */
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    /* ── Troubleshooting ── */
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Automation Templates</span>
+  </header>
+
+  <!-- Back -->
+  <a href="integrations.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to templates
+  </a>
+
+  <!-- Detail Hero -->
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/3840px-Salesforce.com_logo.svg.png" alt="Salesforce"></div>
+      <span class="detail-plus">+</span>
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Enrich new Salesforce leads with FullEnrich</h1>
+    <p>Automatically enrich every new Salesforce lead with verified emails and phone numbers using FullEnrich, then update the lead record with the enriched data.</p>
+  </section>
+
+  <!-- Platform Tabs -->
+  <div class="platform-tabs">
+    <button class="platform-tab active" onclick="switchTab('zapier')">
+      <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier"> Zapier
+    </button>
+    <button class="platform-tab" onclick="switchTab('make')">
+      <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make"> Make
+    </button>
+    <button class="platform-tab" onclick="switchTab('n8n')">
+      <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n"> n8n
+    </button>
+  </div>
+
+  <!-- ==================== ZAPIER ==================== -->
+  <div class="tab-content active" id="tab-zapier">
+    <div class="steps-container">
+
+      <div class="callout">
+        <strong>What this Zap does:</strong> When a new lead is created in Salesforce, FullEnrich finds their verified email and phone number, then updates the lead record automatically.
+      </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Create a new Zap</div>
+          <div class="step-desc">
+            Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong>. For the trigger, search for <strong>Salesforce</strong> and select the event <strong>New Record</strong>. Connect your Salesforce account and choose <strong>Lead</strong> as the object type.
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Salesforce trigger setup</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Test the trigger</div>
+          <div class="step-desc">
+            Click <strong>Test trigger</strong>. Zapier will pull a recent lead from Salesforce. Make sure you can see the lead's <strong>First Name</strong>, <strong>Last Name</strong>, and <strong>Company</strong> fields in the test data.
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Trigger test results</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Add FullEnrich</div>
+          <div class="step-desc">
+            Add a new action step and search for <strong>FullEnrich</strong>. Select the action <strong>Enrich Contact</strong>. Connect your FullEnrich account using your API key. Then map the fields:
+            <ul>
+              <li><strong>First Name</strong> → Lead's First Name</li>
+              <li><strong>Last Name</strong> → Lead's Last Name</li>
+              <li><strong>Company Name</strong> → Lead's Company</li>
+              <li><strong>Company Domain</strong> → Lead's Website (if available)</li>
+            </ul>
+          </div>
+          <div class="screenshot-placeholder">Screenshot: FullEnrich field mapping</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Test the enrichment</div>
+          <div class="step-desc">
+            Click <strong>Test step</strong>. FullEnrich will enrich the lead and return the results. You should see fields like <strong>Most Probable Email</strong> and <strong>Most Probable Phone</strong> in the output.
+          </div>
+          <div class="screenshot-placeholder">Screenshot: FullEnrich test results</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Update the Salesforce lead</div>
+          <div class="step-desc">
+            Add another action step: <strong>Salesforce → Update Record</strong>. Choose <strong>Lead</strong> as the object type. For <strong>Record</strong>, map the <strong>Lead ID</strong> from Step 1. Then map:
+            <ul>
+              <li><strong>Email</strong> → Most Probable Email (from FullEnrich)</li>
+              <li><strong>Phone</strong> → Most Probable Phone (from FullEnrich)</li>
+            </ul>
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Salesforce update mapping</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Turn on your Zap</div>
+          <div class="step-desc">
+            Test the full Zap, then click <strong>Publish</strong>. Every new lead created in Salesforce will now be automatically enriched and updated with verified contact info.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Not using Salesforce?</strong> You can swap the Salesforce steps for any other CRM (HubSpot, Pipedrive, Zoho, etc.). The FullEnrich step stays the same.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped correctly. Adding the company domain improves match rates.</td></tr>
+            <tr><td>Salesforce update fails</td><td>Check that the Lead ID is correctly mapped from Step 1, and that your Salesforce user has edit permissions on the Lead object.</td></tr>
+            <tr><td>Zap doesn't trigger</td><td>Ensure the trigger is set to <strong>New Record</strong> (not Updated Record) and that you're creating leads in the correct Salesforce org.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== MAKE ==================== -->
+  <div class="tab-content" id="tab-make">
+    <div class="steps-container">
+
+      <div class="callout">
+        <strong>What this scenario does:</strong> When a new lead is created in Salesforce, FullEnrich finds their verified email and phone number, then updates the lead record automatically.
+      </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Create a new scenario</div>
+          <div class="step-desc">
+            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Salesforce</strong> and select <strong>Watch Records</strong>. Connect your Salesforce account and choose <strong>Lead</strong> as the record type.
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Salesforce Watch Records module</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Add FullEnrich</div>
+          <div class="step-desc">
+            Click the <strong>+</strong> to add a new module. Search for <strong>FullEnrich</strong> and select <strong>Enrich a Contact</strong>. Connect your FullEnrich API key. Map the fields:
+            <ul>
+              <li><strong>First Name</strong> → Lead's FirstName</li>
+              <li><strong>Last Name</strong> → Lead's LastName</li>
+              <li><strong>Company Name</strong> → Lead's Company</li>
+              <li><strong>Company Domain</strong> → Lead's Website (if available)</li>
+            </ul>
+          </div>
+          <div class="screenshot-placeholder">Screenshot: FullEnrich module mapping</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Run the scenario once</div>
+          <div class="step-desc">
+            Click <strong>Run once</strong> to test. Make sure a lead exists in Salesforce so the trigger picks it up. After the run, check the FullEnrich module output for <strong>Most Probable Email</strong> and <strong>Most Probable Phone</strong>.
+          </div>
+          <div class="screenshot-placeholder">Screenshot: FullEnrich output in Make</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Update the Salesforce lead</div>
+          <div class="step-desc">
+            Add a third module: <strong>Salesforce → Update a Record</strong>. Set the record type to <strong>Lead</strong> and map the <strong>Record ID</strong> from the first module. Then map:
+            <ul>
+              <li><strong>Email</strong> → Most Probable Email (from FullEnrich)</li>
+              <li><strong>Phone</strong> → Most Probable Phone (from FullEnrich)</li>
+            </ul>
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Salesforce update module</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Test the full scenario</div>
+          <div class="step-desc">
+            Click <strong>Run once</strong> again. Check your Salesforce lead to confirm the email and phone fields have been updated with the enriched data.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Activate the scenario</div>
+          <div class="step-desc">
+            Toggle the scenario <strong>ON</strong> and set the schedule (e.g. every 15 minutes). Every new lead will now be automatically enriched and updated.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Not using Salesforce?</strong> You can replace the Salesforce modules with any other CRM (HubSpot, Pipedrive, Zoho, etc.). The FullEnrich module stays the same.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped correctly. Adding the company domain improves match rates.</td></tr>
+            <tr><td>Salesforce update fails</td><td>Check that the Record ID is mapped from the first Salesforce module, and that your user has edit permissions.</td></tr>
+            <tr><td>Scenario doesn't trigger</td><td>Make sure the Salesforce module is set to <strong>Watch Records</strong> and that leads are being created after you activated the scenario.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== N8N ==================== -->
+  <div class="tab-content" id="tab-n8n">
+    <div class="steps-container">
+
+      <div class="callout">
+        <strong>What this workflow does:</strong> When a new lead is created in Salesforce, FullEnrich finds their verified email and phone number, then updates the lead record. Because FullEnrich works asynchronously in n8n, this workflow uses <strong>two flows</strong>: one to send the enrichment request, and one to receive the results via webhook.
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>Why two flows?</strong> FullEnrich enrichment takes a few seconds. Instead of waiting, FullEnrich sends the results to a webhook when ready. The top flow sends the request; the bottom flow receives and processes the results.
+      </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Create the top flow: Salesforce trigger</div>
+          <div class="step-desc">
+            Create a new workflow in n8n. Add a <strong>Salesforce Trigger</strong> node and set it to watch for <strong>new Leads</strong>. Connect your Salesforce account.
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Salesforce Trigger node</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Add the FullEnrich node</div>
+          <div class="step-desc">
+            Add a <strong>FullEnrich</strong> node after the Salesforce trigger. Connect your API key and map:
+            <ul>
+              <li><strong>First Name</strong> → <code>{{ $json.FirstName }}</code></li>
+              <li><strong>Last Name</strong> → <code>{{ $json.LastName }}</code></li>
+              <li><strong>Company Name</strong> → <code>{{ $json.Company }}</code></li>
+              <li><strong>Company Domain</strong> → <code>{{ $json.Website }}</code></li>
+            </ul>
+            Set the <strong>Webhook URL</strong> to the webhook node's production URL (from Step 3). Also add <strong>Custom Fields</strong> to pass through the Salesforce Lead ID:
+            <ul>
+              <li><strong>Name:</strong> <code>leadId</code> — <strong>Value:</strong> <code>{{ $json.Id }}</code></li>
+            </ul>
+          </div>
+          <div class="screenshot-placeholder">Screenshot: FullEnrich node with custom fields</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Create the bottom flow: Webhook</div>
+          <div class="step-desc">
+            Add a <strong>Webhook</strong> node (this starts a separate flow). Set the HTTP method to <strong>POST</strong> and give it a path like <code>salesforce-enrich</code>. Copy the <strong>production URL</strong> (not the test URL) and paste it in the FullEnrich node's Webhook URL field from Step 2.
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Webhook node setup</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Update the Salesforce lead</div>
+          <div class="step-desc">
+            After the Webhook node, add a <strong>Salesforce</strong> node set to <strong>Update</strong> a <strong>Lead</strong>. Map:
+            <ul>
+              <li><strong>Lead ID</strong> → <code>{{ $json.body.datas[0].custom_fields.leadId }}</code></li>
+              <li><strong>Email</strong> → <code>{{ $json.body.datas[0].contact.most_probable_email.email }}</code></li>
+              <li><strong>Phone</strong> → <code>{{ $json.body.datas[0].contact.most_probable_phone.number }}</code></li>
+            </ul>
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Salesforce Update node mapping</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Test the workflow</div>
+          <div class="step-desc">
+            Click <strong>Test workflow</strong> in n8n, then create a new lead in Salesforce. The top flow will send the enrichment request. After a few seconds, the webhook will receive the results and update the lead. Check your Salesforce lead to confirm.
+          </div>
+          <div class="screenshot-placeholder">Screenshot: Workflow execution results</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Activate the workflow</div>
+          <div class="step-desc">
+            Toggle the workflow to <strong>Active</strong>. Make sure to use the <strong>production webhook URL</strong> (without <code>webhook-test</code> in it). The test URL only works during manual testing.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>About Custom Fields:</strong> The <code>leadId</code> custom field is essential. When FullEnrich sends the results back via webhook, it only returns enrichment data by default. Custom Fields let you pass through the Salesforce Lead ID so you know which lead to update.
+      </div>
+
+      <div class="callout">
+        <strong>Not using Salesforce?</strong> You can swap the Salesforce nodes for any other CRM (HubSpot, Pipedrive, Zoho, etc.). The FullEnrich + Webhook pattern stays the same. Just pass the right record ID as a custom field.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Webhook never receives data</td><td>Make sure you're using the <strong>production</strong> webhook URL (without <code>webhook-test</code>). The test URL only works during manual testing. Also make sure the workflow is <strong>Active</strong>.</td></tr>
+            <tr><td>Lead ID missing in webhook data</td><td>Check that you added <code>leadId</code> as a Custom Field in the FullEnrich node. It should appear in <code>$json.body.datas[0].custom_fields.leadId</code>.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped. Adding the company domain (Website field) improves match rates.</td></tr>
+            <tr><td>Salesforce update fails</td><td>Check that the Lead ID expression is correct and that your Salesforce credentials have edit permissions on the Lead object.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function switchTab(platform) {
+      document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.getElementById('tab-' + platform).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

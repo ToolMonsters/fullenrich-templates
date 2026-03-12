@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FullEnrich — Automation Templates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-logo img {
+      height: 24px;
+    }
+    .header-divider {
+      width: 1px;
+      height: 24px;
+      background: #E9E9EB;
+    }
+    .header-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: #797783;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 80px 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(149, 122, 255, 0.15) 0%, rgba(251, 248, 246, 0) 70%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #6A49EC, #3C04AA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #797783;
+      max-width: 620px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── Search ── */
+    .search-bar {
+      max-width: 500px;
+      margin: 32px auto 0;
+      position: relative;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      border: 1px solid #E9E9EB;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 15px;
+      background: #fff;
+      color: #2C2A36;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-bar input::placeholder { color: #BCBBC3; }
+    .search-bar input:focus { border-color: #C3B5F7; box-shadow: 0 0 0 3px rgba(106, 73, 236, 0.08); }
+    .search-bar svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      color: #BCBBC3;
+    }
+
+    /* ── Category Tabs ── */
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .category-tab {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      background: none;
+      border: 1px solid #E9E9EB;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .category-tab:hover { border-color: #C3B5F7; color: #6A49EC; }
+    .category-tab.active { background: #6A49EC; color: #fff; border-color: #6A49EC; }
+
+    /* ── Integration Grid ── */
+    .integrations-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .integration-card {
+      background: #fff;
+      border: 1px solid #E9E9EB;
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      cursor: pointer;
+    }
+    .integration-card:hover {
+      border-color: #C3B5F7;
+      box-shadow: 0 8px 24px rgba(106, 73, 236, 0.08);
+      transform: translateY(-2px);
+    }
+
+    /* Logos row */
+    .integration-logos {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .integration-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid #F0F0F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .integration-logo img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+    .integration-plus {
+      font-size: 18px;
+      font-weight: 500;
+      color: #BCBBC3;
+    }
+
+    /* Card content */
+    .integration-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0C0A09;
+      line-height: 1.4;
+    }
+    .integration-apps {
+      font-size: 13px;
+      color: #797783;
+      font-weight: 500;
+    }
+
+    /* Card footer */
+    .integration-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid #F3F2EC;
+      margin-top: auto;
+    }
+    .integration-platforms {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .integration-platforms img {
+      height: 20px;
+      opacity: 1;
+    }
+    .integration-btn {
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6A49EC;
+      background: #EFEBFF;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .integration-btn:hover {
+      background: #6A49EC;
+      color: #fff;
+    }
+
+    /* ── Hidden state for filtering ── */
+    .integration-card.hidden { display: none; }
+
+    /* ── Coming soon (greyed out) ── */
+    .integration-card.coming-soon {
+      opacity: 0.45;
+      pointer-events: none;
+      position: relative;
+    }
+    .integration-card.coming-soon::after {
+      content: 'Coming soon';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #797783;
+      background: #F3F2EC;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    /* ── Section divider ── */
+    .section-label {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #BCBBC3;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Automation Templates</span>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Connect FullEnrich to <em>your favorite tools</em></h1>
+    <p>Pre-built automation templates to enrich contacts, verify emails, and push data to your CRM, outreach tools, and more.</p>
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="search" placeholder="Search for an integration..." oninput="filterCards()">
+    </div>
+    <div class="category-tabs">
+      <button class="category-tab active" onclick="filterCategory('all')">All</button>
+      <button class="category-tab" onclick="filterCategory('crm')">CRMs</button>
+      <button class="category-tab" onclick="filterCategory('outreach')">Outreach</button>
+      <button class="category-tab" onclick="filterCategory('spreadsheet')">Spreadsheets</button>
+      <button class="category-tab" onclick="filterCategory('ads')">Ads</button>
+    </div>
+  </section>
+
+  <!-- Integration Grid — Priority Templates -->
+  <section class="integrations-grid" id="grid">
+
+    <!-- 1. Google Sheets + FullEnrich -->
+    <div class="integration-card" data-category="spreadsheet" data-keywords="google sheets spreadsheet enrich rows">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://mailmeteor.com/logos/assets/PNG/Google_Sheets_Logo_512px.png" alt="Google Sheets"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically find verified emails and phones for every new row in Google Sheets</div>
+      <div class="integration-apps">Google Sheets + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="googlesheets-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- Monday.com + FullEnrich -->
+    <div class="integration-card" data-category="crm" data-keywords="monday crm project management enrich items contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqIvjWjRTI1JvYoPEfUp3ielEzlFHcJGfSjg&s" alt="Monday.com"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically enrich new Monday.com items with verified emails and phone numbers</div>
+      <div class="integration-apps">Monday.com + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="monday-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- 2. Airtable + FullEnrich -->
+    <div class="integration-card" data-category="spreadsheet" data-keywords="airtable database enrich records">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://images.seeklogo.com/logo-png/29/1/airtable-logo-png_seeklogo-294322.png" alt="Airtable"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Airtable record</div>
+      <div class="integration-apps">Airtable + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="airtable-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- 3. Instantly + FullEnrich (Zero-Bounce) -->
+    <div class="integration-card" data-category="outreach" data-keywords="instantly outreach email campaign leads verified zero bounce">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://play-lh.googleusercontent.com/RRxOvw7vrGpQG4H0I22YF0_0rmJMEavZ6W-3kMaOpL1sZC0p-_3XELxKHd372w_ooQ" alt="Instantly"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Find verified emails, filter out bounces, and only send to deliverable addresses via Instantly</div>
+      <div class="integration-apps">Instantly + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="instantly-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- 4. Meta Ads + FullEnrich (Reverse Email Lookup) -->
+    <div class="integration-card" data-category="ads" data-keywords="meta ads facebook reverse email lookup b2b profile job title company">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://static.vecteezy.com/system/resources/thumbnails/004/201/564/small/meta-social-network-emblem-blue-stylish-letter-m-or-mobius-band-vector.jpg" alt="Meta Ads"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Turn personal emails from Meta Ad leads into full B2B profiles with job title, company, and work email</div>
+      <div class="integration-apps">Meta Ads + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="reverse-email-lookup.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- 5. Salesforce + FullEnrich -->
+    <div class="integration-card" data-category="crm" data-keywords="salesforce crm enrich contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/3840px-Salesforce.com_logo.svg.png" alt="Salesforce"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Salesforce lead</div>
+      <div class="integration-apps">Salesforce + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <a href="salesforce-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Coming Soon -->
+  <div class="section-label">More templates coming soon</div>
+  <section class="integrations-grid">
+
+    <div class="integration-card coming-soon" data-category="crm" data-keywords="pipedrive crm enrich contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://play-lh.googleusercontent.com/XAKratCqSJUb3ZmItve16p8RjiF0ZvN_czysEoqtGET7i-tsdJEozbnOYRM6jQNHEg" alt="Pipedrive"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Pipedrive contact</div>
+      <div class="integration-apps">Pipedrive + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <button class="integration-btn">Details</button>
+      </div>
+    </div>
+
+    <div class="integration-card coming-soon" data-category="crm" data-keywords="zoho crm enrich contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdAV4qLFKg2lsHAPpPOjbGdKAj66-CM4Bqaw&s" alt="Zoho CRM"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Zoho CRM lead</div>
+      <div class="integration-apps">Zoho CRM + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <button class="integration-btn">Details</button>
+      </div>
+    </div>
+
+    <div class="integration-card coming-soon" data-category="crm" data-keywords="attio crm enrich contacts">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://media.licdn.com/dms/image/v2/C4D0BAQF16UXOMcHaCA/company-logo_200_200/company-logo_200_200/0/1670519496148/attio_logo?e=2147483647&v=beta&t=1Tgkqt6FWRN84JYVjo1GitVkZnUIe2cOX4x3syrRE-U" alt="Attio"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically find verified emails and phones for every new Attio contact</div>
+      <div class="integration-apps">Attio + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <button class="integration-btn">Details</button>
+      </div>
+    </div>
+
+    <div class="integration-card coming-soon" data-category="outreach" data-keywords="lemlist outreach email campaign leads verified">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLO6Rl2B4uo3qup62mrXn0tQREYAjlz1aL-Q&s" alt="Lemlist"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Find verified emails, filter out bounces, and only send to deliverable addresses via Lemlist</div>
+      <div class="integration-apps">Lemlist + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <button class="integration-btn">Details</button>
+      </div>
+    </div>
+
+    <div class="integration-card coming-soon" data-category="outreach" data-keywords="smartlead outreach email campaign leads verified">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://play-lh.googleusercontent.com/3TRenpb3zBDoRTurTpPFsmFPQYeByFoqKDxBIQ_nayEo3qUYw8bDiB0lYGUf9d3QiQ=w240-h480-rw" alt="Smartlead"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Find verified emails, filter out bounces, and only send to deliverable addresses via Smartlead</div>
+      <div class="integration-apps">Smartlead + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <button class="integration-btn">Details</button>
+      </div>
+    </div>
+
+    <div class="integration-card coming-soon" data-category="ads" data-keywords="google ads leads enrich ad form">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/google-ads-icon.png" alt="Google Ads"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Turn personal emails from Google Ads leads into full B2B profiles with job title, company, and work email</div>
+      <div class="integration-apps">Google Ads + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <button class="integration-btn">Details</button>
+      </div>
+    </div>
+
+    <div class="integration-card coming-soon" data-category="ads" data-keywords="meta facebook ads leads enrich ad form instagram">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/meta-icon.png" alt="Meta Ads"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Turn personal emails from Meta Lead Ads into full B2B profiles with job title, company, and work email</div>
+      <div class="integration-apps">Meta Ads + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <button class="integration-btn">Details</button>
+      </div>
+    </div>
+
+    <div class="integration-card coming-soon" data-category="ads" data-keywords="linkedin ads leads enrich ad form">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/linkedin-app-icon.png" alt="LinkedIn Ads"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Automatically find verified emails and phones for every new LinkedIn Ads lead</div>
+      <div class="integration-apps">LinkedIn Ads + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+        </div>
+        <button class="integration-btn">Details</button>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    function filterCards() {
+      const query = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.integration-card').forEach(card => {
+        const keywords = card.dataset.keywords + ' ' + card.querySelector('.integration-title').textContent.toLowerCase();
+        card.classList.toggle('hidden', !keywords.includes(query));
+      });
+    }
+
+    function filterCategory(cat) {
+      document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('search').value = '';
+
+      document.querySelectorAll('.integration-card').forEach(card => {
+        if (cat === 'all') {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.toggle('hidden', card.dataset.category !== cat);
+        }
+      });
+    }
+
+    // Click anywhere on card to open detail page
+    document.querySelectorAll('.integration-card:not(.coming-soon)').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.integration-btn')) return; // let button handle itself
+        const link = card.querySelector('.integration-btn');
+        if (link && link.href) window.location.href = link.href;
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enrich new Google Sheets rows with FullEnrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    /* ── Hero ── */
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-plus { font-size: 22px; font-weight: 500; color: #BCBBC3; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    /* ── Platform Tabs ── */
+    .platform-tabs {
+      max-width: 800px;
+      margin: 40px auto 0;
+      padding: 0 40px;
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid #E9E9EB;
+    }
+    .platform-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #797783;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    .platform-tab img { height: 18px; }
+    .platform-tab:hover { color: #6A49EC; }
+    .platform-tab.active {
+      color: #6A49EC;
+      border-bottom-color: #6A49EC;
+    }
+
+    /* ── Tab Content ── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    /* ── Step ── */
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul {
+      margin-top: 8px;
+      padding-left: 20px;
+    }
+    .step-desc li {
+      margin-bottom: 4px;
+    }
+
+    /* ── Screenshot placeholder ── */
+    .screenshot-placeholder {
+      margin-top: 16px;
+      background: #F3F2EC;
+      border: 2px dashed #D5D4CE;
+      border-radius: 12px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #BCBBC3;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ── Callout ── */
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    /* ── Get Template button ── */
+    .get-template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #6A49EC;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .get-template-btn:hover { background: #5638CC; }
+    .get-template-btn img { height: 18px; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    /* ── Troubleshooting ── */
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Automation Templates</span>
+  </header>
+
+  <!-- Back -->
+  <a href="integrations.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to templates
+  </a>
+
+  <!-- Detail Hero -->
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo"><img src="https://mailmeteor.com/logos/assets/PNG/Google_Sheets_Logo_512px.png" alt="Google Sheets"></div>
+      <span class="detail-plus">+</span>
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Enrich new Google Sheets rows with FullEnrich</h1>
+    <p>Automatically enrich every new row in Google Sheets with verified emails and phone numbers using FullEnrich, then write the enriched data back to the same row.</p>
+  </section>
+
+  <!-- Platform Tabs -->
+  <div class="platform-tabs">
+    <button class="platform-tab active" onclick="switchTab('zapier')">
+      <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier"> Zapier
+    </button>
+    <button class="platform-tab" onclick="switchTab('make')">
+      <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make"> Make
+    </button>
+    <button class="platform-tab" onclick="switchTab('n8n')">
+      <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n"> n8n
+    </button>
+  </div>
+
+  <!-- ==================== ZAPIER ==================== -->
+  <div class="tab-content active" id="tab-zapier">
+    <div class="steps-container">
+
+      <div class="callout">
+        <strong>What this Zap does:</strong> When a new row is added to your Google Sheet (with First Name, Last Name, Company, and optionally Domain and LinkedIn URL), FullEnrich finds their verified email and phone number, then writes the results back to the Email and Phone columns in the same row.
+        <br><br>
+        <a href="https://zapier.com/webintent/create-zap?template=255590358" target="_blank" class="get-template-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          Get Template
+        </a>
+      </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Prepare your Google Sheet</div>
+          <div class="step-desc">
+            Create a new Google Sheet with these columns in the first row (headers):
+            <ul>
+              <li><strong>A</strong> — First Name</li>
+              <li><strong>B</strong> — Last Name</li>
+              <li><strong>C</strong> — Company Name</li>
+              <li><strong>D</strong> — Company Domain <em>(optional, improves match rate)</em></li>
+              <li><strong>E</strong> — LinkedIn URL <em>(optional, improves match rate)</em></li>
+              <li><strong>F</strong> — Email <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>G</strong> — Phone <em>(will be filled by FullEnrich)</em></li>
+            </ul>
+            Add at least one row of data (First Name, Last Name, Company Name) so you can test the Zap later.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Open the Zap template</div>
+          <div class="step-desc">
+            Click the <strong>Get Template</strong> button above to open the pre-built Zap. It contains two steps already configured:
+            <ul>
+              <li><strong>Step 1 (Trigger):</strong> New Row Added to Google Sheets — fires every time a new row is added to your sheet</li>
+              <li><strong>Step 2 (Action):</strong> Enrich Contact with FullEnrich — sends the contact data to FullEnrich for enrichment</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Connect your Google Sheets account</div>
+          <div class="step-desc">
+            In <strong>Step 1</strong> of the Zap, click <strong>Sign in to Google Sheets</strong> and connect your Google account. Then configure:
+            <ul>
+              <li><strong>Spreadsheet</strong> → select the Google Sheet you created in Step 1</li>
+              <li><strong>Worksheet</strong> → select the sheet (e.g. <code>Sheet1</code>)</li>
+            </ul>
+            Click <strong>Test trigger</strong> — Zapier will pull a recent row from your spreadsheet. Make sure you see the First Name, Last Name, Company, and other fields from your test row.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Connect your FullEnrich account</div>
+          <div class="step-desc">
+            In <strong>Step 2</strong> of the Zap, click <strong>Sign in to FullEnrich</strong> and enter your FullEnrich API key. Then map the contact fields from the Google Sheet trigger:
+            <ul>
+              <li><strong>First Name</strong> → First Name column (A)</li>
+              <li><strong>Last Name</strong> → Last Name column (B)</li>
+              <li><strong>Company Name</strong> → Company Name column (C)</li>
+              <li><strong>Company Domain</strong> → Company Domain column (D)</li>
+              <li><strong>LinkedIn URL</strong> → LinkedIn URL column (E)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Test the Zap</div>
+          <div class="step-desc">
+            Click <strong>Test step</strong> on the FullEnrich action. FullEnrich will enrich the contact from your test row. You should see fields like <strong>Most Probable Email</strong> and <strong>Most Probable Phone</strong> in the output. Verify the enrichment returned the expected data.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Publish your Zap</div>
+          <div class="step-desc">
+            Once the test is successful, click <strong>Publish</strong>. Your Zap is now live — every new row added to your Google Sheet will automatically trigger FullEnrich to enrich the contact with a verified email and phone number.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Tip:</strong> Domain and LinkedIn URL are optional but significantly improve match rates. If you have them, make sure they're in columns D and E.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped correctly. Adding the company domain or LinkedIn URL improves match rates.</td></tr>
+            <tr><td>Google Sheets update fails</td><td>Check that the row number is correctly mapped from Step 1, and that your Google account has edit permissions on the spreadsheet.</td></tr>
+            <tr><td>Zap doesn't trigger</td><td>Ensure the trigger is set to <strong>New Spreadsheet Row</strong> (not Updated Row) and that you're adding rows to the correct sheet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== MAKE ==================== -->
+  <div class="tab-content" id="tab-make">
+    <div class="steps-container">
+
+      <div class="callout">
+        <strong>What this scenario does:</strong> When a new row is added to your Google Sheet (with First Name, Last Name, Company, and optionally Domain and LinkedIn URL), FullEnrich finds their verified email and phone number, then writes the results back to the Email and Phone columns in the same row.
+        <br><br>
+        <a href="https://www.make.com/en/integration/18718-automatically-find-verified-emails-and-phones-for-every-new-row-in-google-sheets-with-fullenrich?templatePublicId=18718" target="_blank" class="get-template-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          Get Template
+        </a>
+      </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Prepare your Google Sheet</div>
+          <div class="step-desc">
+            Create a new Google Sheet with these columns in the first row (headers):
+            <ul>
+              <li><strong>A</strong> — First Name</li>
+              <li><strong>B</strong> — Last Name</li>
+              <li><strong>C</strong> — Company Name</li>
+              <li><strong>D</strong> — Company Domain <em>(optional, improves match rate)</em></li>
+              <li><strong>E</strong> — LinkedIn URL <em>(optional, improves match rate)</em></li>
+              <li><strong>F</strong> — Email <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>G</strong> — Phone <em>(will be filled by FullEnrich)</em></li>
+            </ul>
+            Add at least one row of data (First Name, Last Name, Company Name) so you can test the scenario later.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Set up the Google Sheets trigger — Watch Rows</div>
+          <div class="step-desc">
+            The first module is <strong>Google Sheets → Watch Rows</strong>. Connect your Google account, then configure:
+            <ul>
+              <li><strong>Drive</strong> → My Drive</li>
+              <li><strong>Spreadsheet</strong> → select your spreadsheet</li>
+              <li><strong>Sheet Name</strong> → select the sheet (e.g. <code>Sheet1</code>)</li>
+              <li><strong>Table contains headers</strong> → Yes</li>
+              <li><strong>Row with headers</strong> → <code>A1:Z1</code></li>
+              <li><strong>Limit</strong> → <code>1</code> (processes one row at a time)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Configure FullEnrich — Enrich a Contact</div>
+          <div class="step-desc">
+            The second module is <strong>FullEnrich → Enrich a Contact</strong>. Connect your FullEnrich API key, then map the fields from the Google Sheets trigger:
+            <ul>
+              <li><strong>First Name</strong> → <code>First Name (A)</code></li>
+              <li><strong>Last Name</strong> → <code>Last Name (B)</code></li>
+              <li><strong>Company Name</strong> → <code>Company Name (C)</code></li>
+              <li><strong>Domain</strong> → <code>Company Domain (D)</code></li>
+              <li><strong>LinkedIn URL</strong> → <code>LinkedIn URL (E)</code></li>
+              <li><strong>Enrich with</strong> → select both <code>contact.emails</code> and <code>contact.phones</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Configure Google Sheets — Update a Row</div>
+          <div class="step-desc">
+            The third module is <strong>Google Sheets → Update a Row</strong>. Connect the same Google account and configure:
+            <ul>
+              <li><strong>Drive</strong> → My Drive</li>
+              <li><strong>Spreadsheet</strong> → same spreadsheet as Step 2</li>
+              <li><strong>Sheet Name</strong> → same sheet</li>
+              <li><strong>Row number</strong> → <code>Row number</code> from the Watch Rows module (Step 2)</li>
+              <li><strong>Table contains headers</strong> → Yes</li>
+              <li><strong>Value input option</strong> → User entered</li>
+            </ul>
+            In the <strong>Values in columns</strong> section, map only the output columns:
+            <ul>
+              <li><strong>Email (F)</strong> → <code>datas[].contact.most_probable_email</code> from FullEnrich</li>
+              <li><strong>Phone (G)</strong> → <code>datas[].contact.most_probable_phone</code> from FullEnrich</li>
+            </ul>
+            Leave all other columns empty — they won't be overwritten.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Test the scenario</div>
+          <div class="step-desc">
+            Click <strong>Run once</strong>. After the run, check:
+            <ul>
+              <li>The FullEnrich module output shows <code>most_probable_email</code> and <code>most_probable_phone</code></li>
+              <li>The Google Sheets Update module wrote the email and phone back to columns F and G</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Activate the scenario</div>
+          <div class="step-desc">
+            Toggle the scenario <strong>ON</strong> and set the schedule (e.g. every 15 minutes). Every new row added to your Google Sheet will now be automatically enriched with a verified email and phone number.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Tip:</strong> Domain and LinkedIn URL are optional but significantly improve match rates. If you have them, make sure they're in columns D and E.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are filled in. Adding the company domain or LinkedIn URL significantly improves match rates.</td></tr>
+            <tr><td>Email/Phone written to wrong column</td><td>Check that your sheet headers match the expected layout: First Name (A), Last Name (B), Company Name (C), Company Domain (D), LinkedIn URL (E), Email (F), Phone (G).</td></tr>
+            <tr><td>Update a Row fails</td><td>Verify that <strong>Row number</strong> is mapped from the Watch Rows module (not hardcoded), and that your Google account has edit permissions.</td></tr>
+            <tr><td>Scenario doesn't trigger</td><td>Make sure the module is set to <strong>Watch Rows</strong>, the scenario is toggled ON, and new rows are being added after activation.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== N8N ==================== -->
+  <div class="tab-content" id="tab-n8n">
+    <div class="steps-container">
+
+      <div class="callout">
+        <strong>What this workflow does:</strong> When a new row is added to your Google Sheet, FullEnrich finds their verified email and phone number, then writes the results back to the same row. This workflow uses <strong>two flows</strong> because FullEnrich works asynchronously — it sends results to a webhook when the enrichment is ready.
+        <br><br>
+        <a href="https://gist.github.com/ToolMonsters/b6fe8301d1315aad79c32ca63e9e9487/archive/a033e9c3c6167dd9de18e259cb6c3f0d94f4c69e.zip" target="_blank" class="get-template-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+          Get Template
+        </a>
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>Why two flows?</strong> FullEnrich enrichment takes a few seconds. Instead of waiting, FullEnrich sends the results to a webhook when ready. The <strong>top flow</strong> (Google Sheets Trigger → FullEnrich) sends the enrichment request. The <strong>bottom flow</strong> (Webhook → Google Sheets Write Back) receives the results and updates your sheet.
+      </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Import the workflow into n8n</div>
+          <div class="step-desc">
+            Download the workflow JSON file and import it into n8n: go to <strong>Workflows → Import from File</strong> and select the JSON. You'll see 4 nodes arranged in two flows:
+            <ul>
+              <li><strong>Top flow:</strong> Google Sheets Trigger → Start enrichment (FullEnrich)</li>
+              <li><strong>Bottom flow:</strong> Webhook → Google Sheets - Write Back</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Prepare your Google Sheet</div>
+          <div class="step-desc">
+            Create a Google Sheet with these columns in the first row (headers):
+            <ul>
+              <li><strong>A</strong> — First Name</li>
+              <li><strong>B</strong> — Last Name</li>
+              <li><strong>C</strong> — Company Name</li>
+              <li><strong>D</strong> — Company Domain <em>(optional, improves match rate)</em></li>
+              <li><strong>E</strong> — LinkedIn URL <em>(optional, improves match rate)</em></li>
+              <li><strong>F</strong> — Email <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>G</strong> — Phone <em>(will be filled by FullEnrich)</em></li>
+            </ul>
+            Add at least one row of data so you can test later.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Connect the Google Sheets Trigger</div>
+          <div class="step-desc">
+            Open the <strong>Google Sheets Trigger</strong> node. Connect your Google account, then configure:
+            <ul>
+              <li><strong>Document</strong> → select your spreadsheet</li>
+              <li><strong>Sheet</strong> → select the sheet (e.g. <code>Sheet1</code>)</li>
+              <li><strong>Trigger on</strong> → Row Added</li>
+              <li><strong>Poll Times</strong> → Every Hour (or more frequent if needed)</li>
+            </ul>
+            This node watches for new rows and sends the data to FullEnrich.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Configure FullEnrich — Start enrichment</div>
+          <div class="step-desc">
+            Open the <strong>Start enrichment</strong> (FullEnrich) node. Connect your FullEnrich API key. The fields are already pre-mapped from the template:
+            <ul>
+              <li><strong>Enrichment Name</strong> → <code>Googlesheet</code> (label to identify this enrichment)</li>
+              <li><strong>First Name</strong> → <code>{{ $json["First Name"] }}</code></li>
+              <li><strong>Last Name</strong> → <code>{{ $json["Last Name"] }}</code></li>
+              <li><strong>Company Name</strong> → <code>{{ $json["Company Name"] }}</code></li>
+              <li><strong>Company Domain</strong> → <code>{{ $json["Company Domain"] }}</code></li>
+              <li><strong>LinkedIn URL</strong> → <code>{{ $json["LinkedIn URL"] }}</code></li>
+              <li><strong>Webhook URL</strong> → the Webhook node's URL (see Step 5)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Set up the Webhook node</div>
+          <div class="step-desc">
+            Open the <strong>Webhook</strong> node. It's already configured with HTTP method <strong>POST</strong>. Copy the <strong>production URL</strong> shown at the top of the node (the one <em>without</em> <code>webhook-test</code> in it) and paste it in the FullEnrich node's <strong>Webhook URL</strong> field from Step 4.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>Important:</strong> Always use the <strong>production URL</strong> (without <code>webhook-test</code>). The test URL only works during manual testing and will stop working once you activate the workflow.
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Configure Google Sheets — Write Back</div>
+          <div class="step-desc">
+            Open the <strong>Google Sheets - Write Back</strong> node. Connect the same Google account and select the same spreadsheet and sheet. This node uses <strong>Update Row</strong> operation and matches rows by <strong>Last Name</strong> to find the correct row to update. The fields are pre-mapped:
+            <ul>
+              <li><strong>Email</strong> → <code>{{ $json.body.datas[0].contact.most_probable_email }}</code></li>
+              <li><strong>Phone</strong> → <code>{{ $json.body.datas[0].contact.most_probable_phone }}</code></li>
+              <li><strong>Last Name</strong> → <code>{{ $json.body.datas[0].contact.lastname }}</code> (used for matching)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>How does the write-back find the right row?</strong> When FullEnrich sends results to the webhook, the response includes the contact's last name. The Google Sheets node matches on the <strong>Last Name</strong> column to find and update the correct row. This means each last name in your sheet should be unique — if you have duplicates, consider adding another matching column.
+      </div>
+
+      <div class="step">
+        <div class="step-number">7</div>
+        <div class="step-content">
+          <div class="step-title">Test the workflow</div>
+          <div class="step-desc">
+            Click <strong>Test workflow</strong> in n8n, then add a new row to your Google Sheet. The top flow will detect the new row and send the enrichment request to FullEnrich. After a few seconds, FullEnrich sends results to the webhook, and the bottom flow writes the email and phone back to your sheet. Check your Google Sheet to confirm columns F and G are filled in.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">8</div>
+        <div class="step-content">
+          <div class="step-title">Activate the workflow</div>
+          <div class="step-desc">
+            Toggle the workflow to <strong>Active</strong>. The Google Sheets Trigger will poll for new rows on the schedule you set (default: every hour). Make sure the FullEnrich node uses the <strong>production webhook URL</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Tip:</strong> Domain and LinkedIn URL are optional but significantly improve match rates. If you have them, make sure they're in columns D and E of your sheet.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Webhook never receives data</td><td>Make sure you're using the <strong>production</strong> webhook URL (without <code>webhook-test</code>). Also make sure the workflow is toggled <strong>Active</strong>.</td></tr>
+            <tr><td>Wrong row gets updated</td><td>The write-back matches on <strong>Last Name</strong>. If you have duplicate last names, the wrong row may be updated. Make sure last names are unique, or add another matching column.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are filled in. Adding domain or LinkedIn URL significantly improves match rates.</td></tr>
+            <tr><td>Google Sheets update fails</td><td>Verify that the Google Sheets Write Back node is connected to the same Google account and pointing to the same spreadsheet/sheet as the trigger.</td></tr>
+            <tr><td>Trigger doesn't detect new rows</td><td>Check the <strong>Poll Times</strong> setting in the Google Sheets Trigger. Default is every hour. You can increase the frequency if needed.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function switchTab(platform) {
+      document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.getElementById('tab-' + platform).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

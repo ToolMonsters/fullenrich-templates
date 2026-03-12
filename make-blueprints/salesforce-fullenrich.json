@@ -1,0 +1,182 @@
+{
+  "name": "Enrich new Salesforce leads with FullEnrich",
+  "flow": [
+    {
+      "id": 1,
+      "module": "salesforce:watchRecords",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": ""
+      },
+      "mapper": {
+        "type": "Lead",
+        "limit": 10
+      },
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        },
+        "restore": {},
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:salesforce2",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "type",
+            "type": "select",
+            "label": "Record Type",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "label": "Limit"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "module": "fullenrich:enrich",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": ""
+      },
+      "mapper": {
+        "firstName": "{{1.FirstName}}",
+        "lastName": "{{1.LastName}}",
+        "companyName": "{{1.Company}}",
+        "companyDomain": "{{1.Website}}",
+        "linkedinUrl": "",
+        "enrichFields": "emails_and_phones"
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        },
+        "restore": {},
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:fullenrich",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "firstName",
+            "type": "text",
+            "label": "First Name",
+            "required": true
+          },
+          {
+            "name": "lastName",
+            "type": "text",
+            "label": "Last Name",
+            "required": true
+          },
+          {
+            "name": "companyName",
+            "type": "text",
+            "label": "Company Name",
+            "required": true
+          },
+          {
+            "name": "companyDomain",
+            "type": "text",
+            "label": "Company Domain"
+          },
+          {
+            "name": "linkedinUrl",
+            "type": "text",
+            "label": "LinkedIn URL"
+          },
+          {
+            "name": "enrichFields",
+            "type": "select",
+            "label": "Enrich Fields",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "module": "salesforce:updateRecord",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": ""
+      },
+      "mapper": {
+        "type": "Lead",
+        "externalId": "{{1.Id}}",
+        "Email": "{{2.most_probable_email.email}}",
+        "Phone": "{{2.most_probable_phone.number}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0
+        },
+        "restore": {},
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:salesforce2",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "type",
+            "type": "select",
+            "label": "Record Type",
+            "required": true
+          },
+          {
+            "name": "externalId",
+            "type": "text",
+            "label": "Record ID",
+            "required": true
+          },
+          {
+            "name": "Email",
+            "type": "text",
+            "label": "Email"
+          },
+          {
+            "name": "Phone",
+            "type": "text",
+            "label": "Phone"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    },
+    "designer": {
+      "orphans": []
+    }
+  }
+}
