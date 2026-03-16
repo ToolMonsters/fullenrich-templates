@@ -411,7 +411,7 @@
       <div class="callout">
         <strong>What this scenario does:</strong> When a new record is added to your Airtable base, FullEnrich finds the contact's verified email and phone number, then updates the same Airtable record with the enriched data. The scenario uses 3 modules: <strong>Airtable Watch Records</strong> → <strong>FullEnrich Enrich</strong> → <strong>Airtable Update Record</strong>.
         <br><br>
-        <a href="https://www.make.com/en/integration/18723-enrich-new-airtable-records-with-fullenrich?templatePublicId=18723" target="_blank" class="get-template-btn">
+        <a href="https://www.make.com/en/templates/18723-enrich-new-airtable-records-with-fullenrich" target="_blank" class="get-template-btn">
           <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
           Get Template
         </a>
@@ -532,7 +532,11 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this workflow does:</strong> When a new record is added to your Airtable base, FullEnrich finds the contact's verified email and phone number, then updates the same Airtable record. Because FullEnrich works asynchronously in n8n, this workflow uses <strong>two flows</strong>: one to send the enrichment request, and one to receive the results via webhook.
+        <strong>What this workflow does:</strong> When a new record is added to your Airtable base, FullEnrich enriches the contact with verified email, phone, and LinkedIn URL, then updates the same record. This workflow uses <strong>two parallel flows</strong> (4 nodes total):
+        <ul style="margin-top:8px;">
+          <li><strong>Top flow:</strong> Airtable Trigger → Start enrichment (FullEnrich)</li>
+          <li><strong>Bottom flow:</strong> Webhook → Update record (Airtable)</li>
+        </ul>
       </div>
 
       <div class="callout callout-warning">
@@ -542,89 +546,113 @@
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">Create the top flow: Airtable trigger</div>
+          <div class="step-title">Prepare your Airtable base</div>
           <div class="step-desc">
-            Create a new workflow in n8n. Add an <strong>Airtable Trigger</strong> node and set it to watch for <strong>new records</strong>. Connect your Airtable account and select the Base and Table that contains your contacts.
+            Make sure your Airtable table has the following columns:
+            <ul>
+              <li><strong>First Name</strong></li>
+              <li><strong>Last Name</strong></li>
+              <li><strong>Company Name</strong></li>
+              <li><strong>Company Domain</strong> (optional, improves match rates)</li>
+              <li><strong>LinkedIn URL</strong> (will be filled by FullEnrich)</li>
+              <li><strong>Email</strong> (will be filled by FullEnrich)</li>
+              <li><strong>Phone</strong> (will be filled by FullEnrich)</li>
+            </ul>
+            Also add a <strong>Created Time</strong> field (e.g. <code>Date de création</code>) — this will be used as the trigger field to detect new records.
           </div>
-          <div class="screenshot-placeholder">Screenshot: Airtable Trigger node</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Add the FullEnrich node</div>
+          <div class="step-title">Import the workflow template</div>
           <div class="step-desc">
-            Add a <strong>FullEnrich</strong> node after the Airtable trigger. Connect your API key and map:
+            Download the workflow JSON and import it into n8n via <strong>Workflow → Import from File</strong>. You'll see 4 nodes arranged in two parallel flows:
             <ul>
-              <li><strong>First Name</strong> → <code>{{ $json.First Name }}</code></li>
-              <li><strong>Last Name</strong> → <code>{{ $json.Last Name }}</code></li>
-              <li><strong>Company Name</strong> → <code>{{ $json.Company }}</code></li>
-              <li><strong>Company Domain</strong> → <code>{{ $json.Domain }}</code></li>
-            </ul>
-            Set the <strong>Webhook URL</strong> to the webhook node's production URL (from Step 3). Also add <strong>Custom Fields</strong> to pass through the Airtable Record ID:
-            <ul>
-              <li><strong>Name:</strong> <code>recordId</code> — <strong>Value:</strong> <code>{{ $json.id }}</code></li>
+              <li><strong>Airtable Trigger</strong> → <strong>Start enrichment</strong> (top flow)</li>
+              <li><strong>Webhook</strong> → <strong>Update record</strong> (bottom flow)</li>
             </ul>
           </div>
-          <div class="screenshot-placeholder">Screenshot: FullEnrich node with custom fields</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Create the bottom flow: Webhook</div>
+          <div class="step-title">Configure the Airtable Trigger</div>
           <div class="step-desc">
-            Add a <strong>Webhook</strong> node (this starts a separate flow). Set the HTTP method to <strong>POST</strong> and give it a path like <code>airtable-enrich</code>. Copy the <strong>production URL</strong> (not the test URL) and paste it in the FullEnrich node's Webhook URL field from Step 2.
+            Click on the <strong>Airtable Trigger</strong> node. Connect your Airtable credentials, then set your <strong>Base ID</strong> and <strong>Table ID</strong>. The trigger is configured to poll every minute using the <code>Date de création</code> field to detect new records.
           </div>
-          <div class="screenshot-placeholder">Screenshot: Webhook node setup</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Update the Airtable record</div>
+          <div class="step-title">Configure the FullEnrich node</div>
           <div class="step-desc">
-            After the Webhook node, add an <strong>Airtable</strong> node set to <strong>Update Record</strong>. Select the same Base and Table. Map:
+            Click on the <strong>Start enrichment</strong> node. Connect your FullEnrich credentials. The field mapping is pre-configured:
             <ul>
-              <li><strong>Record ID</strong> → <code>{{ $json.body.datas[0].custom_fields.recordId }}</code></li>
-              <li><strong>Email</strong> → <code>{{ $json.body.datas[0].contact.most_probable_email.email }}</code></li>
-              <li><strong>Phone</strong> → <code>{{ $json.body.datas[0].contact.most_probable_phone.number }}</code></li>
+              <li><strong>First Name</strong> → <code>{{ $json.fields["First Name"] }}</code></li>
+              <li><strong>Last Name</strong> → <code>{{ $json.fields["Last Name"] }}</code></li>
+              <li><strong>Company Name</strong> → <code>{{ $json.fields["Company Name"] }}</code></li>
+              <li><strong>Company Domain</strong> → <code>{{ $json.fields["Company Domain"] }}</code></li>
+              <li><strong>Enrichment Name</strong> → <code>Airtable</code></li>
             </ul>
+            A <strong>Custom Field</strong> passes the Airtable Record ID (<code>id</code>) so the result can be matched back to the correct record.
           </div>
-          <div class="screenshot-placeholder">Screenshot: Airtable Update node mapping</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-number">5</div>
         <div class="step-content">
-          <div class="step-title">Test the workflow</div>
+          <div class="step-title">Set up the Webhook</div>
           <div class="step-desc">
-            Click <strong>Test workflow</strong> in n8n, then add a new record to your Airtable table. The top flow will send the enrichment request. After a few seconds, the webhook will receive the results and update the record. Check your Airtable table to confirm the Email and Phone fields have been filled.
+            Click on the <strong>Webhook</strong> node. It's configured as a <strong>POST</strong> endpoint with the path <code>fullenrich-callback</code>. <strong>Activate the workflow first</strong>, then copy the <strong>production URL</strong> (not the test URL) and paste it into the FullEnrich node's <strong>Webhook URL</strong> field.
           </div>
-          <div class="screenshot-placeholder">Screenshot: Workflow execution results</div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-number">6</div>
         <div class="step-content">
+          <div class="step-title">Configure the Update Record node</div>
+          <div class="step-desc">
+            Click on the <strong>Update record</strong> node. Connect your Airtable credentials and set the same <strong>Base ID</strong> and <strong>Table ID</strong>. The mapping is pre-configured:
+            <ul>
+              <li><strong>Record ID</strong> → <code>{{ $json.body.datas[0].custom.id }}</code></li>
+              <li><strong>Email</strong> → <code>{{ $json.body.datas[0].contact.most_probable_email }}</code></li>
+              <li><strong>Phone</strong> → <code>{{ $json.body.datas[0].contact.most_probable_phone }}</code></li>
+              <li><strong>LinkedIn URL</strong> → <code>{{ $json.body.datas[0].contact.social_medias[0].url }}</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">7</div>
+        <div class="step-content">
+          <div class="step-title">Test the workflow</div>
+          <div class="step-desc">
+            Click <strong>Test workflow</strong>, then add a new record to your Airtable table. The top flow will detect it and send it to FullEnrich. After a few seconds, the webhook receives the results and the bottom flow updates the record with Email, Phone, and LinkedIn URL.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">8</div>
+        <div class="step-content">
           <div class="step-title">Activate the workflow</div>
           <div class="step-desc">
-            Toggle the workflow to <strong>Active</strong>. Make sure to use the <strong>production webhook URL</strong> (without <code>webhook-test</code> in it). The test URL only works during manual testing.
+            Toggle the workflow to <strong>Active</strong>. Make sure the FullEnrich node's Webhook URL is set to the <strong>production URL</strong> (without <code>webhook-test</code> in it). The Airtable Trigger will poll every minute for new records.
           </div>
         </div>
       </div>
 
       <div class="callout">
-        <strong>About Custom Fields:</strong> The <code>recordId</code> custom field is essential. When FullEnrich sends the results back via webhook, it only returns enrichment data by default. Custom Fields let you pass through the Airtable Record ID so you know which record to update.
-      </div>
-
-      <div class="callout">
-        <strong>Not using Airtable?</strong> You can swap Airtable for Google Sheets or any other spreadsheet tool. The FullEnrich + Webhook pattern stays the same. Just pass the right record ID as a custom field.
+        <strong>About Custom Fields:</strong> The <code>id</code> custom field is essential. It passes the Airtable Record ID through FullEnrich so the webhook callback knows which record to update. It appears in the response at <code>$json.body.datas[0].custom.id</code>.
       </div>
 
       <!-- Troubleshooting -->
@@ -636,9 +664,9 @@
           </thead>
           <tbody>
             <tr><td>Webhook never receives data</td><td>Make sure you're using the <strong>production</strong> webhook URL (without <code>webhook-test</code>). The test URL only works during manual testing. Also make sure the workflow is <strong>Active</strong>.</td></tr>
-            <tr><td>Record ID missing in webhook data</td><td>Check that you added <code>recordId</code> as a Custom Field in the FullEnrich node. It should appear in <code>$json.body.datas[0].custom_fields.recordId</code>.</td></tr>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped. Adding the company domain improves match rates.</td></tr>
-            <tr><td>Airtable update fails</td><td>Check that the Record ID expression is correct and that the Email and Phone fields exist in your Airtable table.</td></tr>
+            <tr><td>Record ID missing in webhook data</td><td>Check that you added <code>id</code> as a Custom Field in the FullEnrich node. It should appear at <code>$json.body.datas[0].custom.id</code>.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly. Adding Company Domain improves match rates.</td></tr>
+            <tr><td>Airtable update fails</td><td>Check that the Base ID and Table ID match the trigger node, and that the Email, Phone, and LinkedIn URL columns exist in your table.</td></tr>
           </tbody>
         </table>
       </div>
