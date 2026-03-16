@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enrich new Pipedrive contacts with FullEnrich</title>
+  <title>Enrich new Notion database entries with FullEnrich</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -265,12 +265,12 @@
   <!-- Detail Hero -->
   <section class="detail-hero">
     <div class="detail-logos">
-      <div class="detail-logo"><img src="https://play-lh.googleusercontent.com/XAKratCqSJUb3ZmItve16p8RjiF0ZvN_czysEoqtGET7i-tsdJEozbnOYRM6jQNHEg" alt="Pipedrive"></div>
+      <div class="detail-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" alt="Notion"></div>
       <span class="detail-plus">+</span>
       <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
     </div>
-    <h1>Enrich new Pipedrive contacts with FullEnrich</h1>
-    <p>Automatically enrich every new Pipedrive contact with verified emails, phone numbers, and LinkedIn profiles using FullEnrich, then update the contact with the enriched data.</p>
+    <h1>Enrich new Notion database entries with FullEnrich</h1>
+    <p>Automatically enrich every new entry in your Notion database with verified emails, phone numbers, and LinkedIn profiles using FullEnrich, then update the page with the enriched data.</p>
   </section>
 
   <!-- Platform Tabs -->
@@ -291,7 +291,7 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this Zap does:</strong> When a new person is created in Pipedrive, FullEnrich finds the contact's verified email and phone number, then updates the same Pipedrive person with the enriched data.
+        <strong>What this Zap does:</strong> When a new database item is created in Notion, FullEnrich finds the contact's verified email and phone number, then updates the same Notion page with the enriched data.
       </div>
 
       <div class="step">
@@ -299,7 +299,7 @@
         <div class="step-content">
           <div class="step-title">Create a new Zap</div>
           <div class="step-desc">
-            Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong>. For the trigger, search for <strong>Pipedrive</strong> and select the event <strong>New Person</strong>. Connect your Pipedrive account.
+            Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong>. For the trigger, search for <strong>Notion</strong> and select the event <strong>New Database Item</strong>. Connect your Notion account. Select the <strong>Database</strong> that contains your contacts.
           </div>
         </div>
       </div>
@@ -309,7 +309,7 @@
         <div class="step-content">
           <div class="step-title">Test the trigger</div>
           <div class="step-desc">
-            Click <strong>Test trigger</strong>. Zapier will pull a recent person from Pipedrive. Make sure you can see <strong>First Name</strong>, <strong>Last Name</strong>, and <strong>Organization</strong> fields in the test data.
+            Click <strong>Test trigger</strong>. Zapier will pull a recent page from your Notion database. Make sure you can see the <strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company Name</strong>, and <strong>Company Domain</strong> properties in the test data.
           </div>
         </div>
       </div>
@@ -321,10 +321,10 @@
           <div class="step-desc">
             Add a new action step and search for <strong>FullEnrich</strong>. Select the action <strong>Enrich Contact</strong>. Connect your FullEnrich account using your API key. Then map the fields:
             <ul>
-              <li><strong>First Name</strong> → Person's First Name</li>
-              <li><strong>Last Name</strong> → Person's Last Name</li>
-              <li><strong>Company Name</strong> → Person's Organization Name</li>
-              <li><strong>Company Domain</strong> → Organization's Domain (if available)</li>
+              <li><strong>First Name</strong> → Page's First Name property</li>
+              <li><strong>Last Name</strong> → Page's Last Name property</li>
+              <li><strong>Company Name</strong> → Page's Company Name property</li>
+              <li><strong>Company Domain</strong> → Page's Company Domain property (if available)</li>
             </ul>
           </div>
         </div>
@@ -333,9 +333,9 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Update the Pipedrive person</div>
+          <div class="step-title">Update the Notion page</div>
           <div class="step-desc">
-            Add another action step: <strong>Pipedrive → Update Person</strong>. Map the <strong>Person ID</strong> from Step 1. Then map:
+            Add another action step: <strong>Notion → Update Database Item</strong>. Select the same Database. Map the <strong>Page ID</strong> from Step 1. Then map:
             <ul>
               <li><strong>Email</strong> → Most Probable Email (from FullEnrich)</li>
               <li><strong>Phone</strong> → Most Probable Phone (from FullEnrich)</li>
@@ -349,7 +349,7 @@
         <div class="step-content">
           <div class="step-title">Test and publish</div>
           <div class="step-desc">
-            Test the full Zap, then click <strong>Publish</strong>. Every new person created in Pipedrive will now be automatically enriched with verified contact info.
+            Test the full Zap, then click <strong>Publish</strong>. Every new page created in your Notion database will now be automatically enriched with verified contact info.
           </div>
         </div>
       </div>
@@ -362,9 +362,9 @@
             <tr><th>Problem</th><th>Solution</th></tr>
           </thead>
           <tbody>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Organization are mapped correctly. Adding the company domain improves match rates.</td></tr>
-            <tr><td>Pipedrive update fails</td><td>Check that the Person ID is correctly mapped from Step 1, and that the Email and Phone fields exist on your Pipedrive person.</td></tr>
-            <tr><td>Zap doesn't trigger</td><td>Ensure the trigger is set to <strong>New Person</strong> and that you're creating persons in Pipedrive after the Zap is published.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly. Adding the Company Domain improves match rates.</td></tr>
+            <tr><td>Notion update fails</td><td>Check that the Page ID is correctly mapped from Step 1, and that the Email and Phone properties exist in your Notion database.</td></tr>
+            <tr><td>Zap doesn't trigger</td><td>Ensure the trigger is set to <strong>New Database Item</strong> and that you're creating pages in the correct database.</td></tr>
           </tbody>
         </table>
       </div>
@@ -377,7 +377,7 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this scenario does:</strong> When a new person is created in Pipedrive, FullEnrich finds the contact's verified email and phone number, then updates the same Pipedrive person with the enriched data.
+        <strong>What this scenario does:</strong> When a new database item is created in Notion, FullEnrich finds the contact's verified email and phone number, then updates the same Notion page with the enriched data.
       </div>
 
       <div class="step">
@@ -385,7 +385,7 @@
         <div class="step-content">
           <div class="step-title">Create a new scenario</div>
           <div class="step-desc">
-            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Pipedrive</strong> and select <strong>Watch Persons</strong>. Connect your Pipedrive account.
+            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Notion</strong> and select <strong>Watch Database Items</strong>. Connect your Notion account and select the <strong>Database</strong> that contains your contacts.
           </div>
         </div>
       </div>
@@ -397,10 +397,10 @@
           <div class="step-desc">
             Click the <strong>+</strong> to add a new module. Search for <strong>FullEnrich</strong> and select <strong>Enrich a Contact</strong>. Connect your FullEnrich API key. Map the fields:
             <ul>
-              <li><strong>First Name</strong> → Person's First Name</li>
-              <li><strong>Last Name</strong> → Person's Last Name</li>
-              <li><strong>Company Name</strong> → Person's Organization Name</li>
-              <li><strong>Company Domain</strong> → Organization's Domain (if available)</li>
+              <li><strong>First Name</strong> → Page's First Name property</li>
+              <li><strong>Last Name</strong> → Page's Last Name property</li>
+              <li><strong>Company Name</strong> → Page's Company Name property</li>
+              <li><strong>Company Domain</strong> → Page's Company Domain property (if available)</li>
             </ul>
           </div>
         </div>
@@ -409,9 +409,9 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Update the Pipedrive person</div>
+          <div class="step-title">Update the Notion page</div>
           <div class="step-desc">
-            Add a third module: <strong>Pipedrive → Update a Person</strong>. Map the <strong>Person ID</strong> from the first Pipedrive module. Then map:
+            Add a third module: <strong>Notion → Update a Database Item</strong>. Select the same Database. Map the <strong>Page ID</strong> from the first Notion module. Then map:
             <ul>
               <li><strong>Email</strong> → Most Probable Email (from FullEnrich)</li>
               <li><strong>Phone</strong> → Most Probable Phone (from FullEnrich)</li>
@@ -425,7 +425,7 @@
         <div class="step-content">
           <div class="step-title">Test and activate</div>
           <div class="step-desc">
-            Click <strong>Run once</strong> to test. Check your Pipedrive person to confirm the Email and Phone fields have been updated. Once confirmed, toggle the scenario <strong>ON</strong> and set the polling schedule.
+            Click <strong>Run once</strong> to test. Check your Notion page to confirm the Email and Phone properties have been updated. Once confirmed, toggle the scenario <strong>ON</strong> and set the polling schedule.
           </div>
         </div>
       </div>
@@ -438,9 +438,9 @@
             <tr><th>Problem</th><th>Solution</th></tr>
           </thead>
           <tbody>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Organization are mapped correctly. Adding the company domain improves match rates.</td></tr>
-            <tr><td>Pipedrive update fails</td><td>Check that the Person ID is mapped from the Watch Persons module, and that the Email and Phone fields exist on your Pipedrive person.</td></tr>
-            <tr><td>Scenario doesn't trigger</td><td>Make sure the Pipedrive module is set to <strong>Watch Persons</strong> and that persons are being created after you activated the scenario.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly. Adding the Company Domain improves match rates.</td></tr>
+            <tr><td>Notion update fails</td><td>Check that the Page ID is mapped from the Watch Database Items module, and that the Email and Phone properties exist in your Notion database.</td></tr>
+            <tr><td>Scenario doesn't trigger</td><td>Make sure the Notion module is set to <strong>Watch Database Items</strong> and that pages are being created after you activated the scenario.</td></tr>
           </tbody>
         </table>
       </div>
@@ -453,7 +453,7 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this workflow does:</strong> When a new person is created in Pipedrive, FullEnrich enriches the contact with verified email, phone, and LinkedIn URL, then updates the same person. This workflow uses <strong>two parallel flows</strong> because FullEnrich works asynchronously — it sends results to a webhook when the enrichment is ready.
+        <strong>What this workflow does:</strong> When a new page is created in a Notion database, FullEnrich enriches the contact with verified email, phone, and LinkedIn URL, then updates the same page properties. This workflow uses <strong>two parallel flows</strong> because FullEnrich works asynchronously — it sends results to a webhook when the enrichment is ready.
       </div>
 
       <div class="callout callout-warning">
@@ -463,9 +463,9 @@
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">Create the top flow: Pipedrive trigger</div>
+          <div class="step-title">Create the top flow: Notion trigger</div>
           <div class="step-desc">
-            Create a new workflow in n8n. Add a <strong>Pipedrive Trigger</strong> node and set it to watch for <strong>new persons</strong>. Connect your Pipedrive account.
+            Create a new workflow in n8n. Add a <strong>Notion Trigger</strong> node and set it to watch for <strong>new database items</strong>. Connect your Notion account and select the database that contains your contacts.
           </div>
         </div>
       </div>
@@ -475,7 +475,7 @@
         <div class="step-content">
           <div class="step-title">Add the FullEnrich node</div>
           <div class="step-desc">
-            Add a <strong>FullEnrich</strong> node after the Pipedrive trigger. Connect your API key and map First Name, Last Name, Organization Name, and Organization Domain. Set the <strong>Webhook URL</strong> to the webhook node's production URL (from Step 3). Add a <strong>Custom Field</strong> to pass through the Pipedrive Person ID.
+            Add a <strong>FullEnrich</strong> node after the Notion trigger. Connect your API key and map First Name, Last Name, Company Name, and Company Domain. Set the <strong>Webhook URL</strong> to the webhook node's production URL (from Step 3). Add a <strong>Custom Field</strong> to pass through the Notion Page ID.
           </div>
         </div>
       </div>
@@ -485,7 +485,7 @@
         <div class="step-content">
           <div class="step-title">Create the bottom flow: Webhook</div>
           <div class="step-desc">
-            Add a <strong>Webhook</strong> node (this starts a separate flow). Set the HTTP method to <strong>POST</strong> and give it a path like <code>pipedrive-enrich</code>. Copy the <strong>production URL</strong> and paste it in the FullEnrich node's Webhook URL field.
+            Add a <strong>Webhook</strong> node (this starts a separate flow). Set the HTTP method to <strong>POST</strong> and give it a path like <code>notion-enrich</code>. Copy the <strong>production URL</strong> and paste it in the FullEnrich node's Webhook URL field.
           </div>
         </div>
       </div>
@@ -493,9 +493,9 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Update the Pipedrive person</div>
+          <div class="step-title">Update the Notion page</div>
           <div class="step-desc">
-            After the Webhook node, add a <strong>Pipedrive</strong> node set to <strong>Update Person</strong>. Map the Person ID from the custom field, and map Email, Phone, and LinkedIn URL from the FullEnrich response.
+            After the Webhook node, add a <strong>Notion</strong> node set to <strong>Update a Database Page</strong>. Map the Page ID from the custom field, and map Email, Phone, and LinkedIn URL from the FullEnrich response to the corresponding page properties.
           </div>
         </div>
       </div>
@@ -505,7 +505,7 @@
         <div class="step-content">
           <div class="step-title">Test and activate</div>
           <div class="step-desc">
-            Click <strong>Test workflow</strong>, then create a new person in Pipedrive. After a few seconds, the webhook receives the results and updates the person. Toggle the workflow to <strong>Active</strong> and make sure the Webhook URL is set to the <strong>production URL</strong>.
+            Click <strong>Test workflow</strong>, then create a new page in your Notion database. After a few seconds, the webhook receives the results and updates the page properties. Toggle the workflow to <strong>Active</strong> and make sure the Webhook URL is set to the <strong>production URL</strong>.
           </div>
         </div>
       </div>
@@ -519,8 +519,8 @@
           </thead>
           <tbody>
             <tr><td>Webhook never receives data</td><td>Make sure you're using the <strong>production</strong> webhook URL (without <code>webhook-test</code>). Also make sure the workflow is <strong>Active</strong>.</td></tr>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Organization are mapped correctly. Adding Organization Domain improves match rates.</td></tr>
-            <tr><td>Pipedrive update fails</td><td>Check that the Person ID is correctly passed as a custom field and that the Email and Phone fields exist on your Pipedrive person.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly. Adding Company Domain improves match rates.</td></tr>
+            <tr><td>Notion update fails</td><td>Check that the Page ID is correctly passed as a custom field and that the Email and Phone properties exist in your Notion database.</td></tr>
           </tbody>
         </table>
       </div>
