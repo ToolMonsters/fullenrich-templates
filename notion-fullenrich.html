@@ -377,15 +377,16 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this scenario does:</strong> When a new database item is created in Notion, FullEnrich finds the contact's verified email and phone number, then updates the same Notion page with the enriched data.
+        <strong>What this scenario does:</strong> When a new page is added to your Notion database, the scenario instantly enriches the contact with FullEnrich and updates the same page with the verified email and phone number.<br><br>
+        <strong>3 modules:</strong> Watch Events (instant) → FullEnrich Enrich → Update a Database Item
       </div>
 
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">Create a new scenario</div>
+          <div class="step-title">Watch Events (instant trigger)</div>
           <div class="step-desc">
-            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Notion</strong> and select <strong>Watch Database Items</strong>. Connect your Notion account and select the <strong>Database</strong> that contains your contacts.
+            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Notion</strong> and select <strong>Watch Events</strong>. Connect your Notion account. This is an <strong>instant</strong> webhook-based trigger — the scenario runs immediately when a new page is created in your database, with no polling delay.
           </div>
         </div>
       </div>
@@ -393,15 +394,16 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Add FullEnrich</div>
+          <div class="step-title">FullEnrich — Enrich</div>
           <div class="step-desc">
-            Click the <strong>+</strong> to add a new module. Search for <strong>FullEnrich</strong> and select <strong>Enrich a Contact</strong>. Connect your FullEnrich API key. Map the fields:
+            Add a second module: <strong>FullEnrich → Enrich</strong>. Connect your FullEnrich API key. Map the fields from the Notion page properties:
             <ul>
-              <li><strong>First Name</strong> → Page's First Name property</li>
-              <li><strong>Last Name</strong> → Page's Last Name property</li>
-              <li><strong>Company Name</strong> → Page's Company Name property</li>
-              <li><strong>Company Domain</strong> → Page's Company Domain property (if available)</li>
+              <li><strong>First Name</strong> → <code>{{1.properties.FirstName.title[].plain_text}}</code></li>
+              <li><strong>Last Name</strong> → <code>{{1.properties.LastName.rich_text[].plain_text}}</code></li>
+              <li><strong>Company Name</strong> → <code>{{1.properties.CompanyName.rich_text[].plain_text}}</code></li>
+              <li><strong>Domain</strong> → <code>{{1.properties.CompanyDomain.rich_text[].plain_text}}</code></li>
             </ul>
+            Under <strong>Enrich with</strong>, select <strong>Emails</strong> and <strong>Phones</strong>.
           </div>
         </div>
       </div>
@@ -409,9 +411,9 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Update the Notion page</div>
+          <div class="step-title">Update a Database Item</div>
           <div class="step-desc">
-            Add a third module: <strong>Notion → Update a Database Item</strong>. Select the same Database. Map the <strong>Page ID</strong> from the first Notion module. Then map:
+            Add a third module: <strong>Notion → Update a Database Item</strong>. Select your database (by Data Source ID). The Page ID is automatically passed from the trigger. Map the enriched data to your Notion properties:
             <ul>
               <li><strong>Email</strong> → Most Probable Email (from FullEnrich)</li>
               <li><strong>Phone</strong> → Most Probable Phone (from FullEnrich)</li>
@@ -425,9 +427,13 @@
         <div class="step-content">
           <div class="step-title">Test and activate</div>
           <div class="step-desc">
-            Click <strong>Run once</strong> to test. Check your Notion page to confirm the Email and Phone properties have been updated. Once confirmed, toggle the scenario <strong>ON</strong> and set the polling schedule.
+            Click <strong>Run once</strong> to test, then create a new page in your Notion database. Check that the Email and Phone properties have been filled in. Once confirmed, toggle the scenario <strong>ON</strong>. Since the trigger is instant (webhook), new entries will be enriched in real time.
           </div>
         </div>
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>Notion database setup:</strong> Make sure your Notion database has properties named <strong>First Name</strong> (title), <strong>Last Name</strong> (text), <strong>Company Name</strong> (text), <strong>Company Domain</strong> (text), <strong>Email</strong> (text or email), and <strong>Phone</strong> (text or phone). The property names in the mappings above must match your actual Notion property names.
       </div>
 
       <!-- Troubleshooting -->
@@ -438,9 +444,10 @@
             <tr><th>Problem</th><th>Solution</th></tr>
           </thead>
           <tbody>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly. Adding the Company Domain improves match rates.</td></tr>
-            <tr><td>Notion update fails</td><td>Check that the Page ID is mapped from the Watch Database Items module, and that the Email and Phone properties exist in your Notion database.</td></tr>
-            <tr><td>Scenario doesn't trigger</td><td>Make sure the Notion module is set to <strong>Watch Database Items</strong> and that pages are being created after you activated the scenario.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly from the Notion properties. Adding the Company Domain improves match rates.</td></tr>
+            <tr><td>Notion update fails</td><td>Check that the Data Source ID is correct and that Email and Phone properties exist in your Notion database with the right type (text, email, or phone).</td></tr>
+            <tr><td>Scenario doesn't trigger</td><td>Make sure the Notion webhook is active. Go to the Watch Events module and verify the webhook is properly connected. Try re-creating it if needed.</td></tr>
+            <tr><td>Property names don't match</td><td>The field mappings use your Notion property names (e.g. <code>FirstName</code>, <code>LastName</code>). If your properties are named differently, adjust the mappings accordingly.</td></tr>
           </tbody>
         </table>
       </div>
