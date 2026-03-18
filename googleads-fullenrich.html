@@ -426,6 +426,21 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
+          <div class="step-title">Filter — Is personal email</div>
+          <div class="step-desc">
+            Between Module 1 and Module 2, add a <strong>filter</strong> to only run the reverse lookup on personal emails (and skip work emails that don't need it). Click the connector line between the two modules and set:
+            <ul>
+              <li><strong>Label</strong>: <code>Is personal email</code></li>
+              <li><strong>Condition</strong>: <code>{{1.email}}</code> <strong>Matches pattern</strong> <code>@(gmail|yahoo|hotmail|outlook|icloud|live|msn|aol|protonmail|gmx)\.</code></li>
+            </ul>
+            This saves credits by only sending personal emails through the Reverse Email Lookup. Work emails (e.g. @company.com) will be skipped.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
           <div class="step-title">Module 2 — FullEnrich: Universal (Reverse Email Lookup)</div>
           <div class="step-desc">
             Click <strong>+</strong> and add the <strong>FullEnrich → Universal</strong> module. Connect your FullEnrich account. Configure:
@@ -452,7 +467,7 @@
       </div>
 
       <div class="step">
-        <div class="step-number">3</div>
+        <div class="step-number">4</div>
         <div class="step-content">
           <div class="step-title">(Optional) Module 3 — Send enriched data to your destination</div>
           <div class="step-desc">
@@ -468,11 +483,11 @@
       </div>
 
       <div class="step">
-        <div class="step-number">4</div>
+        <div class="step-number">5</div>
         <div class="step-content">
           <div class="step-title">Test and activate</div>
           <div class="step-desc">
-            Click <strong>Run once</strong>, then submit a test lead through your Google Ads Lead Form. Check that Module 2 returns the enriched B2B profile. Once confirmed, toggle the scenario <strong>ON</strong>. Since this is an instant trigger, it will fire immediately on every new lead.
+            Click <strong>Run once</strong>, then submit a test lead through your Google Ads Lead Form with a personal email (e.g. Gmail). Check that the filter passes and Module 2 returns the enriched B2B profile. Once confirmed, toggle the scenario <strong>ON</strong>. Since this is an instant trigger, it will fire immediately on every new lead.
           </div>
         </div>
       </div>
