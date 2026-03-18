@@ -380,15 +380,16 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this scenario does:</strong> When someone submits your Typeform, FullEnrich looks up the respondent's verified B2B email and phone number, then adds the enriched data to a Google Sheets spreadsheet.
+        <strong>What this scenario does:</strong> When someone submits your Typeform, FullEnrich automatically enriches the respondent with verified B2B email and phone number. You can then add a third module (e.g. Google Sheets, CRM) to store the enriched data.<br><br>
+        <strong>2 modules:</strong> Watch Responses (polling) → FullEnrich Enrich
       </div>
 
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">Create a new scenario</div>
+          <div class="step-title">Watch Responses (trigger)</div>
           <div class="step-desc">
-            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Typeform</strong> and select <strong>Watch Responses</strong>. Connect your Typeform account and select the form you want to watch.
+            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Typeform</strong> and select <strong>Watch Responses</strong>. Connect your Typeform account and select the form you want to watch. Set the <strong>Limit</strong> to <code>1</code> and enable <strong>Completed</strong> to only process fully submitted responses. Your Typeform should collect <strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, and optionally <strong>Website URL</strong> (domain) — ideally as a grouped question.
           </div>
         </div>
       </div>
@@ -396,15 +397,16 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Add FullEnrich</div>
+          <div class="step-title">FullEnrich — Enrich</div>
           <div class="step-desc">
-            Click the <strong>+</strong> to add a new module. Search for <strong>FullEnrich</strong> and select <strong>Enrich a Contact</strong>. Connect your FullEnrich API key. Map the fields:
+            Add a second module: <strong>FullEnrich → Enrich</strong>. Connect your FullEnrich API key. Map the fields from the Typeform <strong>Mappable Answers</strong>:
             <ul>
-              <li><strong>First Name</strong> → Typeform's First Name answer</li>
-              <li><strong>Last Name</strong> → Typeform's Last Name answer</li>
-              <li><strong>Company Name</strong> → Typeform's Company answer</li>
-              <li><strong>Company Domain</strong> → Typeform's Website answer (if collected)</li>
+              <li><strong>First Name</strong> → <code>First name</code> (from the grouped question)</li>
+              <li><strong>Last Name</strong> → <code>Last name</code> (from the grouped question)</li>
+              <li><strong>Company Name</strong> → <code>Company</code> (from the grouped question)</li>
+              <li><strong>Domain</strong> → <code>Website URL</code> (from the grouped question)</li>
             </ul>
+            Under <strong>Enrich with</strong>, select <strong>Emails</strong> and <strong>Phones</strong>.
           </div>
         </div>
       </div>
@@ -412,15 +414,13 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Add a row to Google Sheets</div>
+          <div class="step-title">(Optional) Add a destination module</div>
           <div class="step-desc">
-            Add a third module: <strong>Google Sheets → Add a Row</strong>. Connect your Google account, select the spreadsheet and worksheet. Map the columns:
+            Add a third module to store the enriched data. For example:
             <ul>
-              <li><strong>First Name</strong> → Typeform answer</li>
-              <li><strong>Last Name</strong> → Typeform answer</li>
-              <li><strong>Company</strong> → Typeform answer</li>
-              <li><strong>B2B Email</strong> → Most Probable Email (from FullEnrich)</li>
-              <li><strong>Phone</strong> → Most Probable Phone (from FullEnrich)</li>
+              <li><strong>Google Sheets → Add a Row</strong> — map First Name, Last Name, Company, B2B Email, and Phone</li>
+              <li><strong>Airtable → Create a Record</strong> — map the enriched fields to your table columns</li>
+              <li><strong>Any CRM</strong> — create or update a contact with the enriched data</li>
             </ul>
           </div>
         </div>
@@ -431,9 +431,13 @@
         <div class="step-content">
           <div class="step-title">Test and activate</div>
           <div class="step-desc">
-            Click <strong>Run once</strong> to test. Submit your Typeform and check that a new row appears in Google Sheets with the enriched data. Once confirmed, toggle the scenario <strong>ON</strong>.
+            Click <strong>Run once</strong> to test. Submit a response to your Typeform and verify that FullEnrich returns the enriched data. Once confirmed, toggle the scenario <strong>ON</strong> and set the polling schedule.
           </div>
         </div>
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>Typeform setup tip:</strong> Use a <strong>grouped question</strong> in your Typeform to collect First Name, Last Name, Company, and Website URL in a single step. This makes the fields easy to map as "Mappable Answers" in Make.
       </div>
 
       <!-- Troubleshooting -->
@@ -444,9 +448,9 @@
             <tr><th>Problem</th><th>Solution</th></tr>
           </thead>
           <tbody>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped correctly. Adding the company website/domain improves match rates.</td></tr>
-            <tr><td>Typeform module shows no data</td><td>Submit a test response to your Typeform after activating the module. Make sure your form has separate fields for First Name, Last Name, and Company.</td></tr>
-            <tr><td>Google Sheets row is incomplete</td><td>Check that the spreadsheet columns match the mapped fields. Create headers in the first row before testing.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped correctly from the Mappable Answers. Adding the Website URL (domain) improves match rates.</td></tr>
+            <tr><td>Typeform module shows no data</td><td>Submit a test response to your Typeform after clicking <strong>Run once</strong>. Make sure <strong>Completed</strong> is enabled and the form has been fully submitted (not just opened).</td></tr>
+            <tr><td>Fields not showing in Mappable Answers</td><td>Use a <strong>grouped question</strong> in Typeform with separate fields for each piece of info. Individual questions will also work but may have less descriptive labels.</td></tr>
           </tbody>
         </table>
       </div>
