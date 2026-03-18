@@ -406,26 +406,19 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this scenario does:</strong> When a new lead submits a Google Ads Lead Form Extension, FullEnrich's <strong>Reverse Email Lookup</strong> API identifies the person behind the personal email and returns their full B2B profile, then sends the enriched data to Google Sheets. This uses <strong>two scenarios</strong> because the API is asynchronous — results are delivered via webhook.
+        <strong>What this scenario does:</strong> When a new lead submits a Google Ads Lead Form Extension (instant webhook trigger), FullEnrich's <strong>Reverse Email Lookup</strong> identifies the person behind the personal email and returns their full B2B profile. This scenario has <strong>2 modules</strong> — add a third to send the enriched data wherever you need.
       </div>
 
       <div class="callout callout-warning">
-        <strong>Why Reverse Email Lookup?</strong> Google Ads Lead Forms capture personal emails. The endpoint <code>POST /contact/reverse/email/bulk</code> takes a personal email and returns the full Person &amp; Company profile — work email, phone, LinkedIn, company, and job title. 1 credit per successful match.
+        <strong>Why Reverse Email Lookup?</strong> Google Ads Lead Forms capture personal emails (Gmail, Yahoo…). The Reverse Email Lookup (<code>POST /v1/contact/reverse/email/bulk</code>) takes that email and returns the full Person &amp; Company profile — work email, phone, LinkedIn, company, job title. 1 credit per successful match.
       </div>
 
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">Create Scenario B first — the webhook receiver</div>
+          <div class="step-title">Module 1 — Google Ads Lead Forms: Watch Lead Forms (instant)</div>
           <div class="step-desc">
-            Create a new scenario. Add the module <strong>Webhooks → Custom webhook</strong>. Click <strong>Add</strong> to create a new webhook and copy the <strong>webhook URL</strong> — you'll need it in Scenario A. Then add a second module: <strong>Google Sheets → Add a Row</strong>. Map the enrichment results:
-            <ul>
-              <li><strong>Work Email</strong> → <code>data[].contact.most_probable_email</code></li>
-              <li><strong>Phone</strong> → <code>data[].contact.most_probable_phone</code></li>
-              <li><strong>LinkedIn</strong> → <code>data[].contact.social_medias[].url</code></li>
-              <li><strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, <strong>Job Title</strong> → from the Person profile</li>
-            </ul>
-            Toggle this scenario <strong>ON</strong>.
+            Create a new scenario. Add the first module: search for <strong>Google Ads Lead Forms</strong> and select <strong>Watch Lead Forms</strong>. Connect your Google Ads account and create a webhook. This is an <strong>instant trigger</strong> — it fires immediately when a new lead submits the form. The output includes the lead's <code>email</code>, <code>first_name</code>, <code>last_name</code>, etc.
           </div>
         </div>
       </div>
@@ -433,9 +426,27 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Create Scenario A — Google Ads trigger + API call</div>
+          <div class="step-title">Module 2 — FullEnrich: Universal (Reverse Email Lookup)</div>
           <div class="step-desc">
-            Create another scenario. Add the first module: <strong>Google Ads → Watch Lead Form Submissions</strong>. Connect your Google Ads account and select the Campaign and Lead Form to monitor.
+            Click <strong>+</strong> and add the <strong>FullEnrich → Universal</strong> module. Connect your FullEnrich account. Configure:
+            <ul>
+              <li><strong>URL</strong>: <code>/v1/contact/reverse/email/bulk</code></li>
+              <li><strong>Method</strong>: <code>POST</code></li>
+              <li><strong>Headers</strong>: Key = <code>Content-Type</code>, Value = <code>application/json</code></li>
+              <li><strong>Body</strong> (JSON):
+<code>{
+  "name": "Google Ads Reverse Lookup",
+  "datas": [
+    {
+      "input": {
+        "email": "{{1.email}}"
+      }
+    }
+  ]
+}</code>
+              </li>
+            </ul>
+            <code>{{1.email}}</code> maps the lead's personal email from the Google Ads trigger. The FullEnrich connection handles authentication automatically.
           </div>
         </div>
       </div>
@@ -443,19 +454,15 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Add HTTP module — Reverse Email Lookup API call</div>
+          <div class="step-title">(Optional) Module 3 — Send enriched data to your destination</div>
           <div class="step-desc">
-            Add the module <strong>HTTP → Make a request</strong>. Configure:
+            The blueprint only contains the trigger + lookup. Add a third module to send the results where you need them — for example:
             <ul>
-              <li><strong>URL</strong>: <code>https://api.fullenrich.com/contact/reverse/email/bulk</code></li>
-              <li><strong>Method</strong>: <code>POST</code></li>
-              <li><strong>Headers</strong>: <code>Authorization: Bearer YOUR_API_KEY</code> and <code>Content-Type: application/json</code></li>
-              <li><strong>Body type</strong>: Raw → JSON</li>
-              <li><strong>Request content</strong>:<br>
-                <code>{"name": "Google Ads Reverse Lookup", "data": [{"email": "{{1.email}}"}], "webhook_url": "PASTE_SCENARIO_B_WEBHOOK_URL"}</code>
-              </li>
+              <li><strong>Google Sheets → Add a Row</strong></li>
+              <li><strong>HubSpot / Salesforce / Pipedrive → Create or Update Contact</strong></li>
+              <li><strong>Slack → Send a Message</strong></li>
             </ul>
-            Map <code>{{1.email}}</code> to the lead's personal email from the Google Ads module. Paste the webhook URL from Scenario B.
+            Map the enrichment results from Module 2: <code>most_probable_email</code>, <code>most_probable_phone</code>, <code>social_medias[].url</code>, plus person &amp; company profile fields.
           </div>
         </div>
       </div>
@@ -465,7 +472,7 @@
         <div class="step-content">
           <div class="step-title">Test and activate</div>
           <div class="step-desc">
-            <strong>Run once</strong> on Scenario A to send a test lookup. After a few seconds, Scenario B should receive the enriched results via webhook and add a row to Google Sheets. Once confirmed, toggle both scenarios <strong>ON</strong>.
+            Click <strong>Run once</strong>, then submit a test lead through your Google Ads Lead Form. Check that Module 2 returns the enriched B2B profile. Once confirmed, toggle the scenario <strong>ON</strong>. Since this is an instant trigger, it will fire immediately on every new lead.
           </div>
         </div>
       </div>
@@ -478,10 +485,10 @@
             <tr><th>Problem</th><th>Solution</th></tr>
           </thead>
           <tbody>
-            <tr><td>Scenario B never receives data</td><td>Make sure Scenario B is toggled <strong>ON</strong> and that the webhook URL is correctly pasted in Scenario A's HTTP module body.</td></tr>
-            <tr><td>401 error on HTTP module</td><td>Check the Authorization header format: <code>Bearer YOUR_API_KEY</code> (with the space).</td></tr>
-            <tr><td>No match found</td><td>Not all personal emails can be matched to a B2B profile. 1 credit is only charged when a match is found.</td></tr>
-            <tr><td>Google Sheets row incomplete</td><td>Check the field mappings in Scenario B. The webhook payload structure is <code>data[].contact.most_probable_email</code>, etc.</td></tr>
+            <tr><td>FullEnrich returns no match</td><td>Not all personal emails can be resolved to a B2B profile. 1 credit is only charged when a match is found.</td></tr>
+            <tr><td>Module 2 returns an error</td><td>Make sure the Body JSON is valid. The structure is <code>datas[].input.email</code> (not <code>data[].email</code>). Check that the URL is <code>/v1/contact/reverse/email/bulk</code>.</td></tr>
+            <tr><td>Scenario doesn't trigger</td><td>Ensure the webhook is properly created in the Google Ads Lead Forms module. New leads must be submitted after the scenario is activated.</td></tr>
+            <tr><td>Missing email in trigger output</td><td>Make sure your Google Ads Lead Form includes an email field and that the lead actually submitted an email address.</td></tr>
           </tbody>
         </table>
       </div>
