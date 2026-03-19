@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FullEnrich — MCP Recipes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-logo img {
+      height: 24px;
+    }
+    .header-divider {
+      width: 1px;
+      height: 24px;
+      background: #E9E9EB;
+    }
+    .header-nav {
+      font-size: 15px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .header-nav:hover { color: #6A49EC; background: #F8F6FF; }
+    .header-nav.active { color: #6A49EC; background: #EFEBFF; font-weight: 600; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 80px 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(149, 122, 255, 0.15) 0%, rgba(251, 248, 246, 0) 70%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #6A49EC, #3C04AA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #797783;
+      max-width: 620px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── Integration Grid ── */
+    .integrations-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .integration-card {
+      background: #fff;
+      border: 1px solid #E9E9EB;
+      border-radius: 14px;
+      padding: 24px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      cursor: default;
+    }
+
+    /* Logos row */
+    .integration-logos {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .integration-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid #F0F0F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .integration-logo img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+    .integration-plus {
+      font-size: 18px;
+      font-weight: 500;
+      color: #BCBBC3;
+    }
+
+    /* Card content */
+    .integration-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0C0A09;
+      line-height: 1.4;
+    }
+    .integration-apps {
+      font-size: 13px;
+      color: #797783;
+      font-weight: 500;
+    }
+
+    /* Card footer */
+    .integration-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid #F3F2EC;
+      margin-top: auto;
+    }
+    .integration-platforms {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .integration-platforms img {
+      height: 20px;
+      opacity: 0.3;
+    }
+    .integration-btn {
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #F3F2EC;
+      color: #797783;
+      border: none;
+      cursor: default;
+      pointer-events: none;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <a href="integrations.html" class="header-nav">Automation Templates</a>
+    <a href="mcp-recipes.html" class="header-nav active">MCP Recipes</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>FullEnrich <em>MCP Recipes</em></h1>
+    <p>Connect FullEnrich to your favorite tools via MCP — enrich, search, and send leads directly from Claude, ChatGPT, Gemini, or Manus.</p>
+  </section>
+
+  <!-- MCP Recipes Grid -->
+  <section class="integrations-grid">
+
+    <!-- MCP Recipe: Monday.com -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqIvjWjRTI1JvYoPEfUp3ielEzlFHcJGfSjg&s" alt="Monday.com"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send leads to Monday.com — without leaving your AI</div>
+      <div class="integration-apps">Monday.com + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Attio -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://media.licdn.com/dms/image/v2/C4D0BAQF16UXOMcHaCA/company-logo_200_200/company-logo_200_200/0/1670519496148/attio_logo?e=2147483647&v=beta&t=1Tgkqt6FWRN84JYVjo1GitVkZnUIe2cOX4x3syrRE-U" alt="Attio"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send leads to Attio — without leaving your AI</div>
+      <div class="integration-apps">Attio + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Google Sheets -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://mailmeteor.com/logos/assets/PNG/Google_Sheets_Logo_512px.png" alt="Google Sheets"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Enrich contacts & fill Google Sheets — without leaving your AI</div>
+      <div class="integration-apps">Google Sheets + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: HubSpot -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://www.svgrepo.com/show/331433/hubspot.svg" alt="HubSpot"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send leads to HubSpot — without leaving your AI</div>
+      <div class="integration-apps">HubSpot + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Gmail -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_512px.png" alt="Gmail"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send emails automatically — without leaving your AI</div>
+      <div class="integration-apps">Gmail + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Apify Actors -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://meta-q.cdn.bubble.io/f1753361645450x990193722678495400/Apify%20symbol%20colors.svg" alt="Apify"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Enrich leads & trigger 3000+ web scrapers for ultra-deep research — without leaving your AI</div>
+      <div class="integration-apps">Apify Actors MCP + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Puppeteer Browser -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://user-images.githubusercontent.com/10379601/29446482-04f7036a-841f-11e7-9872-91d1fc2ea683.png" alt="Puppeteer"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Enrich a lead & launch a full browser session to scrape their site live (pricing, news, job openings, tech stack) — without leaving your AI</div>
+      <div class="integration-apps">Puppeteer Browser MCP + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Gamma -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://cdn.cookielaw.org/logos/07b50054-e4c2-4522-85d0-3a9eb5554cee/0196365b-37ae-7db3-b0f6-81a69f12e211/bdc1a59a-0c7a-47c1-bcb5-05dfcebd5267/gamma-logo-duotone.png" alt="Gamma"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Create a deck based on a website domain & enrich the right target to send it to — without leaving your AI</div>
+      <div class="integration-apps">Gamma + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Outlook / Microsoft 365 -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg/960px-Microsoft_Outlook_Icon_%282025%E2%80%93present%29.svg.png" alt="Outlook"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send emails — without leaving your AI</div>
+      <div class="integration-apps">Outlook / Microsoft 365 MCP + FullEnrich</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/ChatGPT-Logo.svg/960px-ChatGPT-Logo.svg.png" alt="ChatGPT">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/dark/gemini-color.png" alt="Gemini">
+          <img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-png/light/manus.png" alt="Manus">
+        </div>
+        <span class="integration-btn">Coming soon</span>
+      </div>
+    </div>
+
+  </section>
+
+</body>
+</html>
