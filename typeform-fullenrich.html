@@ -205,6 +205,7 @@
     }
     .get-template-btn:hover { background: #5838C9; }
     .get-template-btn img { height: 18px; }
+    button.get-template-btn { font-family: inherit; border: none; cursor: pointer; }
 
     .callout-warning {
       background: #FFF8ED;
@@ -275,10 +276,10 @@
 
   <!-- Platform Tabs -->
   <div class="platform-tabs">
-    <button class="platform-tab active" onclick="switchTab('zapier')">
+    <button class="platform-tab" onclick="switchTab('zapier')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier"> Zapier
     </button>
-    <button class="platform-tab" onclick="switchTab('make')">
+    <button class="platform-tab active" onclick="switchTab('make')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make"> Make
     </button>
     <button class="platform-tab" onclick="switchTab('n8n')">
@@ -287,96 +288,16 @@
   </div>
 
   <!-- ==================== ZAPIER ==================== -->
-  <div class="tab-content active" id="tab-zapier">
+  <div class="tab-content" id="tab-zapier">
     <div class="steps-container">
-
       <div class="callout">
-        <strong>What this Zap does:</strong> When someone submits your Typeform, FullEnrich looks up the respondent's verified B2B email and phone number using their name and company, then adds the enriched data to a Google Sheets spreadsheet.
+        <strong>Zapier template coming soon.</strong> In the meantime, you can use the Make or n8n template to set up this automation.
       </div>
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <div class="step-title">Create a new Zap</div>
-          <div class="step-desc">
-            Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong>. For the trigger, search for <strong>Typeform</strong> and select <strong>New Entry</strong>. Connect your Typeform account and select the form you want to use. Make sure your form collects <strong>First Name</strong>, <strong>Last Name</strong>, and <strong>Company</strong>.
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <div class="step-title">Test the trigger</div>
-          <div class="step-desc">
-            Click <strong>Test trigger</strong>. Zapier will pull a recent Typeform response. Make sure the First Name, Last Name, and Company fields appear in the test data.
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <div class="step-title">Add FullEnrich</div>
-          <div class="step-desc">
-            Add a new action step and search for <strong>FullEnrich</strong>. Select the action <strong>Enrich Contact</strong>. Connect your FullEnrich account using your API key. Then map the fields:
-            <ul>
-              <li><strong>First Name</strong> → Typeform's First Name answer</li>
-              <li><strong>Last Name</strong> → Typeform's Last Name answer</li>
-              <li><strong>Company Name</strong> → Typeform's Company answer</li>
-              <li><strong>Company Domain</strong> → Typeform's Website answer (if collected)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <div class="step-title">Add a row to Google Sheets</div>
-          <div class="step-desc">
-            Add another action step: <strong>Google Sheets → Create Spreadsheet Row</strong>. Select your spreadsheet and worksheet. Map the columns:
-            <ul>
-              <li><strong>First Name</strong> → Typeform answer</li>
-              <li><strong>Last Name</strong> → Typeform answer</li>
-              <li><strong>Company</strong> → Typeform answer</li>
-              <li><strong>B2B Email</strong> → Most Probable Email (from FullEnrich)</li>
-              <li><strong>Phone</strong> → Most Probable Phone (from FullEnrich)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <div class="step-content">
-          <div class="step-title">Test and publish</div>
-          <div class="step-desc">
-            Test the full Zap, then click <strong>Publish</strong>. Every new Typeform submission will now be automatically enriched with verified B2B contact data and logged in Google Sheets.
-          </div>
-        </div>
-      </div>
-
-      <!-- Troubleshooting -->
-      <div class="troubleshooting">
-        <h3>Troubleshooting</h3>
-        <table>
-          <thead>
-            <tr><th>Problem</th><th>Solution</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped correctly. Adding the company website/domain improves match rates.</td></tr>
-            <tr><td>Wrong Typeform fields appear</td><td>Ensure your form has separate questions for First Name, Last Name, and Company. A single "Full Name" field won't map correctly.</td></tr>
-            <tr><td>Google Sheets row is incomplete</td><td>Check that the spreadsheet columns match the mapped fields. Create headers in the first row before testing.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
     </div>
   </div>
 
   <!-- ==================== MAKE ==================== -->
-  <div class="tab-content" id="tab-make">
+  <div class="tab-content active" id="tab-make">
     <div class="steps-container">
 
       <div class="callout">
@@ -465,11 +386,10 @@
       <div class="callout">
         <strong>What this workflow does:</strong> When someone submits your Typeform, FullEnrich enriches the respondent with verified B2B email and phone number. The callback webhook receives the results — you can then add your own destination node (Google Sheets, CRM, etc.) to store the enriched data. Uses <strong>two parallel flows</strong> because FullEnrich works asynchronously.<br><br>
         <strong>Top flow (2 nodes):</strong> Typeform Trigger (instant) → Start enrichment (FullEnrich)<br>
-        <strong>Bottom flow (1 node + your destination):</strong> FullEnrich Callback → <em>add your destination node here</em>
-      </div>
-
-      <div class="callout callout-warning">
-        <strong>Why two flows?</strong> FullEnrich enrichment takes a few seconds. Instead of waiting, FullEnrich sends the results to a webhook when ready. The top flow sends the request; the bottom flow receives and processes the results.
+        <strong>Bottom flow (1 node + your destination):</strong> FullEnrich Callback → <em>add your destination node here</em><br><br>
+        <button onclick="copyN8nTemplateUrl()" class="get-template-btn" id="copy-n8n-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n"> Copy Template URL
+        </button>
       </div>
 
       <div class="callout callout-warning">
@@ -479,9 +399,10 @@
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">Typeform Trigger (instant)</div>
+          <div class="step-title">Import the workflow</div>
           <div class="step-desc">
-            Create a new workflow in n8n. Add a <strong>Typeform Trigger</strong> node. Connect your Typeform account and select the form you want to watch. This node fires <strong>instantly</strong> via webhook when a new response is submitted.
+            Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow → ⋯ (three-dot menu) → Import from URL</strong> and paste the URL.
+            <img src="n8ndemo.gif" alt="How to import a workflow in n8n" style="margin-top:12px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
           </div>
         </div>
       </div>
@@ -489,17 +410,9 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Start enrichment (FullEnrich)</div>
+          <div class="step-title">Typeform Trigger (instant)</div>
           <div class="step-desc">
-            Add a <strong>FullEnrich</strong> node after the Typeform trigger. Connect your API key and map the fields:
-            <ul>
-              <li><strong>Enrichment Name</strong> → <code>Typeform</code></li>
-              <li><strong>First Name</strong> → <code>{{ $json["First name"] }}</code></li>
-              <li><strong>Last Name</strong> → <code>{{ $json["Last name"] }}</code></li>
-              <li><strong>Company Name</strong> → <code>{{ $json.Company }}</code></li>
-              <li><strong>Company Domain</strong> → <code>{{ $json["Website URL"] }}</code></li>
-              <li><strong>Webhook URL</strong> → production URL of the callback webhook (Step 3)</li>
-            </ul>
+            Open the <strong>Typeform Trigger</strong> node. Connect your Typeform account and select the form you want to watch. This node fires <strong>instantly</strong> via webhook when a new response is submitted.
           </div>
         </div>
       </div>
@@ -507,9 +420,27 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
+          <div class="step-title">Start enrichment (FullEnrich)</div>
+          <div class="step-desc">
+            Open the <strong>FullEnrich</strong> node. Connect your API key and map the fields:
+            <ul>
+              <li><strong>Enrichment Name</strong> → <code>Typeform</code></li>
+              <li><strong>First Name</strong> → <code>{{ $json["First name"] }}</code></li>
+              <li><strong>Last Name</strong> → <code>{{ $json["Last name"] }}</code></li>
+              <li><strong>Company Name</strong> → <code>{{ $json.Company }}</code></li>
+              <li><strong>Company Domain</strong> → <code>{{ $json["Website URL"] }}</code></li>
+              <li><strong>Webhook URL</strong> → production URL of the callback webhook (Step 4)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
           <div class="step-title">FullEnrich Callback (bottom flow)</div>
           <div class="step-desc">
-            Add a <strong>Webhook</strong> node (this starts the bottom flow). Set the HTTP method to <strong>POST</strong> and the path to <code>fullenrich-callback</code>. Copy this node's <strong>production URL</strong> and paste it in the FullEnrich node's Webhook URL field (Step 2). The enriched data will arrive at:
+            Open the <strong>Webhook</strong> node (bottom flow). The HTTP method is set to <strong>POST</strong> and the path to <code>fullenrich-callback</code>. Copy this node's <strong>production URL</strong> and paste it in the FullEnrich node's Webhook URL field (Step 3). The enriched data will arrive at:
             <ul>
               <li><strong>B2B Email</strong> → <code>{{ $json.body.datas[0].contact.most_probable_email }}</code></li>
               <li><strong>Phone</strong> → <code>{{ $json.body.datas[0].contact.most_probable_phone }}</code></li>
@@ -519,7 +450,7 @@
       </div>
 
       <div class="step">
-        <div class="step-number">4</div>
+        <div class="step-number">5</div>
         <div class="step-content">
           <div class="step-title">(Optional) Add a destination node</div>
           <div class="step-desc">
@@ -534,7 +465,7 @@
       </div>
 
       <div class="step">
-        <div class="step-number">5</div>
+        <div class="step-number">6</div>
         <div class="step-content">
           <div class="step-title">Test and activate</div>
           <div class="step-desc">
@@ -567,6 +498,17 @@
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       event.currentTarget.classList.add('active');
       document.getElementById('tab-' + platform).classList.add('active');
+    }
+
+    function copyN8nTemplateUrl() {
+      const url = 'https://gist.github.com/ToolMonsters/3af5e84da0819a2ce22475c3304ea6d2/raw';
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-n8n-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n"> Copied!';
+        btn.style.background = '#22c55e';
+        setTimeout(() => { btn.innerHTML = originalText; btn.style.background = ''; }, 2000);
+      });
     }
   </script>
 

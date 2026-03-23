@@ -205,6 +205,7 @@
     }
     .get-template-btn:hover { background: #5838C9; }
     .get-template-btn img { height: 18px; }
+    button.get-template-btn { font-family: inherit; border: none; cursor: pointer; }
 
     .callout-warning {
       background: #FFF8ED;
@@ -265,7 +266,7 @@
   <!-- Detail Hero -->
   <section class="detail-hero">
     <div class="detail-logos">
-      <div class="detail-logo"><img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/meta-icon.png" alt="Facebook Lead Ads"></div>
+      <div class="detail-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/960px-2023_Facebook_icon.svg.png" alt="Facebook Lead Ads"></div>
       <span class="detail-plus">+</span>
       <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
     </div>
@@ -275,10 +276,10 @@
 
   <!-- Platform Tabs -->
   <div class="platform-tabs">
-    <button class="platform-tab active" onclick="switchTab('zapier')">
+    <button class="platform-tab" onclick="switchTab('zapier')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier"> Zapier
     </button>
-    <button class="platform-tab" onclick="switchTab('make')">
+    <button class="platform-tab active" onclick="switchTab('make')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make"> Make
     </button>
     <button class="platform-tab" onclick="switchTab('n8n')">
@@ -287,23 +288,37 @@
   </div>
 
   <!-- ==================== ZAPIER ==================== -->
-  <div class="tab-content active" id="tab-zapier">
+  <div class="tab-content" id="tab-zapier">
+    <div class="steps-container">
+      <div class="callout">
+        <strong>Zapier template coming soon.</strong> In the meantime, you can use the Make or n8n template to set up this automation.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MAKE ==================== -->
+  <div class="tab-content active" id="tab-make">
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this Zap does:</strong> When a new lead is captured by a Facebook Lead Ad, FullEnrich's <strong>Reverse Email Lookup</strong> API identifies the person behind the personal email and returns their full B2B profile (work email, phone, company, job title, LinkedIn), then sends the enriched data to Google Sheets.
+        <strong>What this scenario does:</strong> When a new lead is captured by a Facebook Lead Ad, the scenario filters out personal emails (Gmail, Yahoo, Hotmail…) and sends them to FullEnrich's <strong>Universal Reverse Email Lookup</strong> to get the full B2B profile — work email, phone, LinkedIn, company, and job title.
+        <br><br>
+        <a href="#" class="get-template-btn" onclick="downloadMakeTemplate(); return false;">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
+          Get Template
+        </a>
       </div>
 
       <div class="callout callout-warning">
-        <strong>Why Reverse Email Lookup?</strong> Facebook Lead Ads typically capture personal emails (Gmail, Yahoo, etc.). The Reverse Email Lookup endpoint (<code>POST /contact/reverse/email/bulk</code>) takes a personal email and returns the full Person &amp; Company profile — work email, direct phone, LinkedIn, company name, and job title. 1 credit is used per successful match.
+        <strong>Why Reverse Email Lookup?</strong> Facebook Lead Ads capture personal emails. The FullEnrich <strong>Universal</strong> module takes a personal email and returns the full Person &amp; Company profile — work email, phone, LinkedIn, company, and job title. 1 credit per successful match.
       </div>
 
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">Create a new Zap — Facebook Lead Ads trigger</div>
+          <div class="step-title">Import the template into Make</div>
           <div class="step-desc">
-            Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong>. For the trigger, search for <strong>Facebook Lead Ads</strong> and select the event <strong>New Lead</strong>. Connect your Facebook account. Select the <strong>Page</strong> and <strong>Form</strong> you want to capture leads from. Click <strong>Test trigger</strong> and make sure you can see the lead's <strong>Email</strong> field.
+            Click <strong>Get Template</strong> above to download the <code>.json</code> blueprint. In Make, go to <strong>Scenarios → Import Blueprint</strong> and upload the file. The scenario will be created with all modules and filters pre-configured.
           </div>
         </div>
       </div>
@@ -311,19 +326,9 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Add Webhooks by Zapier — call the Reverse Email Lookup API</div>
+          <div class="step-title">Connect your Facebook Lead Ads account</div>
           <div class="step-desc">
-            Add an action step: <strong>Webhooks by Zapier → Custom Request</strong>. Configure:
-            <ul>
-              <li><strong>Method</strong>: <code>POST</code></li>
-              <li><strong>URL</strong>: <code>https://api.fullenrich.com/contact/reverse/email/bulk</code></li>
-              <li><strong>Headers</strong>: <code>Authorization: Bearer YOUR_API_KEY</code> and <code>Content-Type: application/json</code></li>
-              <li><strong>Body</strong>:
-                <code>{"name": "Facebook Ads Reverse Lookup", "data": [{"email": "{{lead email}}"}]}</code>
-                — map the lead's personal email from Step 1.
-              </li>
-            </ul>
-            The API returns an <code>enrichment_id</code>. FullEnrich processes the lookup asynchronously.
+            Open the first module (<strong>Facebook Lead Ads → Watch Leads</strong>). Click <strong>Add</strong> to connect your Facebook account. Then select the <strong>Page</strong> and <strong>Lead Form</strong> you want to monitor. This is an instant trigger — it fires every time a new lead is submitted.
           </div>
         </div>
       </div>
@@ -331,9 +336,9 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Add a Delay step</div>
+          <div class="step-title">Configure your FullEnrich API key</div>
           <div class="step-desc">
-            Add <strong>Delay by Zapier → Delay For</strong> and set it to <strong>1 minute</strong>. This gives FullEnrich time to complete the reverse lookup before you fetch the results.
+            Open the second module (<strong>FullEnrich → Universal</strong>). Click <strong>Add</strong> to create a new FullEnrich connection and paste your <strong>API key</strong>. You can find your API key at <code>app.fullenrich.com → Settings → API</code>.
           </div>
         </div>
       </div>
@@ -341,16 +346,9 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Fetch the enrichment results</div>
+          <div class="step-title">Review the personal email filter</div>
           <div class="step-desc">
-            Add another <strong>Webhooks by Zapier → Custom Request</strong>:
-            <ul>
-              <li><strong>Method</strong>: <code>GET</code></li>
-              <li><strong>URL</strong>: <code>https://api.fullenrich.com/contact/reverse/email/bulk/{{enrichment_id}}</code>
-                — map the <code>enrichment_id</code> from Step 2's response.</li>
-              <li><strong>Headers</strong>: <code>Authorization: Bearer YOUR_API_KEY</code></li>
-            </ul>
-            The response contains the enriched Person &amp; Company data for each email.
+            Between the two modules, a <strong>filter</strong> is pre-configured to only pass leads with personal email domains (Gmail, Yahoo, Hotmail, Outlook, iCloud, etc.). This ensures you only use Reverse Email Lookup credits on personal emails. You can adjust the filter pattern if needed.
           </div>
         </div>
       </div>
@@ -358,16 +356,16 @@
       <div class="step">
         <div class="step-number">5</div>
         <div class="step-content">
-          <div class="step-title">Send enriched data to Google Sheets</div>
+          <div class="step-title">Add a 3rd module for your CRM or destination</div>
           <div class="step-desc">
-            Add <strong>Google Sheets → Create Spreadsheet Row</strong>. Map the columns from the enrichment result:
+            After the FullEnrich module, add a new module to send the enriched data to your destination:
             <ul>
-              <li><strong>Personal Email</strong> → Lead's Email (from Facebook)</li>
-              <li><strong>Work Email</strong> → <code>data[0].contact.most_probable_email</code></li>
-              <li><strong>Phone</strong> → <code>data[0].contact.most_probable_phone</code></li>
-              <li><strong>LinkedIn</strong> → <code>data[0].contact.social_medias[0].url</code></li>
-              <li><strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, <strong>Job Title</strong> → from the Person profile in the response</li>
+              <li><strong>Google Sheets</strong> → Append a row with work email, phone, LinkedIn, company, job title</li>
+              <li><strong>HubSpot</strong> → Create or update a contact</li>
+              <li><strong>Salesforce</strong> → Create a lead</li>
+              <li>Or any other CRM / tool available in Make</li>
             </ul>
+            Map the enriched fields from the FullEnrich module output.
           </div>
         </div>
       </div>
@@ -375,97 +373,9 @@
       <div class="step">
         <div class="step-number">6</div>
         <div class="step-content">
-          <div class="step-title">Test and publish</div>
-          <div class="step-desc">
-            Test the full Zap, then click <strong>Publish</strong>. Every new Facebook Lead Ad submission will be automatically reverse-looked-up and enriched with B2B contact data.
-          </div>
-        </div>
-      </div>
-
-      <!-- Troubleshooting -->
-      <div class="troubleshooting">
-        <h3>Troubleshooting</h3>
-        <table>
-          <thead>
-            <tr><th>Problem</th><th>Solution</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Enrichment status is not <code>FINISHED</code></td><td>Increase the Delay step to 2 minutes. Some lookups take longer depending on the email provider.</td></tr>
-            <tr><td>FullEnrich returns no match</td><td>Not all personal emails can be matched to a B2B profile. This is normal — 1 credit is only used when a match is found.</td></tr>
-            <tr><td>401 Unauthorized</td><td>Check that your API key is correct in the Authorization header: <code>Bearer YOUR_API_KEY</code> (with the space after Bearer).</td></tr>
-            <tr><td>Zap doesn't trigger</td><td>Ensure the trigger is set to <strong>New Lead</strong> and that you selected the correct Facebook Page and Lead Form. Verify your Facebook account permissions.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ==================== MAKE ==================== -->
-  <div class="tab-content" id="tab-make">
-    <div class="steps-container">
-
-      <div class="callout">
-        <strong>What this scenario does:</strong> When a new lead is captured by a Facebook Lead Ad, FullEnrich's <strong>Reverse Email Lookup</strong> API identifies the person behind the personal email and returns their full B2B profile, then sends the enriched data to Google Sheets. This uses <strong>two scenarios</strong> because the API is asynchronous — results are delivered via webhook.
-      </div>
-
-      <div class="callout callout-warning">
-        <strong>Why Reverse Email Lookup?</strong> Facebook Lead Ads capture personal emails. The endpoint <code>POST /contact/reverse/email/bulk</code> takes a personal email and returns the full Person &amp; Company profile — work email, phone, LinkedIn, company, and job title. 1 credit per successful match.
-      </div>
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <div class="step-title">Create Scenario B first — the webhook receiver</div>
-          <div class="step-desc">
-            Create a new scenario. Add the module <strong>Webhooks → Custom webhook</strong>. Click <strong>Add</strong> to create a new webhook and copy the <strong>webhook URL</strong> — you'll need it in Scenario A. Then add a second module: <strong>Google Sheets → Add a Row</strong>. Map the enrichment results:
-            <ul>
-              <li><strong>Work Email</strong> → <code>data[].contact.most_probable_email</code></li>
-              <li><strong>Phone</strong> → <code>data[].contact.most_probable_phone</code></li>
-              <li><strong>LinkedIn</strong> → <code>data[].contact.social_medias[].url</code></li>
-              <li><strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, <strong>Job Title</strong> → from the Person profile</li>
-            </ul>
-            Toggle this scenario <strong>ON</strong>.
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <div class="step-title">Create Scenario A — Facebook Lead Ads trigger + API call</div>
-          <div class="step-desc">
-            Create another scenario. Add the first module: <strong>Facebook Lead Ads → Watch Leads</strong>. Connect your Facebook account and select the Page and Form to monitor. This is an instant trigger that fires when a new lead is submitted.
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <div class="step-title">Add HTTP module — Reverse Email Lookup API call</div>
-          <div class="step-desc">
-            Add the module <strong>HTTP → Make a request</strong>. Configure:
-            <ul>
-              <li><strong>URL</strong>: <code>https://api.fullenrich.com/contact/reverse/email/bulk</code></li>
-              <li><strong>Method</strong>: <code>POST</code></li>
-              <li><strong>Headers</strong>: <code>Authorization: Bearer YOUR_API_KEY</code> and <code>Content-Type: application/json</code></li>
-              <li><strong>Body type</strong>: Raw → JSON</li>
-              <li><strong>Request content</strong>:<br>
-                <code>{"name": "Facebook Ads Reverse Lookup", "data": [{"email": "{{1.email}}"}], "webhook_url": "PASTE_SCENARIO_B_WEBHOOK_URL"}</code>
-              </li>
-            </ul>
-            Map <code>{{1.email}}</code> to the lead's personal email from the Facebook Lead Ads module. Paste the webhook URL from Scenario B.
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <div class="step-content">
           <div class="step-title">Test and activate</div>
           <div class="step-desc">
-            <strong>Run once</strong> on Scenario A to send a test lookup. After a few seconds, Scenario B should receive the enriched results via webhook and add a row to Google Sheets. Once confirmed, toggle both scenarios <strong>ON</strong>.
+            Click <strong>Run once</strong>, then submit a test lead via your Facebook Lead Ad form. Verify that the personal email is filtered, sent to FullEnrich, and the enriched B2B data reaches your destination. Once confirmed, toggle the scenario <strong>ON</strong>.
           </div>
         </div>
       </div>
@@ -478,10 +388,10 @@
             <tr><th>Problem</th><th>Solution</th></tr>
           </thead>
           <tbody>
-            <tr><td>Scenario B never receives data</td><td>Make sure Scenario B is toggled <strong>ON</strong> and that the webhook URL is correctly pasted in Scenario A's HTTP module body.</td></tr>
-            <tr><td>401 error on HTTP module</td><td>Check the Authorization header format: <code>Bearer YOUR_API_KEY</code> (with the space).</td></tr>
+            <tr><td>Filter blocks all leads</td><td>The filter only passes personal email domains. If your leads use work emails, adjust or remove the filter.</td></tr>
+            <tr><td>FullEnrich module returns error</td><td>Check that your API key is correctly configured in the FullEnrich connection settings.</td></tr>
             <tr><td>No match found</td><td>Not all personal emails can be matched to a B2B profile. 1 credit is only charged when a match is found.</td></tr>
-            <tr><td>Google Sheets row incomplete</td><td>Check the field mappings in Scenario B. The webhook payload structure is <code>data[].contact.most_probable_email</code>, etc.</td></tr>
+            <tr><td>Facebook trigger not firing</td><td>Verify your Facebook account connection and that you selected the correct Page and Lead Form. Submit a test lead from Facebook Ads Manager.</td></tr>
           </tbody>
         </table>
       </div>
@@ -494,19 +404,20 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this workflow does:</strong> When a new lead is captured by a Facebook Lead Ad, an HTTP Request calls FullEnrich's <strong>Reverse Email Lookup</strong> API with the lead's personal email. When the lookup is complete, FullEnrich sends the enriched B2B profile (work email, phone, LinkedIn, company, job title) to a webhook, which then writes the data to Google Sheets.
-      </div>
-
-      <div class="callout callout-warning">
-        <strong>Why two flows?</strong> The Reverse Email Lookup API (<code>POST /contact/reverse/email/bulk</code>) is asynchronous. You send the email, and FullEnrich delivers the results to your webhook when ready. The top flow sends the request; the bottom flow receives and processes the results.
+        <strong>What this workflow does:</strong> When a new lead is captured by a Facebook Lead Ad, the workflow filters personal emails (Gmail, Yahoo, Hotmail…) and sends them to FullEnrich's <strong>Reverse Email Lookup</strong> API. When the lookup is complete, FullEnrich sends the enriched B2B profile to a callback webhook where you can connect your CRM.
+        <br><br>
+        <button onclick="copyN8nTemplateUrl()" class="get-template-btn" id="copy-n8n-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n"> Copy Template URL
+        </button>
       </div>
 
       <div class="step">
         <div class="step-number">1</div>
         <div class="step-content">
-          <div class="step-title">Create the top flow — Facebook Lead Ads trigger</div>
+          <div class="step-title">Import the workflow</div>
           <div class="step-desc">
-            Create a new workflow in n8n. Add a <strong>Facebook Lead Ads Trigger</strong> node (or use a <strong>Webhook</strong> node that Facebook posts to). Connect your Facebook account and select the <strong>Page</strong> and <strong>Form</strong> you want to monitor for new leads.
+            Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow → ⋯ (three-dot menu) → Import from URL</strong> and paste the URL. The workflow includes both flows, the personal email filter, and sticky notes with setup instructions.
+            <img src="n8ndemo.gif" alt="How to import a workflow in n8n" style="margin-top:12px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
           </div>
         </div>
       </div>
@@ -514,18 +425,9 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Add HTTP Request — Reverse Email Lookup</div>
+          <div class="step-title">Configure your FullEnrich API key</div>
           <div class="step-desc">
-            After the trigger, add an <strong>HTTP Request</strong> node:
-            <ul>
-              <li><strong>Method</strong>: <code>POST</code></li>
-              <li><strong>URL</strong>: <code>https://api.fullenrich.com/contact/reverse/email/bulk</code></li>
-              <li><strong>Authentication</strong>: Generic Credential Type → Header Auth → Name: <code>Authorization</code>, Value: <code>Bearer YOUR_API_KEY</code></li>
-              <li><strong>Body (JSON)</strong>:<br>
-                <code>{"name": "Facebook Ads Reverse Lookup", "data": [{"email": "{{ $json.email }}"}], "webhook_url": "YOUR_WEBHOOK_PRODUCTION_URL"}</code>
-              </li>
-            </ul>
-            Map <code>{{ $json.email }}</code> to the lead's personal email from the trigger. The <code>webhook_url</code> points to the Webhook node in Step 3.
+            Open the <strong>FullEnrich - Reverse Email Lookup</strong> node. Under Authentication, select <strong>Generic Credential Type → Header Auth</strong>. Create a credential with header name <code>Authorization</code> and value <code>Bearer YOUR_API_KEY</code>. You can find your API key at <code>app.fullenrich.com → Settings → API</code>.
           </div>
         </div>
       </div>
@@ -533,14 +435,9 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Create the bottom flow — Webhook receiver</div>
+          <div class="step-title">Activate and copy the callback webhook URL</div>
           <div class="step-desc">
-            Add a <strong>Webhook</strong> node (this starts a separate flow). Set:
-            <ul>
-              <li><strong>HTTP Method</strong>: <code>POST</code></li>
-              <li><strong>Path</strong>: <code>fb-lead-reverse-lookup</code></li>
-            </ul>
-            Copy the <strong>production URL</strong> and paste it as the <code>webhook_url</code> in Step 2's HTTP Request body. When FullEnrich finishes the reverse lookup, it sends the results here.
+            Toggle the workflow to <strong>Active</strong>. Then open the <strong>FullEnrich Callback Webhook</strong> node (bottom flow) and copy its <strong>production URL</strong>. Open the <strong>FullEnrich - Reverse Email Lookup</strong> node and replace <code>YOUR_PRODUCTION_CALLBACK_WEBHOOK_URL</code> in the request body with this URL.
           </div>
         </div>
       </div>
@@ -548,15 +445,9 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Send enriched data to Google Sheets</div>
+          <div class="step-title">Set up the Facebook Lead Ads webhook</div>
           <div class="step-desc">
-            After the Webhook node, add a <strong>Google Sheets</strong> node set to <strong>Append Row</strong>. Map the fields from the webhook payload:
-            <ul>
-              <li><strong>Work Email</strong> → <code>{{ $json.body.data[0].contact.most_probable_email }}</code></li>
-              <li><strong>Phone</strong> → <code>{{ $json.body.data[0].contact.most_probable_phone }}</code></li>
-              <li><strong>LinkedIn</strong> → <code>{{ $json.body.data[0].contact.social_medias[0].url }}</code></li>
-              <li><strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, <strong>Job Title</strong> → from the Person &amp; Company profile in <code>data[0]</code></li>
-            </ul>
+            Copy the <strong>production URL</strong> from the <strong>Facebook Lead Ads Webhook</strong> node (top flow). In your Facebook Ads Manager, go to your Lead Form settings and configure the webhook to POST to this URL. The payload must include an <code>email</code> field.
           </div>
         </div>
       </div>
@@ -564,9 +455,25 @@
       <div class="step">
         <div class="step-number">5</div>
         <div class="step-content">
-          <div class="step-title">Test and activate</div>
+          <div class="step-title">Connect your CRM after the callback</div>
           <div class="step-desc">
-            Click <strong>Test workflow</strong>, then submit a test lead via your Facebook Lead Ad form. The HTTP Request sends the personal email to FullEnrich, and after a few seconds the webhook receives the enriched B2B profile. Check your Google Sheet for the new row. Toggle the workflow to <strong>Active</strong> and make sure the webhook uses the <strong>production URL</strong>.
+            After the <strong>FullEnrich Callback Webhook</strong> node, add a node to send the enriched data to your destination:
+            <ul>
+              <li><strong>Google Sheets</strong> → Append a row with work email, phone, LinkedIn, company, job title</li>
+              <li><strong>HubSpot</strong> → Create or update a contact</li>
+              <li><strong>Salesforce</strong> → Create a lead</li>
+              <li>Or any other CRM / tool available in n8n</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Test and go live</div>
+          <div class="step-desc">
+            Submit a test lead via your Facebook Lead Ad form. The top flow filters the personal email, sends it to FullEnrich, and after a few seconds the callback webhook receives the enriched B2B profile. Verify the data reaches your CRM. Make sure both webhook nodes use their <strong>production URLs</strong>.
           </div>
         </div>
       </div>
@@ -579,11 +486,11 @@
             <tr><th>Problem</th><th>Solution</th></tr>
           </thead>
           <tbody>
-            <tr><td>Webhook never receives data</td><td>Make sure you're using the <strong>production</strong> URL (not <code>webhook-test</code>) and the workflow is <strong>Active</strong>.</td></tr>
-            <tr><td>401 error on HTTP Request</td><td>Check the Authorization header: <code>Bearer YOUR_API_KEY</code>. Make sure the API key is valid.</td></tr>
+            <tr><td>Callback webhook never receives data</td><td>Make sure you replaced <code>YOUR_PRODUCTION_CALLBACK_WEBHOOK_URL</code> with the actual production URL and the workflow is <strong>Active</strong>.</td></tr>
+            <tr><td>Filter skips all leads</td><td>The Code node only passes personal email domains (Gmail, Yahoo, etc.). If your leads use work emails, adjust the filter logic.</td></tr>
+            <tr><td>401 error on HTTP Request</td><td>Check the Header Auth credential: name <code>Authorization</code>, value <code>Bearer YOUR_API_KEY</code>.</td></tr>
             <tr><td>No match found for email</td><td>Not all personal emails can be resolved to a B2B profile. 1 credit is only used when a match is found.</td></tr>
-            <tr><td>Google Sheets row incomplete</td><td>Verify the field paths in the Google Sheets mapping. The webhook payload structure is <code>body.data[0].contact.*</code>.</td></tr>
-            <tr><td>Facebook trigger not firing</td><td>Verify your Facebook app permissions and page/form selection. Submit a test lead from Facebook Ads Manager to confirm.</td></tr>
+            <tr><td>Facebook webhook not firing</td><td>Verify you're using the <strong>production URL</strong> (not <code>webhook-test</code>) and that Facebook is configured to POST to it.</td></tr>
           </tbody>
         </table>
       </div>
@@ -597,6 +504,30 @@
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       event.currentTarget.classList.add('active');
       document.getElementById('tab-' + platform).classList.add('active');
+    }
+
+    function copyN8nTemplateUrl() {
+      const url = 'https://gist.github.com/ToolMonsters/e932dee188a72f2cbc92d6965ab92bd2/raw';
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-n8n-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n"> Copied!';
+        btn.style.background = '#22c55e';
+        setTimeout(() => { btn.innerHTML = originalText; btn.style.background = ''; }, 2000);
+      });
+    }
+
+    function downloadMakeTemplate() {
+      const blueprint = {"name":"Reverse Email Lookup for Facebook Ads leads","flow":[{"id":2,"module":"facebook-lead-ads:WatchLeads","version":3,"parameters":{"__IMTCONN__":420024},"filter":{"name":"Only personal emails","conditions":[[{"a":"{{2.email}}","b":"@(gmail|yahoo|hotmail|outlook|icloud|live|msn|aol|protonmail|gmx)\\.","o":"pattern"}]]},"mapper":{"page":"","form":""},"metadata":{"designer":{"x":0,"y":0},"restore":{"parameters":{"__IMTCONN__":{"data":{"scoped":"true","connection":"facebook-lead-ads"},"label":"My Facebook Lead Ads connection"}}},"expect":[{"name":"page","type":"select","label":"Page"},{"name":"form","type":"select","label":"Form"}]}},{"id":3,"module":"fullenrich:universal","version":1,"parameters":{"__IMTCONN__":420025},"mapper":{"email":"{{2.email}}"},"metadata":{"designer":{"x":300,"y":0},"restore":{"parameters":{"__IMTCONN__":{"data":{"scoped":"true","connection":"fullenrich"},"label":"My FullEnrich connection"}}},"expect":[{"name":"email","type":"text","label":"Email","required":true}]}}],"metadata":{"instant":true,"version":1,"scenario":{"roundtrips":1,"maxErrors":3,"autoCommit":true,"autoCommitTriggerLast":true,"sequential":false,"slots":null,"confidential":false,"dataloss":false,"dlq":false,"freshVariables":false}}};
+      const blob = new Blob([JSON.stringify(blueprint, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'fullenrich-facebook-ads-reverse-lookup-make.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   </script>
 

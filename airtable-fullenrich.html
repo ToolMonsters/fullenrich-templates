@@ -210,9 +210,12 @@
       padding: 10px 22px;
       background: #6A49EC;
       color: #fff;
+      font-family: inherit;
       font-size: 14px;
       font-weight: 600;
+      border: none;
       border-radius: 9999px;
+      cursor: pointer;
       text-decoration: none;
       transition: background 0.2s;
     }
@@ -288,10 +291,10 @@
 
   <!-- Platform Tabs -->
   <div class="platform-tabs">
-    <button class="platform-tab active" onclick="switchTab('zapier')">
+    <button class="platform-tab" onclick="switchTab('zapier')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier"> Zapier
     </button>
-    <button class="platform-tab" onclick="switchTab('make')">
+    <button class="platform-tab active" onclick="switchTab('make')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make"> Make
     </button>
     <button class="platform-tab" onclick="switchTab('n8n')">
@@ -300,112 +303,16 @@
   </div>
 
   <!-- ==================== ZAPIER ==================== -->
-  <div class="tab-content active" id="tab-zapier">
+  <div class="tab-content" id="tab-zapier">
     <div class="steps-container">
-
       <div class="callout">
-        <strong>What this Zap does:</strong> When a new record is added to your Airtable base, FullEnrich finds the contact's verified email and phone number, then updates the same Airtable record with the enriched data.
+        <strong>Zapier template coming soon.</strong> In the meantime, you can use the Make or n8n template to set up this automation.
       </div>
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <div class="step-title">Create a new Zap</div>
-          <div class="step-desc">
-            Go to <strong>zapier.com</strong> and click <strong>Create Zap</strong>. For the trigger, search for <strong>Airtable</strong> and select the event <strong>New Record</strong>. Connect your Airtable account, choose the <strong>Base</strong> and <strong>Table</strong> that contains your contacts. Your table should include the fields: <strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, <strong>Domain</strong> (optional), and <strong>LinkedIn URL</strong> (optional).
-          </div>
-          <div class="screenshot-placeholder">Screenshot: Airtable trigger setup</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <div class="step-title">Test the trigger</div>
-          <div class="step-desc">
-            Click <strong>Test trigger</strong>. Zapier will pull a recent record from your Airtable table. Make sure you can see the <strong>First Name</strong>, <strong>Last Name</strong>, and <strong>Company</strong> fields in the test data.
-          </div>
-          <div class="screenshot-placeholder">Screenshot: Trigger test results</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <div class="step-title">Add FullEnrich</div>
-          <div class="step-desc">
-            Add a new action step and search for <strong>FullEnrich</strong>. Select the action <strong>Enrich Contact</strong>. Connect your FullEnrich account using your API key. Then map the fields:
-            <ul>
-              <li><strong>First Name</strong> → Record's First Name</li>
-              <li><strong>Last Name</strong> → Record's Last Name</li>
-              <li><strong>Company Name</strong> → Record's Company</li>
-              <li><strong>Company Domain</strong> → Record's Domain (if available)</li>
-            </ul>
-          </div>
-          <div class="screenshot-placeholder">Screenshot: FullEnrich field mapping</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <div class="step-title">Test the enrichment</div>
-          <div class="step-desc">
-            Click <strong>Test step</strong>. FullEnrich will enrich the contact and return the results. You should see fields like <strong>Most Probable Email</strong> and <strong>Most Probable Phone</strong> in the output.
-          </div>
-          <div class="screenshot-placeholder">Screenshot: FullEnrich test results</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">5</div>
-        <div class="step-content">
-          <div class="step-title">Update the Airtable record</div>
-          <div class="step-desc">
-            Add another action step: <strong>Airtable → Update Record</strong>. Select the same Base and Table. For <strong>Record</strong>, map the <strong>Record ID</strong> from Step 1. Then map:
-            <ul>
-              <li><strong>Email</strong> → Most Probable Email (from FullEnrich)</li>
-              <li><strong>Phone</strong> → Most Probable Phone (from FullEnrich)</li>
-            </ul>
-          </div>
-          <div class="screenshot-placeholder">Screenshot: Airtable update mapping</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">6</div>
-        <div class="step-content">
-          <div class="step-title">Turn on your Zap</div>
-          <div class="step-desc">
-            Test the full Zap, then click <strong>Publish</strong>. Every new record added to your Airtable table will now be automatically enriched and updated with verified contact info.
-          </div>
-        </div>
-      </div>
-
-      <div class="callout">
-        <strong>Not using Airtable?</strong> You can swap Airtable for Google Sheets or any other spreadsheet tool. The FullEnrich step stays the same.
-      </div>
-
-      <!-- Troubleshooting -->
-      <div class="troubleshooting">
-        <h3>Troubleshooting</h3>
-        <table>
-          <thead>
-            <tr><th>Problem</th><th>Solution</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped correctly. Adding the company domain improves match rates.</td></tr>
-            <tr><td>Airtable update fails</td><td>Check that the Record ID is correctly mapped from Step 1, and that the Email and Phone fields exist in your Airtable table.</td></tr>
-            <tr><td>Zap doesn't trigger</td><td>Ensure the trigger is set to <strong>New Record</strong> (not Updated Record) and that you're adding records to the correct Base and Table.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
     </div>
   </div>
 
   <!-- ==================== MAKE ==================== -->
-  <div class="tab-content" id="tab-make">
+  <div class="tab-content active" id="tab-make">
     <div class="steps-container">
 
       <div class="callout">
@@ -537,10 +444,11 @@
           <li><strong>Top flow:</strong> Airtable Trigger → Start enrichment (FullEnrich)</li>
           <li><strong>Bottom flow:</strong> Webhook → Update record (Airtable)</li>
         </ul>
-      </div>
-
-      <div class="callout callout-warning">
-        <strong>Why two flows?</strong> FullEnrich enrichment takes a few seconds. Instead of waiting, FullEnrich sends the results to a webhook when ready. The top flow sends the request; the bottom flow receives and processes the results.
+        <br>
+        <button onclick="copyN8nTemplateUrl()" class="get-template-btn" id="copy-n8n-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
+          Copy Template URL
+        </button>
       </div>
 
       <div class="step">
@@ -568,11 +476,12 @@
         <div class="step-content">
           <div class="step-title">Import the workflow template</div>
           <div class="step-desc">
-            Download the workflow JSON and import it into n8n via <strong>Workflow → Import from File</strong>. You'll see 4 nodes arranged in two parallel flows:
+            Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow</strong>, click the <strong>...</strong> menu in the top-right and select <strong>Import from URL</strong>. Paste the URL and click <strong>Import</strong>. You'll see 4 nodes arranged in two parallel flows:
             <ul>
               <li><strong>Airtable Trigger</strong> → <strong>Start enrichment</strong> (top flow)</li>
               <li><strong>Webhook</strong> → <strong>Update record</strong> (bottom flow)</li>
             </ul>
+            <img src="n8ndemo.gif" alt="How to import a workflow from URL in n8n" style="margin-top:12px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
           </div>
         </div>
       </div>
@@ -680,6 +589,20 @@
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       event.currentTarget.classList.add('active');
       document.getElementById('tab-' + platform).classList.add('active');
+    }
+
+    function copyN8nTemplateUrl() {
+      const url = 'https://gist.github.com/ToolMonsters/e604d0340c3183d90a415346c5167eb0/raw';
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-n8n-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n"> Copied!';
+        btn.style.background = '#22c55e';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+        }, 2000);
+      });
     }
   </script>
 

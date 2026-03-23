@@ -197,9 +197,12 @@
       padding: 12px 28px;
       background: #6A49EC;
       color: #fff;
+      font-family: inherit;
       font-size: 15px;
       font-weight: 600;
+      border: none;
       border-radius: 9999px;
+      cursor: pointer;
       text-decoration: none;
       transition: background 0.2s;
     }
@@ -517,14 +520,10 @@
       <div class="callout">
         <strong>What this workflow does:</strong> When a new item is created in your Monday.com board, FullEnrich finds their verified email and phone number, then writes the results back to the same item. This workflow uses <strong>two flows</strong> because FullEnrich works asynchronously — it sends results to a webhook when the enrichment is ready.
         <br><br>
-        <a href="https://gist.github.com/ToolMonsters/59c27fc9d14668a70b95b3032e220ed1/archive/87739b39e1b3e62f00692969a477f14c4e6784d8.zip" target="_blank" class="get-template-btn">
+        <button onclick="copyN8nTemplateUrl()" class="get-template-btn" id="copy-n8n-btn">
           <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
-          Get Template
-        </a>
-      </div>
-
-      <div class="callout callout-warning">
-        <strong>Why two flows?</strong> FullEnrich enrichment takes a few seconds. Instead of waiting, FullEnrich sends the results to a webhook when ready. The <strong>top flow</strong> (Webhook → FullEnrich) receives the Monday.com event and sends the enrichment request. The <strong>bottom flow</strong> (Webhook1 → Monday.com Update) receives the enrichment results and updates your item.
+          Copy Template URL
+        </button>
       </div>
 
       <div class="step">
@@ -532,11 +531,12 @@
         <div class="step-content">
           <div class="step-title">Import the workflow into n8n</div>
           <div class="step-desc">
-            Download the workflow JSON file and import it into n8n: go to <strong>Workflows → Import from File</strong> and select the JSON. You'll see 4 nodes arranged in two flows:
+            Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow</strong>, click the <strong>...</strong> menu in the top-right and select <strong>Import from URL</strong>. Paste the URL and click <strong>Import</strong>. You'll see 4 nodes arranged in two flows:
             <ul>
               <li><strong>Top flow:</strong> Webhook → Start enrichment (FullEnrich)</li>
               <li><strong>Bottom flow:</strong> Webhook1 → Change multiple column values (Monday.com)</li>
             </ul>
+            <img src="n8ndemo.gif" alt="How to import a workflow from URL in n8n" style="margin-top:12px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
           </div>
         </div>
       </div>
@@ -668,6 +668,20 @@
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
       event.currentTarget.classList.add('active');
       document.getElementById('tab-' + platform).classList.add('active');
+    }
+
+    function copyN8nTemplateUrl() {
+      const url = 'https://gist.github.com/ToolMonsters/3df276763b31362971c21603ff1a19e1/raw';
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copy-n8n-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n"> Copied!';
+        btn.style.background = '#22c55e';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '';
+        }, 2000);
+      });
     }
   </script>
 
