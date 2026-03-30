@@ -277,10 +277,10 @@
 
   <!-- Platform Tabs -->
   <div class="platform-tabs">
-    <button class="platform-tab" onclick="switchTab('zapier')">
+    <button class="platform-tab active" onclick="switchTab('zapier')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier"> Zapier
     </button>
-    <button class="platform-tab active" onclick="switchTab('make')">
+    <button class="platform-tab" onclick="switchTab('make')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make"> Make
     </button>
     <button class="platform-tab" onclick="switchTab('n8n')">
@@ -289,16 +289,130 @@
   </div>
 
   <!-- ==================== ZAPIER ==================== -->
-  <div class="tab-content" id="tab-zapier">
+  <div class="tab-content active" id="tab-zapier">
     <div class="steps-container">
+
       <div class="callout">
-        <strong>Zapier template coming soon.</strong> In the meantime, you can use the Make template to set up this automation.
+        <strong>What this Zap does:</strong> When someone posts a LinkedIn profile URL in a Slack channel, the Zap detects it, sends it to FullEnrich for enrichment, and posts the verified email and phone number back to the same channel. The Zap uses 4 steps: <strong>Slack New Message</strong> → <strong>Filter (LinkedIn URL)</strong> → <strong>FullEnrich Enrich Contact</strong> → <strong>Slack Send Message</strong>.
+        <br><br>
+        <a href="https://zapier.com/apps/slack/integrations/slack/255714635/enrich-new-linkedin-profiles-posted-to-slack-with-fullenrich-and-send-via-slack-channels" target="_blank" class="get-template-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          Use this Zap
+        </a>
       </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Prepare your Slack channel</div>
+          <div class="step-desc">
+            Choose (or create) a dedicated Slack channel where your team will paste LinkedIn profile URLs for enrichment. For example, <code>#lead-enrichment</code>. Any message containing a LinkedIn URL posted in this channel will trigger the Zap.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Open the Zapier template</div>
+          <div class="step-desc">
+            Click the <strong>Use this Zap</strong> button above to open the template in Zapier. The Zap contains 4 pre-configured steps:
+            <ul>
+              <li><strong>Trigger:</strong> Slack — New Message Posted to Channel (instant)</li>
+              <li><strong>Filter:</strong> Only continue if the message contains a LinkedIn URL</li>
+              <li><strong>Action 1:</strong> FullEnrich — Enrich Contact</li>
+              <li><strong>Action 2:</strong> Slack — Send Channel Message</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Configure the Slack trigger</div>
+          <div class="step-desc">
+            Click on the first step (<strong>New Message Posted to Channel</strong>). Connect your Slack account, then select the <strong>Channel</strong> you want to monitor. This is an <strong>instant trigger</strong> — the Zap fires immediately when a new message is posted, with no polling delay.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Configure the Filter</div>
+          <div class="step-desc">
+            Click on the second step (<strong>Filter</strong>). It's pre-configured to only continue if the message text contains a LinkedIn profile URL (e.g. <code>linkedin.com/in/</code>). This prevents the Zap from running on every message in the channel.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Connect your FullEnrich account</div>
+          <div class="step-desc">
+            Click on the third step (<strong>Enrich Contact</strong>). Connect your FullEnrich account using your API key. Map the following fields:
+            <ul>
+              <li><strong>Name of Your Enrichment</strong> → e.g. <code>Slack LinkedIn</code></li>
+              <li><strong>LinkedIn Profile URL</strong> → <code>Message Text</code> from Slack (the LinkedIn URL)</li>
+              <li><strong>Enrich with</strong> → Emails + Phones</li>
+            </ul>
+            Since the input is a LinkedIn URL, you don't need to map First Name, Last Name, or Company Name — FullEnrich resolves them from the profile.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Configure the Slack reply</div>
+          <div class="step-desc">
+            Click on the fourth step (<strong>Send Channel Message</strong>). Select the same <strong>Channel</strong> as the trigger. Compose the message with the enriched data, for example:
+            <ul>
+              <li><strong>Name</strong> → <code>First Name</code> + <code>Last Name</code> from FullEnrich</li>
+              <li><strong>Email</strong> → <code>Most Probable Email</code> from FullEnrich</li>
+              <li><strong>Phone</strong> → <code>Most Probable Phone</code> from FullEnrich</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">7</div>
+        <div class="step-content">
+          <div class="step-title">Test and turn on</div>
+          <div class="step-desc">
+            Click <strong>Test step</strong> on each step to verify everything works — paste a LinkedIn profile URL in the Slack channel first. Check that the enriched data is posted back to the channel. Once confirmed, click <strong>Publish</strong> to turn the Zap on.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Note:</strong> This trigger is <strong>instant</strong> — the Zap fires immediately when a message is posted. The Filter step ensures only messages containing LinkedIn URLs are processed, so normal channel conversations are ignored.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FullEnrich returns no email</td><td>Make sure the LinkedIn URL is a valid profile URL (e.g. <code>linkedin.com/in/johndoe</code>). Company pages or post URLs won't work.</td></tr>
+            <tr><td>Zap fires on every message</td><td>Check that the Filter step is correctly configured to only continue when the message contains <code>linkedin.com/in/</code>.</td></tr>
+            <tr><td>Slack reply not appearing</td><td>Make sure the Send Message step is connected to the correct channel and that the Zapier bot has permission to post in it.</td></tr>
+            <tr><td>Zap doesn't fire</td><td>Make sure the Zap is published and that the Zapier Slack app is installed in your workspace with access to the selected channel.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 
   <!-- ==================== MAKE ==================== -->
-  <div class="tab-content active" id="tab-make">
+  <div class="tab-content" id="tab-make">
     <div class="steps-container">
 
       <div class="callout">

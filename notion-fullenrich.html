@@ -278,10 +278,10 @@
 
   <!-- Platform Tabs -->
   <div class="platform-tabs">
-    <button class="platform-tab" onclick="switchTab('zapier')">
+    <button class="platform-tab active" onclick="switchTab('zapier')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier"> Zapier
     </button>
-    <button class="platform-tab active" onclick="switchTab('make')">
+    <button class="platform-tab" onclick="switchTab('make')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make"> Make
     </button>
     <button class="platform-tab" onclick="switchTab('n8n')">
@@ -290,16 +290,130 @@
   </div>
 
   <!-- ==================== ZAPIER ==================== -->
-  <div class="tab-content" id="tab-zapier">
+  <div class="tab-content active" id="tab-zapier">
     <div class="steps-container">
+
       <div class="callout">
-        <strong>Zapier template coming soon.</strong> In the meantime, you can use the Make or n8n template to set up this automation.
+        <strong>What this Zap does:</strong> When a new item is created in your Notion database, FullEnrich finds the contact's verified email and phone number, then updates the same Notion page with the enriched data. The Zap uses 3 steps: <strong>Notion New Data Source Item</strong> → <strong>FullEnrich Enrich Contact</strong> → <strong>Notion Update Data Source Item</strong>.
+        <br><br>
+        <a href="https://zapier.com/apps/notion/integrations/notion/255714630/enrich-new-notion-data-source-items-with-fullenrich" target="_blank" class="get-template-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          Use this Zap
+        </a>
       </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Prepare your Notion database</div>
+          <div class="step-desc">
+            Make sure your Notion database has the following properties:
+            <ul>
+              <li><strong>First Name</strong></li>
+              <li><strong>Last Name</strong></li>
+              <li><strong>Company Name</strong></li>
+              <li><strong>Company Domain</strong> (optional, improves match rates)</li>
+              <li><strong>LinkedIn URL</strong> (optional)</li>
+              <li><strong>Email</strong> (will be filled by FullEnrich)</li>
+              <li><strong>Phone</strong> (will be filled by FullEnrich)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Open the Zapier template</div>
+          <div class="step-desc">
+            Click the <strong>Use this Zap</strong> button above to open the template in Zapier. The Zap contains 3 pre-configured steps:
+            <ul>
+              <li><strong>Trigger:</strong> Notion — New Data Source Item (instant)</li>
+              <li><strong>Action 1:</strong> FullEnrich — Enrich Contact</li>
+              <li><strong>Action 2:</strong> Notion — Update Data Source Item</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Configure the Notion trigger</div>
+          <div class="step-desc">
+            Click on the first step (<strong>New Data Source Item</strong>). Connect your Notion account, then select the <strong>Data Source</strong> (your Notion database). This is an <strong>instant trigger</strong> — the Zap fires immediately when a new item is created in your database, with no polling delay.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Connect your FullEnrich account</div>
+          <div class="step-desc">
+            Click on the second step (<strong>Enrich Contact</strong>). Connect your FullEnrich account using your API key. Map the following fields from the Notion trigger:
+            <ul>
+              <li><strong>Name of Your Enrichment</strong> → e.g. <code>Notion</code></li>
+              <li><strong>First Name</strong> → <code>First Name</code> from Notion</li>
+              <li><strong>Last Name</strong> → <code>Last Name</code> from Notion</li>
+              <li><strong>Company Name</strong> → <code>Company Name</code> from Notion</li>
+              <li><strong>Domain of the company</strong> → <code>Company Domain</code> from Notion</li>
+              <li><strong>Enrich with</strong> → Emails + Phones</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Configure the Update Data Source Item step</div>
+          <div class="step-desc">
+            Click on the third step (<strong>Update Data Source Item</strong>). Select the same <strong>Data Source</strong> as the trigger. Map the following fields:
+            <ul>
+              <li><strong>Item ID</strong> → <code>ID</code> from the Notion trigger step</li>
+              <li><strong>Email</strong> → <code>Most Probable Email</code> from FullEnrich</li>
+              <li><strong>Phone</strong> → <code>Most Probable Phone</code> from FullEnrich</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <div class="step-title">Test and turn on</div>
+          <div class="step-desc">
+            Click <strong>Test step</strong> on each step to verify everything works — make sure at least one entry exists in your Notion database. Check that the Email and Phone properties get updated correctly. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new database entry will now be automatically enriched.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Note:</strong> This trigger is <strong>instant</strong> — unlike polling-based triggers, the Zap fires immediately when a new item is added to your Notion database. No delay.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly. Adding the Company Domain improves match rates.</td></tr>
+            <tr><td>Notion update fails</td><td>Check that the Item ID is mapped from the trigger step, and that the Email and Phone properties exist in your database.</td></tr>
+            <tr><td>Zap doesn't fire</td><td>Make sure the Zap is published and that Notion has granted access to the correct database. Re-authorize the connection if needed.</td></tr>
+            <tr><td>Duplicate enrichments</td><td>Zapier tracks which items it has already processed. If you see duplicates, check that you don't have multiple Zaps running on the same database.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 
   <!-- ==================== MAKE ==================== -->
-  <div class="tab-content active" id="tab-make">
+  <div class="tab-content" id="tab-make">
     <div class="steps-container">
 
       <div class="callout">

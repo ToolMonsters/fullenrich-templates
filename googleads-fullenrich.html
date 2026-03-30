@@ -276,10 +276,10 @@
 
   <!-- Platform Tabs -->
   <div class="platform-tabs">
-    <button class="platform-tab" onclick="switchTab('zapier')">
+    <button class="platform-tab active" onclick="switchTab('zapier')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier"> Zapier
     </button>
-    <button class="platform-tab active" onclick="switchTab('make')">
+    <button class="platform-tab" onclick="switchTab('make')">
       <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make"> Make
     </button>
     <button class="platform-tab" onclick="switchTab('n8n')">
@@ -288,16 +288,115 @@
   </div>
 
   <!-- ==================== ZAPIER ==================== -->
-  <div class="tab-content" id="tab-zapier">
+  <div class="tab-content active" id="tab-zapier">
     <div class="steps-container">
+
       <div class="callout">
-        <strong>Zapier template coming soon.</strong> In the meantime, you can use the Make or n8n template to set up this automation.
+        <strong>What this Zap does:</strong> When a new lead submits a Google Ads Lead Form, FullEnrich's <strong>Reverse Email Lookup</strong> turns the personal email (Gmail, Yahoo…) into a full B2B profile — work email, phone, LinkedIn, company, and job title. The Zap uses 2 steps: <strong>Google Ads New Lead Form Entry</strong> → <strong>FullEnrich Enrich Contact</strong>.
+        <br><br>
+        <a href="https://zapier.com/apps/fullenrich/integrations/google-ads/255714636/run-reverse-email-lookups-for-new-google-ads-leads-with-fullenrich" target="_blank" class="get-template-btn">
+          <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
+          Use this Zap
+        </a>
       </div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <div class="step-title">Prepare your Google Ads Lead Form</div>
+          <div class="step-desc">
+            Make sure your Google Ads campaign has a <strong>Lead Form Extension</strong> enabled that captures at least the following fields:
+            <ul>
+              <li><strong>Email</strong> (the personal email to look up)</li>
+              <li><strong>First Name</strong> (optional, improves match rates)</li>
+              <li><strong>Last Name</strong> (optional, improves match rates)</li>
+              <li><strong>Company Name</strong> (optional, improves match rates)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="step-title">Open the Zapier template</div>
+          <div class="step-desc">
+            Click the <strong>Use this Zap</strong> button above to open the template in Zapier. The Zap contains 2 pre-configured steps:
+            <ul>
+              <li><strong>Trigger:</strong> Google Ads — New Lead Form Entry (polling)</li>
+              <li><strong>Action:</strong> FullEnrich — Enrich Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <div class="step-title">Configure the Google Ads trigger</div>
+          <div class="step-desc">
+            Click on the first step (<strong>New Lead Form Entry</strong>). Connect your Google Ads account, then select your <strong>Managed Account</strong> and <strong>Lead Form</strong>. This is a <strong>polling trigger</strong> — Zapier checks for new leads every 15 minutes (free plan) or every 2 minutes (paid plan).
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <div class="step-title">Connect your FullEnrich account</div>
+          <div class="step-desc">
+            Click on the second step (<strong>Enrich Contact</strong>). Connect your FullEnrich account using your API key. Map the following fields from the Google Ads trigger:
+            <ul>
+              <li><strong>Name of Your Enrichment</strong> → e.g. <code>Google Ads Leads</code></li>
+              <li><strong>First Name</strong> → <code>First Name</code> from Google Ads (if available)</li>
+              <li><strong>Last Name</strong> → <code>Last Name</code> from Google Ads (if available)</li>
+              <li><strong>Company Name</strong> → <code>Company Name</code> from Google Ads (if available)</li>
+              <li><strong>Enrich with</strong> → Reverse Email Lookup</li>
+            </ul>
+            The key input is the <strong>personal email</strong> from the lead form — FullEnrich uses it to find the work email, phone, LinkedIn URL, company, and job title.
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <div class="step-title">Test and turn on</div>
+          <div class="step-desc">
+            Click <strong>Test step</strong> on each step to verify everything works — make sure at least one lead form submission exists. Check that FullEnrich returns enriched B2B data. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new lead form entry will now be automatically enriched.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Tip:</strong> This Zap enriches the lead but doesn't store the result anywhere by default. Add a third step (e.g. <strong>Google Sheets</strong>, <strong>HubSpot</strong>, <strong>Salesforce</strong>, or <strong>Slack</strong>) to send the enriched B2B profile wherever your sales team needs it.
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>Polling trigger:</strong> Zapier checks for new leads every 15 minutes (free plan) or every 2 minutes (paid plan). If you need faster enrichment, consider upgrading your Zapier plan.
+      </div>
+
+      <!-- Troubleshooting -->
+      <div class="troubleshooting">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr><th>Problem</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>FullEnrich returns no work email</td><td>Some personal emails can't be matched to a B2B profile. Adding First Name, Last Name, and Company Name from the lead form significantly improves match rates.</td></tr>
+            <tr><td>Zap doesn't pick up new leads</td><td>Zapier polls at fixed intervals. Make sure the Zap is published and that new lead form submissions exist after the Zap was turned on.</td></tr>
+            <tr><td>Google Ads connection fails</td><td>Make sure you're connecting with an account that has access to the Google Ads account with the Lead Form Extension. You may need Manager (MCC) account access.</td></tr>
+            <tr><td>Want to store enriched data</td><td>Add a third action step (e.g. Google Sheets — Create Row, HubSpot — Create Contact, or Slack — Send Message) to save the enriched profile somewhere useful.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 
   <!-- ==================== MAKE ==================== -->
-  <div class="tab-content active" id="tab-make">
+  <div class="tab-content" id="tab-make">
     <div class="steps-container">
 
       <div class="callout">
