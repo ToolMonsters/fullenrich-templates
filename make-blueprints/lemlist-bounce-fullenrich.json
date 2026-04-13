@@ -1,0 +1,319 @@
+{
+    "name": "Integration lemlist, FullEnrich",
+    "flow": [
+        {
+            "id": 1,
+            "module": "lemlist:Activities",
+            "version": 1,
+            "parameters": {
+                "__IMTHOOK__": 4042317
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTHOOK__": {
+                            "data": {
+                                "editable": "false"
+                            },
+                            "label": "My Activities webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTHOOK__",
+                        "type": "hook:lemlist2",
+                        "label": "Webhook",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "fullenrich:enrich",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 13824189
+            },
+            "mapper": {
+                "domain": "{{1.companyDomain}}",
+                "lastname": "{{1.lastName}}",
+                "firstname": "{{1.firstName}}",
+                "company_name": "{{1.leadCompanyName}}",
+                "enrich_fields": [
+                    "contact.emails"
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "enrich_fields": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "fullenrich"
+                            },
+                            "label": "My FullEnrich connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:fullenrich",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "webhook_url",
+                        "type": "text",
+                        "label": "Webhook URL (optional)"
+                    },
+                    {
+                        "name": "firstname",
+                        "type": "text",
+                        "label": "First Name",
+                        "required": true
+                    },
+                    {
+                        "name": "lastname",
+                        "type": "text",
+                        "label": "Last Name",
+                        "required": true
+                    },
+                    {
+                        "name": "domain",
+                        "type": "text",
+                        "label": "Domain"
+                    },
+                    {
+                        "name": "company_name",
+                        "type": "text",
+                        "label": "Company Name"
+                    },
+                    {
+                        "name": "linkedin_url",
+                        "type": "text",
+                        "label": "LinkedIn URL"
+                    },
+                    {
+                        "name": "enrich_fields",
+                        "type": "select",
+                        "label": "Enrich with",
+                        "multiple": true,
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "contact.emails",
+                                "contact.phones"
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "lemlist:addALeadInACampaign",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 14051420
+            },
+            "mapper": {
+                "email": "{{2.email}}",
+                "campaign": "",
+                "lastName": "{{1.leadLastName}}",
+                "findEmail": false,
+                "firstName": "{{1.leadFirstName}}",
+                "linkedinEnrichment": true
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "campaign": {
+                            "mode": "chose",
+                            "label": ""
+                        },
+                        "findEmail": {
+                            "mode": "chose"
+                        },
+                        "findPhone": {
+                            "mode": "chose"
+                        },
+                        "deduplicate": {
+                            "mode": "chose"
+                        },
+                        "verifyEmail": {
+                            "mode": "chose"
+                        },
+                        "customFields": {
+                            "mode": "chose"
+                        },
+                        "linkedinEnrichment": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "lemlist"
+                            },
+                            "label": "My lemlist connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:lemlist",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "campaign",
+                        "type": "select",
+                        "label": "Campaign ID",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "type": "email",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "firstName",
+                        "type": "text",
+                        "label": "First Name"
+                    },
+                    {
+                        "name": "lastName",
+                        "type": "text",
+                        "label": "Last Name"
+                    },
+                    {
+                        "name": "companyName",
+                        "type": "text",
+                        "label": "Company Name"
+                    },
+                    {
+                        "name": "jobTitle",
+                        "type": "text",
+                        "label": "Job Title"
+                    },
+                    {
+                        "name": "linkedinUrl",
+                        "type": "text",
+                        "label": "Linkedin URL"
+                    },
+                    {
+                        "name": "picture",
+                        "type": "text",
+                        "label": "Picture"
+                    },
+                    {
+                        "name": "phone",
+                        "type": "text",
+                        "label": "Phone"
+                    },
+                    {
+                        "name": "companyDomain",
+                        "type": "text",
+                        "label": "Company Domain"
+                    },
+                    {
+                        "name": "icebreaker",
+                        "type": "text",
+                        "label": "Icebreaker"
+                    },
+                    {
+                        "name": "customFields",
+                        "spec": [
+                            {
+                                "name": "key",
+                                "type": "text",
+                                "label": "Key",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "text",
+                                "label": "Value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Custom Fields"
+                    },
+                    {
+                        "name": "deduplicate",
+                        "type": "boolean",
+                        "label": "Deduplicate"
+                    },
+                    {
+                        "name": "linkedinEnrichment",
+                        "type": "boolean",
+                        "label": "Enrich Linkedin"
+                    },
+                    {
+                        "name": "findEmail",
+                        "type": "boolean",
+                        "label": "Find Email"
+                    },
+                    {
+                        "name": "findPhone",
+                        "type": "boolean",
+                        "label": "Find Phone"
+                    },
+                    {
+                        "name": "verifyEmail",
+                        "type": "boolean",
+                        "label": "Verify Email"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
