@@ -324,13 +324,13 @@
           <div class="step-desc">
             Create a new Google Sheet with these columns in the first row (headers):
             <ul>
-              <li><strong>A</strong> — First Name</li>
-              <li><strong>B</strong> — Last Name</li>
-              <li><strong>C</strong> — Company Name</li>
-              <li><strong>D</strong> — Company Domain <em>(optional, improves match rate)</em></li>
-              <li><strong>E</strong> — LinkedIn URL <em>(optional, improves match rate)</em></li>
-              <li><strong>F</strong> — Email <em>(will be filled by FullEnrich)</em></li>
-              <li><strong>G</strong> — Phone <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>A</strong> - First Name</li>
+              <li><strong>B</strong> - Last Name</li>
+              <li><strong>C</strong> - Company Name</li>
+              <li><strong>D</strong> - Company Domain <em>(optional, improves match rate)</em></li>
+              <li><strong>E</strong> - LinkedIn URL <em>(optional, improves match rate)</em></li>
+              <li><strong>F</strong> - Email <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>G</strong> - Phone <em>(will be filled by FullEnrich)</em></li>
             </ul>
             Add at least one row of data (First Name, Last Name, Company Name) so you can test the Zap later.
           </div>
@@ -344,8 +344,8 @@
           <div class="step-desc">
             Click the <strong>Use this Zap</strong> button above to open the pre-built Zap. It contains two steps already configured:
             <ul>
-              <li><strong>Step 1 (Trigger):</strong> New Row Added to Google Sheets — fires every time a new row is added to your sheet</li>
-              <li><strong>Step 2 (Action):</strong> Enrich Contact with FullEnrich — sends the contact data to FullEnrich for enrichment</li>
+              <li><strong>Step 1 (Trigger):</strong> New Row Added to Google Sheets - fires every time a new row is added to your sheet</li>
+              <li><strong>Step 2 (Action):</strong> Enrich Contact with FullEnrich - sends the contact data to FullEnrich for enrichment</li>
             </ul>
           </div>
         </div>
@@ -361,7 +361,7 @@
               <li><strong>Spreadsheet</strong> → select the Google Sheet you created in Step 1</li>
               <li><strong>Worksheet</strong> → select the sheet (e.g. <code>Sheet1</code>)</li>
             </ul>
-            Click <strong>Test trigger</strong> — Zapier will pull a recent row from your spreadsheet. Make sure you see the First Name, Last Name, Company, and other fields from your test row.
+            Click <strong>Test trigger</strong> - Zapier will pull a recent row from your spreadsheet. Make sure you see the First Name, Last Name, Company, and other fields from your test row.
           </div>
         </div>
       </div>
@@ -398,7 +398,7 @@
         <div class="step-content">
           <div class="step-title">Publish your Zap</div>
           <div class="step-desc">
-            Once the test is successful, click <strong>Publish</strong>. Your Zap is now live — every new row added to your Google Sheet will automatically trigger FullEnrich to enrich the contact with a verified email and phone number.
+            Once the test is successful, click <strong>Publish</strong>. Your Zap is now live - every new row added to your Google Sheet will automatically trigger FullEnrich to enrich the contact with a verified email and phone number.
           </div>
         </div>
       </div>
@@ -445,13 +445,13 @@
           <div class="step-desc">
             Create a new Google Sheet with these columns in the first row (headers):
             <ul>
-              <li><strong>A</strong> — First Name</li>
-              <li><strong>B</strong> — Last Name</li>
-              <li><strong>C</strong> — Company Name</li>
-              <li><strong>D</strong> — Company Domain <em>(optional, improves match rate)</em></li>
-              <li><strong>E</strong> — LinkedIn URL <em>(optional, improves match rate)</em></li>
-              <li><strong>F</strong> — Email <em>(will be filled by FullEnrich)</em></li>
-              <li><strong>G</strong> — Phone <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>A</strong> - First Name</li>
+              <li><strong>B</strong> - Last Name</li>
+              <li><strong>C</strong> - Company Name</li>
+              <li><strong>D</strong> - Company Domain <em>(optional, improves match rate)</em></li>
+              <li><strong>E</strong> - LinkedIn URL <em>(optional, improves match rate)</em></li>
+              <li><strong>F</strong> - Email <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>G</strong> - Phone <em>(will be filled by FullEnrich)</em></li>
             </ul>
             Add at least one row of data (First Name, Last Name, Company Name) so you can test the scenario later.
           </div>
@@ -461,7 +461,7 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Set up the Google Sheets trigger — Watch Rows</div>
+          <div class="step-title">Set up the Google Sheets trigger - Watch Rows</div>
           <div class="step-desc">
             The first module is <strong>Google Sheets → Watch Rows</strong>. Connect your Google account, then configure:
             <ul>
@@ -479,7 +479,7 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Configure FullEnrich — Enrich a Contact</div>
+          <div class="step-title">Configure FullEnrich - Enrich a Contact</div>
           <div class="step-desc">
             The second module is <strong>FullEnrich → Enrich a Contact</strong>. Connect your FullEnrich API key, then map the fields from the Google Sheets trigger:
             <ul>
@@ -497,7 +497,7 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Configure Google Sheets — Update a Row</div>
+          <div class="step-title">Configure Google Sheets - Update a Row</div>
           <div class="step-desc">
             The third module is <strong>Google Sheets → Update a Row</strong>. Connect the same Google account and configure:
             <ul>
@@ -513,7 +513,7 @@
               <li><strong>Email (F)</strong> → <code>datas[].contact.most_probable_email</code> from FullEnrich</li>
               <li><strong>Phone (G)</strong> → <code>datas[].contact.most_probable_phone</code> from FullEnrich</li>
             </ul>
-            Leave all other columns empty — they won't be overwritten.
+            Leave all other columns empty - they won't be overwritten.
           </div>
         </div>
       </div>
@@ -570,7 +570,7 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this workflow does:</strong> When a new row is added to your Google Sheet, FullEnrich finds their verified email and phone number, then writes the results back to the same row. This workflow uses <strong>two flows</strong> because FullEnrich works asynchronously — it sends results to a webhook when the enrichment is ready.
+        <strong>What this workflow does:</strong> When a new row is added to your Google Sheet, FullEnrich finds their verified email and phone number, then writes the results back to the same row. This workflow uses <strong>two flows</strong> because FullEnrich works asynchronously - it sends results to a webhook when the enrichment is ready.
         <br><br>
         <button onclick="copyN8nTemplateUrl()" class="get-template-btn" id="copy-n8n-btn">
           <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
@@ -600,13 +600,13 @@
           <div class="step-desc">
             Create a Google Sheet with these columns in the first row (headers):
             <ul>
-              <li><strong>A</strong> — First Name</li>
-              <li><strong>B</strong> — Last Name</li>
-              <li><strong>C</strong> — Company Name</li>
-              <li><strong>D</strong> — Company Domain <em>(optional, improves match rate)</em></li>
-              <li><strong>E</strong> — LinkedIn URL <em>(optional, improves match rate)</em></li>
-              <li><strong>F</strong> — Email <em>(will be filled by FullEnrich)</em></li>
-              <li><strong>G</strong> — Phone <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>A</strong> - First Name</li>
+              <li><strong>B</strong> - Last Name</li>
+              <li><strong>C</strong> - Company Name</li>
+              <li><strong>D</strong> - Company Domain <em>(optional, improves match rate)</em></li>
+              <li><strong>E</strong> - LinkedIn URL <em>(optional, improves match rate)</em></li>
+              <li><strong>F</strong> - Email <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>G</strong> - Phone <em>(will be filled by FullEnrich)</em></li>
             </ul>
             Add at least one row of data so you can test later.
           </div>
@@ -633,7 +633,7 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Configure FullEnrich — Start enrichment</div>
+          <div class="step-title">Configure FullEnrich - Start enrichment</div>
           <div class="step-desc">
             Open the <strong>Start enrichment</strong> (FullEnrich) node. Connect your FullEnrich API key. The fields are already pre-mapped from the template:
             <ul>
@@ -666,7 +666,7 @@
       <div class="step">
         <div class="step-number">6</div>
         <div class="step-content">
-          <div class="step-title">Configure Google Sheets — Write Back</div>
+          <div class="step-title">Configure Google Sheets - Write Back</div>
           <div class="step-desc">
             Open the <strong>Google Sheets - Write Back</strong> node. Connect the same Google account and select the same spreadsheet and sheet. This node uses <strong>Update Row</strong> operation and matches rows by <strong>Last Name</strong> to find the correct row to update. The fields are pre-mapped:
             <ul>
@@ -679,7 +679,7 @@
       </div>
 
       <div class="callout">
-        <strong>How does the write-back find the right row?</strong> When FullEnrich sends results to the webhook, the response includes the contact's last name. The Google Sheets node matches on the <strong>Last Name</strong> column to find and update the correct row. This means each last name in your sheet should be unique — if you have duplicates, consider adding another matching column.
+        <strong>How does the write-back find the right row?</strong> When FullEnrich sends results to the webhook, the response includes the contact's last name. The Google Sheets node matches on the <strong>Last Name</strong> column to find and update the correct row. This means each last name in your sheet should be unique - if you have duplicates, consider adding another matching column.
       </div>
 
       <div class="step">

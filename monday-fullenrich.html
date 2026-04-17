@@ -309,8 +309,8 @@
           <div class="step-desc">
             Click the <strong>Use this Zap</strong> button above to open the pre-built Zap. It contains two steps already configured:
             <ul>
-              <li><strong>Step 1 (Trigger):</strong> New Item in Monday.com — fires every time a new item is created in your board</li>
-              <li><strong>Step 2 (Action):</strong> Enrich Contact with FullEnrich — sends the contact data to FullEnrich for enrichment</li>
+              <li><strong>Step 1 (Trigger):</strong> New Item in Monday.com - fires every time a new item is created in your board</li>
+              <li><strong>Step 2 (Action):</strong> Enrich Contact with FullEnrich - sends the contact data to FullEnrich for enrichment</li>
             </ul>
           </div>
         </div>
@@ -321,11 +321,11 @@
         <div class="step-content">
           <div class="step-title">Connect your Monday.com account</div>
           <div class="step-desc">
-            In <strong>Step 1</strong> of the Zap, click <strong>Sign in to Monday.com</strong>. You'll be redirected to Monday.com to authorize Zapier — grant the permissions and return to the Zap editor. Then configure:
+            In <strong>Step 1</strong> of the Zap, click <strong>Sign in to Monday.com</strong>. You'll be redirected to Monday.com to authorize Zapier - grant the permissions and return to the Zap editor. Then configure:
             <ul>
               <li><strong>Board</strong> → select the Monday.com board where new items will be created</li>
             </ul>
-            Click <strong>Test trigger</strong> — Zapier will pull a recent item from your board. Wait for the test to complete to see what data fields are available (item name, columns, etc.).
+            Click <strong>Test trigger</strong> - Zapier will pull a recent item from your board. Wait for the test to complete to see what data fields are available (item name, columns, etc.).
           </div>
         </div>
       </div>
@@ -366,7 +366,7 @@
         <div class="step-content">
           <div class="step-title">Publish your Zap</div>
           <div class="step-desc">
-            Once the test is successful, click <strong>Publish</strong>. Your Zap is now live — every new item created in your Monday.com board will automatically trigger FullEnrich to enrich the contact with a verified email and phone number.
+            Once the test is successful, click <strong>Publish</strong>. Your Zap is now live - every new item created in your Monday.com board will automatically trigger FullEnrich to enrich the contact with a verified email and phone number.
           </div>
         </div>
       </div>
@@ -385,7 +385,7 @@
           <tbody>
             <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly. Adding a company domain or LinkedIn URL improves match rates.</td></tr>
             <tr><td>Trigger doesn't fire</td><td>Ensure the trigger is set to <strong>New Item</strong> and that you're creating items in the correct board. Also check that your Monday.com account is properly connected.</td></tr>
-            <tr><td>Fields not showing in mapping</td><td>Click <strong>Test trigger</strong> first — Zapier needs sample data from your board to show available fields. Make sure your board has at least one item with data.</td></tr>
+            <tr><td>Fields not showing in mapping</td><td>Click <strong>Test trigger</strong> first - Zapier needs sample data from your board to show available fields. Make sure your board has at least one item with data.</td></tr>
             <tr><td>Wrong data mapped</td><td>Monday.com column IDs can look like numbers. Click the field dropdown and look for the column name rather than the ID to map the correct data.</td></tr>
           </tbody>
         </table>
@@ -414,10 +414,10 @@
           <div class="step-desc">
             Make sure your Monday.com board has at least these columns:
             <ul>
-              <li><strong>Item Name</strong> — the default item name (used as First Name by the template)</li>
-              <li><strong>Email</strong> — Email column <em>(will be filled by FullEnrich)</em></li>
-              <li><strong>Phone</strong> — Phone column <em>(will be filled by FullEnrich)</em></li>
-              <li><strong>LinkedIn URL</strong> — Text or Link column <em>(optional, improves match rate)</em></li>
+              <li><strong>Item Name</strong> - the default item name (used as First Name by the template)</li>
+              <li><strong>Email</strong> - Email column <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>Phone</strong> - Phone column <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>LinkedIn URL</strong> - Text or Link column <em>(optional, improves match rate)</em></li>
             </ul>
             Add at least one item with data so you can test the scenario later.
           </div>
@@ -427,9 +427,9 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">Set up the Monday.com trigger — Watch Board Items</div>
+          <div class="step-title">Set up the Monday.com trigger - Watch Board Items</div>
           <div class="step-desc">
-            The first module is <strong>Monday.com → Watch Board Items</strong>. This is an <strong>instant trigger</strong> (webhook-based) — it fires immediately when a new item is created on your board. Connect your Monday.com account and select your board.
+            The first module is <strong>Monday.com → Watch Board Items</strong>. This is an <strong>instant trigger</strong> (webhook-based) - it fires immediately when a new item is created on your board. Connect your Monday.com account and select your board.
           </div>
         </div>
       </div>
@@ -437,7 +437,7 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Configure FullEnrich — Enrich a Contact</div>
+          <div class="step-title">Configure FullEnrich - Enrich a Contact</div>
           <div class="step-desc">
             The second module is <strong>FullEnrich → Enrich a Contact</strong>. Connect your FullEnrich API key. The fields are pre-mapped from the template:
             <ul>
@@ -446,7 +446,7 @@
               <li><strong>LinkedIn URL</strong> → map from your board's LinkedIn URL column (optional)</li>
               <li><strong>Enrich with</strong> → <code>contact.emails</code> and <code>contact.phones</code></li>
             </ul>
-            You can also add <strong>Company Name</strong> and <strong>Domain</strong> if you have those columns in your board — this significantly improves match rates.
+            You can also add <strong>Company Name</strong> and <strong>Domain</strong> if you have those columns in your board - this significantly improves match rates.
           </div>
         </div>
       </div>
@@ -454,7 +454,7 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Configure Monday.com — Change Multiple Column Values</div>
+          <div class="step-title">Configure Monday.com - Change Multiple Column Values</div>
           <div class="step-desc">
             The third module is <strong>Monday.com → Change Multiple Column Values</strong>. Connect the same Monday.com account and configure:
             <ul>
@@ -485,7 +485,7 @@
         <div class="step-content">
           <div class="step-title">Activate the scenario</div>
           <div class="step-desc">
-            Toggle the scenario <strong>ON</strong>. Since the trigger is webhook-based, it runs instantly every time a new item is created — no need to set a polling schedule.
+            Toggle the scenario <strong>ON</strong>. Since the trigger is webhook-based, it runs instantly every time a new item is created - no need to set a polling schedule.
           </div>
         </div>
       </div>
@@ -518,7 +518,7 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this workflow does:</strong> When a new item is created in your Monday.com board, FullEnrich finds their verified email and phone number, then writes the results back to the same item. This workflow uses <strong>two flows</strong> because FullEnrich works asynchronously — it sends results to a webhook when the enrichment is ready.
+        <strong>What this workflow does:</strong> When a new item is created in your Monday.com board, FullEnrich finds their verified email and phone number, then writes the results back to the same item. This workflow uses <strong>two flows</strong> because FullEnrich works asynchronously - it sends results to a webhook when the enrichment is ready.
         <br><br>
         <button onclick="copyN8nTemplateUrl()" class="get-template-btn" id="copy-n8n-btn">
           <img src="https://app.fullenrich.com/app/_app/immutable/assets/n8n.1d0ebb73.svg" alt="n8n">
@@ -548,8 +548,8 @@
           <div class="step-desc">
             Make sure your Monday.com board has at least these columns:
             <ul>
-              <li><strong>Email</strong> — Email column <em>(will be filled by FullEnrich)</em></li>
-              <li><strong>Phone</strong> — Phone column <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>Email</strong> - Email column <em>(will be filled by FullEnrich)</em></li>
+              <li><strong>Phone</strong> - Phone column <em>(will be filled by FullEnrich)</em></li>
             </ul>
             Add at least one item with data so you can test later.
           </div>
@@ -561,7 +561,7 @@
         <div class="step-content">
           <div class="step-title">Configure the Webhook node (top flow)</div>
           <div class="step-desc">
-            Open the <strong>Webhook</strong> node (first node of the top flow). It's configured with HTTP method <strong>POST</strong> and path <code>monday-new-item</code>. Copy the <strong>production URL</strong> — you'll need to set up a webhook in Monday.com that points to this URL:
+            Open the <strong>Webhook</strong> node (first node of the top flow). It's configured with HTTP method <strong>POST</strong> and path <code>monday-new-item</code>. Copy the <strong>production URL</strong> - you'll need to set up a webhook in Monday.com that points to this URL:
             <ul>
               <li>In Monday.com, go to your board's <strong>Integrations</strong></li>
               <li>Add a webhook that fires <strong>When an item is created</strong></li>
@@ -574,7 +574,7 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Configure FullEnrich — Start enrichment</div>
+          <div class="step-title">Configure FullEnrich - Start enrichment</div>
           <div class="step-desc">
             Open the <strong>Start enrichment</strong> (FullEnrich) node. Connect your FullEnrich API key. The template has:
             <ul>
@@ -603,7 +603,7 @@
       <div class="step">
         <div class="step-number">6</div>
         <div class="step-content">
-          <div class="step-title">Configure Monday.com — Change Multiple Column Values</div>
+          <div class="step-title">Configure Monday.com - Change Multiple Column Values</div>
           <div class="step-desc">
             Open the <strong>Change multiple column values for a board item</strong> node. Connect your Monday.com account and configure:
             <ul>
@@ -634,7 +634,7 @@
         <div class="step-content">
           <div class="step-title">Activate the workflow</div>
           <div class="step-desc">
-            Toggle the workflow to <strong>Active</strong>. Make sure both webhook URLs use the <strong>production URLs</strong> — the Monday.com webhook pointing to the top flow, and the FullEnrich webhook URL pointing to the bottom flow.
+            Toggle the workflow to <strong>Active</strong>. Make sure both webhook URLs use the <strong>production URLs</strong> - the Monday.com webhook pointing to the top flow, and the FullEnrich webhook URL pointing to the bottom flow.
           </div>
         </div>
       </div>

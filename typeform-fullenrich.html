@@ -324,8 +324,8 @@
           <div class="step-desc">
             Click the <strong>Use this Zap</strong> button above to open the template in Zapier. The Zap contains 2 pre-configured steps:
             <ul>
-              <li><strong>Trigger:</strong> Typeform — New Entry (instant)</li>
-              <li><strong>Action:</strong> FullEnrich — Enrich Contact</li>
+              <li><strong>Trigger:</strong> Typeform - New Entry (instant)</li>
+              <li><strong>Action:</strong> FullEnrich - Enrich Contact</li>
             </ul>
           </div>
         </div>
@@ -336,7 +336,7 @@
         <div class="step-content">
           <div class="step-title">Configure the Typeform trigger</div>
           <div class="step-desc">
-            Click on the first step (<strong>New Entry</strong>). Connect your Typeform account, then select the <strong>Form</strong> you want to monitor. This is an <strong>instant trigger</strong> — the Zap fires immediately when someone submits the form, with no polling delay.
+            Click on the first step (<strong>New Entry</strong>). Connect your Typeform account, then select the <strong>Form</strong> you want to monitor. This is an <strong>instant trigger</strong> - the Zap fires immediately when someone submits the form, with no polling delay.
           </div>
         </div>
       </div>
@@ -364,7 +364,7 @@
         <div class="step-content">
           <div class="step-title">Test and turn on</div>
           <div class="step-desc">
-            Click <strong>Test step</strong> on each step to verify everything works — submit a test response to your Typeform first. Check that FullEnrich returns enriched data. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new form submission will now be automatically enriched.
+            Click <strong>Test step</strong> on each step to verify everything works - submit a test response to your Typeform first. Check that FullEnrich returns enriched data. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new form submission will now be automatically enriched.
           </div>
         </div>
       </div>
@@ -384,7 +384,7 @@
             <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly from the Typeform answers. Adding the Company Domain improves match rates.</td></tr>
             <tr><td>Zap doesn't fire</td><td>Make sure the Zap is published and that you selected the correct Typeform. Submit a new test response to verify.</td></tr>
             <tr><td>Wrong fields mapped</td><td>Typeform answers are referenced by their question label. Make sure the question titles in your form match what you're mapping in Zapier.</td></tr>
-            <tr><td>Want to store enriched data</td><td>Add a third action step (e.g. Google Sheets — Create Row, or HubSpot — Create Contact) to save the enriched email and phone somewhere useful.</td></tr>
+            <tr><td>Want to store enriched data</td><td>Add a third action step (e.g. Google Sheets - Create Row, or HubSpot - Create Contact) to save the enriched email and phone somewhere useful.</td></tr>
           </tbody>
         </table>
       </div>
@@ -406,7 +406,7 @@
         <div class="step-content">
           <div class="step-title">Watch Responses (trigger)</div>
           <div class="step-desc">
-            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Typeform</strong> and select <strong>Watch Responses</strong>. Connect your Typeform account and select the form you want to watch. Set the <strong>Limit</strong> to <code>1</code> and enable <strong>Completed</strong> to only process fully submitted responses. Your Typeform should collect <strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, and optionally <strong>Website URL</strong> (domain) — ideally as a grouped question.
+            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Typeform</strong> and select <strong>Watch Responses</strong>. Connect your Typeform account and select the form you want to watch. Set the <strong>Limit</strong> to <code>1</code> and enable <strong>Completed</strong> to only process fully submitted responses. Your Typeform should collect <strong>First Name</strong>, <strong>Last Name</strong>, <strong>Company</strong>, and optionally <strong>Website URL</strong> (domain) - ideally as a grouped question.
           </div>
         </div>
       </div>
@@ -414,7 +414,7 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">FullEnrich — Enrich</div>
+          <div class="step-title">FullEnrich - Enrich</div>
           <div class="step-desc">
             Add a second module: <strong>FullEnrich → Enrich</strong>. Connect your FullEnrich API key. Map the fields from the Typeform <strong>Mappable Answers</strong>:
             <ul>
@@ -435,9 +435,9 @@
           <div class="step-desc">
             Add a third module to store the enriched data. For example:
             <ul>
-              <li><strong>Google Sheets → Add a Row</strong> — map First Name, Last Name, Company, B2B Email, and Phone</li>
-              <li><strong>Airtable → Create a Record</strong> — map the enriched fields to your table columns</li>
-              <li><strong>Any CRM</strong> — create or update a contact with the enriched data</li>
+              <li><strong>Google Sheets → Add a Row</strong> - map First Name, Last Name, Company, B2B Email, and Phone</li>
+              <li><strong>Airtable → Create a Record</strong> - map the enriched fields to your table columns</li>
+              <li><strong>Any CRM</strong> - create or update a contact with the enriched data</li>
             </ul>
           </div>
         </div>
@@ -480,7 +480,7 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this workflow does:</strong> When someone submits your Typeform, FullEnrich enriches the respondent with verified B2B email and phone number. The callback webhook receives the results — you can then add your own destination node (Google Sheets, CRM, etc.) to store the enriched data. Uses <strong>two parallel flows</strong> because FullEnrich works asynchronously.<br><br>
+        <strong>What this workflow does:</strong> When someone submits your Typeform, FullEnrich enriches the respondent with verified B2B email and phone number. The callback webhook receives the results - you can then add your own destination node (Google Sheets, CRM, etc.) to store the enriched data. Uses <strong>two parallel flows</strong> because FullEnrich works asynchronously.<br><br>
         <strong>Top flow (2 nodes):</strong> Typeform Trigger (instant) → Start enrichment (FullEnrich)<br>
         <strong>Bottom flow (1 node + your destination):</strong> FullEnrich Callback → <em>add your destination node here</em><br><br>
         <button onclick="copyN8nTemplateUrl()" class="get-template-btn" id="copy-n8n-btn">
@@ -552,9 +552,9 @@
           <div class="step-desc">
             After the callback webhook, add a node to store the enriched data. For example:
             <ul>
-              <li><strong>Google Sheets → Append Row</strong> — map the enriched email and phone to columns</li>
-              <li><strong>Notion → Update Database Page</strong> — update a page with the enriched data</li>
-              <li><strong>Any CRM</strong> — create or update a contact</li>
+              <li><strong>Google Sheets → Append Row</strong> - map the enriched email and phone to columns</li>
+              <li><strong>Notion → Update Database Page</strong> - update a page with the enriched data</li>
+              <li><strong>Any CRM</strong> - create or update a contact</li>
             </ul>
           </div>
         </div>

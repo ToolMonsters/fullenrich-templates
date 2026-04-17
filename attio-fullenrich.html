@@ -328,9 +328,9 @@
           <div class="step-desc">
             Click the <strong>Use this Zap</strong> button above to open the template in Zapier. The Zap contains 3 pre-configured steps:
             <ul>
-              <li><strong>Trigger:</strong> Attio — List Entry Created (instant)</li>
-              <li><strong>Action 1:</strong> FullEnrich — Enrich Contact</li>
-              <li><strong>Action 2:</strong> Attio — Update List Entry</li>
+              <li><strong>Trigger:</strong> Attio - List Entry Created (instant)</li>
+              <li><strong>Action 1:</strong> FullEnrich - Enrich Contact</li>
+              <li><strong>Action 2:</strong> Attio - Update List Entry</li>
             </ul>
           </div>
         </div>
@@ -341,7 +341,7 @@
         <div class="step-content">
           <div class="step-title">Configure the Attio trigger</div>
           <div class="step-desc">
-            Click on the first step (<strong>List Entry Created</strong>). Connect your Attio account, then select the <strong>List</strong> you want to monitor. This is an <strong>instant trigger</strong> — the Zap fires immediately when a new entry is added to the list, with no polling delay.
+            Click on the first step (<strong>List Entry Created</strong>). Connect your Attio account, then select the <strong>List</strong> you want to monitor. This is an <strong>instant trigger</strong> - the Zap fires immediately when a new entry is added to the list, with no polling delay.
           </div>
         </div>
       </div>
@@ -384,13 +384,13 @@
         <div class="step-content">
           <div class="step-title">Test and turn on</div>
           <div class="step-desc">
-            Click <strong>Test step</strong> on each step to verify everything works — make sure at least one entry exists in your Attio list. Check that the Email and Phone fields get updated correctly. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new list entry will now be automatically enriched.
+            Click <strong>Test step</strong> on each step to verify everything works - make sure at least one entry exists in your Attio list. Check that the Email and Phone fields get updated correctly. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new list entry will now be automatically enriched.
           </div>
         </div>
       </div>
 
       <div class="callout">
-        <strong>Note:</strong> This trigger is <strong>instant</strong> — unlike polling-based triggers, the Zap fires immediately when a new entry is added to your Attio list. No delay.
+        <strong>Note:</strong> This trigger is <strong>instant</strong> - unlike polling-based triggers, the Zap fires immediately when a new entry is added to your Attio list. No delay.
       </div>
 
       <!-- Troubleshooting -->
@@ -426,7 +426,7 @@
         <div class="step-content">
           <div class="step-title">Watch Entries (instant trigger)</div>
           <div class="step-desc">
-            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Attio</strong> and select <strong>Watch Entries</strong>. Connect your Attio account. This is an <strong>instant</strong> webhook-based trigger — the scenario runs immediately when a new entry is created in Attio, with no polling delay.
+            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Attio</strong> and select <strong>Watch Entries</strong>. Connect your Attio account. This is an <strong>instant</strong> webhook-based trigger - the scenario runs immediately when a new entry is created in Attio, with no polling delay.
           </div>
         </div>
       </div>
@@ -444,7 +444,7 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">FullEnrich — Enrich</div>
+          <div class="step-title">FullEnrich - Enrich</div>
           <div class="step-desc">
             Add a third module: <strong>FullEnrich → Enrich</strong>. Connect your FullEnrich API key. Map the fields from the Get a Person module:
             <ul>
@@ -570,7 +570,7 @@
       <div class="step">
         <div class="step-number">5</div>
         <div class="step-content">
-          <div class="step-title">FullEnrich — Enrich Contact</div>
+          <div class="step-title">FullEnrich - Enrich Contact</div>
           <div class="step-desc">
             Add a <strong>FullEnrich</strong> node. Connect your API key and map the fields:
             <ul>
@@ -581,7 +581,7 @@
               <li><strong>Company Name</strong> → <code>{{ $json.data.values.name[0].value }}</code></li>
               <li><strong>Webhook URL</strong> → production URL of the callback webhook (Step 6)</li>
             </ul>
-            Add a <strong>Custom Field</strong> with key <code>id</code> and value <code>{{ $('Attio Webhook').item.json.body.events[0].parent_record_id }}</code> — this passes the Attio record ID through to the callback.
+            Add a <strong>Custom Field</strong> with key <code>id</code> and value <code>{{ $('Attio Webhook').item.json.body.events[0].parent_record_id }}</code> - this passes the Attio record ID through to the callback.
           </div>
         </div>
       </div>

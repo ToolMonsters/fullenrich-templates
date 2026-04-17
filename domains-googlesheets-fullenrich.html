@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto-fill GoogleSheet with targeted leads — FullEnrich</title>
+  <title>Auto-fill GoogleSheet with targeted leads - FullEnrich</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -318,10 +318,10 @@
           <div class="step-desc">
             Click <strong>Get Template</strong> above to download the blueprint JSON. In Make, go to <strong>Scenarios &rarr; Create a new scenario</strong>, click the <strong>...</strong> menu at the bottom and select <strong>Import Blueprint</strong>. Upload the JSON file. You'll see 4 modules:
             <ul>
-              <li><strong>Module 1:</strong> Google Sheets — Watch Rows (trigger on new rows in Search Criteria tab)</li>
-              <li><strong>Module 2:</strong> FullEnrich — Universal API Request (search for people)</li>
-              <li><strong>Module 3:</strong> Iterator — loop through each found contact</li>
-              <li><strong>Module 4:</strong> Google Sheets — Add a Row (add leads to your Leads Found tab)</li>
+              <li><strong>Module 1:</strong> Google Sheets - Watch Rows (trigger on new rows in Search Criteria tab)</li>
+              <li><strong>Module 2:</strong> FullEnrich - Universal API Request (search for people)</li>
+              <li><strong>Module 3:</strong> Iterator - loop through each found contact</li>
+              <li><strong>Module 4:</strong> Google Sheets - Add a Row (add leads to your Leads Found tab)</li>
             </ul>
           </div>
         </div>
@@ -334,17 +334,17 @@
           <div class="step-desc">
             You need one spreadsheet with two tabs:
             <ul>
-              <li><strong>Search Criteria tab</strong> — with headers in row 1:
+              <li><strong>Search Criteria tab</strong> - with headers in row 1:
                 <ul>
-                  <li><strong>Column A:</strong> Job Title — e.g. "VP Sales"</li>
-                  <li><strong>Column B:</strong> Company — e.g. "Acme Corp"</li>
-                  <li><strong>Column C:</strong> Industry — e.g. "Software Development"</li>
-                  <li><strong>Column D:</strong> Country — e.g. "France"</li>
-                  <li><strong>Column E:</strong> Headcount Range — e.g. "51-200"</li>
-                  <li><strong>Column F:</strong> Limit — how many leads to find (e.g. 10)</li>
+                  <li><strong>Column A:</strong> Job Title - e.g. "VP Sales"</li>
+                  <li><strong>Column B:</strong> Company - e.g. "Acme Corp"</li>
+                  <li><strong>Column C:</strong> Industry - e.g. "Software Development"</li>
+                  <li><strong>Column D:</strong> Country - e.g. "France"</li>
+                  <li><strong>Column E:</strong> Headcount Range - e.g. "51-200"</li>
+                  <li><strong>Column F:</strong> Limit - how many leads to find (e.g. 10)</li>
                 </ul>
               </li>
-              <li><strong>Leads Found tab</strong> — with headers in row 1:
+              <li><strong>Leads Found tab</strong> - with headers in row 1:
                 <ul>
                   <li><strong>Column A:</strong> First Name</li>
                   <li><strong>Column B:</strong> Last Name</li>
@@ -369,7 +369,7 @@
             Open each module and connect the required accounts:
             <ul>
               <li><strong>Module 1 (Watch Rows):</strong> Connect your Google account and select the spreadsheet and the <strong>Search Criteria</strong> tab. Make sure "Table contains headers" is set to <strong>Yes</strong>.</li>
-              <li><strong>Module 2 (FullEnrich):</strong> Connect your FullEnrich API key. The template already has the People Search endpoint configured — it maps Job Title, Company, Industry, Country, Headcount Range, and Limit from your spreadsheet columns.</li>
+              <li><strong>Module 2 (FullEnrich):</strong> Connect your FullEnrich API key. The template already has the People Search endpoint configured - it maps Job Title, Company, Industry, Country, Headcount Range, and Limit from your spreadsheet columns.</li>
               <li><strong>Module 4 (Add a Row):</strong> Connect the same Google account and select the same spreadsheet but the <strong>Leads Found</strong> tab.</li>
             </ul>
           </div>
@@ -381,7 +381,7 @@
         <div class="step-content">
           <div class="step-title">Configure the Iterator</div>
           <div class="step-desc">
-            Module 3 is an <strong>Iterator</strong> — it takes the array of people returned by FullEnrich and loops through each one. The template is pre-configured to iterate over <code>body.people</code>. No changes needed unless you've modified the FullEnrich response structure.
+            Module 3 is an <strong>Iterator</strong> - it takes the array of people returned by FullEnrich and loops through each one. The template is pre-configured to iterate over <code>body.people</code>. No changes needed unless you've modified the FullEnrich response structure.
           </div>
         </div>
       </div>
@@ -460,10 +460,10 @@
           <div class="step-desc">
             Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow → ⋯ (three-dot menu) → Import from URL</strong> and paste the URL. You'll see 4 nodes (with sticky notes explaining each step):
             <ul>
-              <li><strong>Google Sheets Trigger</strong> — polls the "Search Criteria" sheet for new rows</li>
-              <li><strong>FullEnrich People Search</strong> — calls the People Search API with your criteria</li>
-              <li><strong>Split Results</strong> — splits the people array into individual items</li>
-              <li><strong>Append to Leads Found</strong> — adds each contact as a new row in your "Leads Found" sheet</li>
+              <li><strong>Google Sheets Trigger</strong> - polls the "Search Criteria" sheet for new rows</li>
+              <li><strong>FullEnrich People Search</strong> - calls the People Search API with your criteria</li>
+              <li><strong>Split Results</strong> - splits the people array into individual items</li>
+              <li><strong>Append to Leads Found</strong> - adds each contact as a new row in your "Leads Found" sheet</li>
             </ul>
             <img src="n8ndemo.gif" alt="How to import a workflow in n8n" style="margin-top:12px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
           </div>
@@ -477,8 +477,8 @@
           <div class="step-desc">
             You need one spreadsheet with two tabs:
             <ul>
-              <li><strong>Search Criteria tab</strong> — with headers in row 1: Job Title, Company, Industry, Country, Limit</li>
-              <li><strong>Leads Found tab</strong> — with headers in row 1: First Name, Last Name, Job Title, Company, Domain, Linkedin, Location</li>
+              <li><strong>Search Criteria tab</strong> - with headers in row 1: Job Title, Company, Industry, Country, Limit</li>
+              <li><strong>Leads Found tab</strong> - with headers in row 1: First Name, Last Name, Job Title, Company, Domain, Linkedin, Location</li>
             </ul>
           </div>
         </div>
@@ -492,7 +492,7 @@
             Open each node and connect the required credentials:
             <ul>
               <li><strong>Google Sheets Trigger:</strong> Connect your Google Sheets OAuth2 account, select your spreadsheet, and choose the <strong>Search Criteria</strong> tab. Set the event to <strong>Row Added</strong>.</li>
-              <li><strong>FullEnrich People Search:</strong> Add your FullEnrich API key as a <strong>Header Auth</strong> credential (<code>Authorization: Bearer YOUR_KEY</code>). The template already has the People Search endpoint and body configured — it maps Job Title, Company, Industry, Country, and Limit from your sheet columns.</li>
+              <li><strong>FullEnrich People Search:</strong> Add your FullEnrich API key as a <strong>Header Auth</strong> credential (<code>Authorization: Bearer YOUR_KEY</code>). The template already has the People Search endpoint and body configured - it maps Job Title, Company, Industry, Country, and Limit from your sheet columns.</li>
               <li><strong>Append to Leads Found:</strong> Connect the same Google Sheets account, select the same spreadsheet, and choose the <strong>Leads Found</strong> tab.</li>
             </ul>
           </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LinkedIn URL → Full Contact with Clay + FullEnrich</title>
+  <title>Company Signal → Decision Maker Outreach -Clay + FullEnrich</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,7 +18,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Header ── */
     .header {
       padding: 20px 40px;
       display: flex;
@@ -35,7 +34,6 @@
     .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
     .header-label { font-size: 15px; font-weight: 500; color: #797783; }
 
-    /* ── Back link ── */
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -50,7 +48,6 @@
     .back-link:hover { color: #6A49EC; }
     .back-link svg { width: 16px; height: 16px; }
 
-    /* ── Hero ── */
     .detail-hero {
       max-width: 800px;
       margin: 24px auto 0;
@@ -88,7 +85,6 @@
       max-width: 600px;
     }
 
-    /* ── Platform badge (single platform, no tabs) ── */
     .platform-badge {
       max-width: 800px;
       margin: 40px auto 0;
@@ -111,18 +107,13 @@
     }
     .platform-badge-item img { height: 18px; }
 
-    /* ── Steps ── */
     .steps-container {
       max-width: 800px;
       margin: 0 auto;
       padding: 40px 40px 80px;
     }
 
-    .step {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
+    .step { display: flex; gap: 20px; margin-bottom: 40px; }
     .step-number {
       flex-shrink: 0;
       width: 36px;
@@ -137,33 +128,12 @@
       justify-content: center;
     }
     .step-content { flex: 1; }
-    .step-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: #0C0A09;
-      margin-bottom: 8px;
-    }
-    .step-desc {
-      font-size: 15px;
-      color: #555;
-      line-height: 1.7;
-    }
-    .step-desc code {
-      background: #F3F2EC;
-      padding: 2px 7px;
-      border-radius: 5px;
-      font-size: 13px;
-      color: #6A49EC;
-    }
-    .step-desc ul {
-      margin-top: 8px;
-      padding-left: 20px;
-    }
-    .step-desc li {
-      margin-bottom: 4px;
-    }
+    .step-title { font-size: 17px; font-weight: 700; color: #0C0A09; margin-bottom: 8px; }
+    .step-desc { font-size: 15px; color: #555; line-height: 1.7; }
+    .step-desc code { background: #F3F2EC; padding: 2px 7px; border-radius: 5px; font-size: 13px; color: #6A49EC; }
+    .step-desc ul { margin-top: 8px; padding-left: 20px; }
+    .step-desc li { margin-bottom: 4px; }
 
-    /* ── Callout ── */
     .callout {
       background: #EFEBFF;
       border-left: 4px solid #6A49EC;
@@ -175,14 +145,8 @@
       line-height: 1.7;
     }
     .callout strong { font-weight: 700; }
+    .callout-warning { background: #FFF8ED; border-left-color: #E89A0C; color: #92600A; }
 
-    .callout-warning {
-      background: #FFF8ED;
-      border-left-color: #E89A0C;
-      color: #92600A;
-    }
-
-    /* ── Get Template button ── */
     .get-template-btn {
       display: inline-flex;
       align-items: center;
@@ -203,7 +167,32 @@
     .get-template-btn:hover { background: #5638CC; }
     .get-template-btn img { height: 18px; }
 
-    /* ── Enrichment cards ── */
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #E9E9EB;
+      border-radius: 12px;
+    }
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: #F8F6FF;
+      border: 1px solid #E0D9F7;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #3C04AA;
+    }
+    .flow-step img { height: 16px; }
+    .flow-arrow { color: #BCBBC3; font-size: 16px; }
+
     .enrichment-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -216,12 +205,7 @@
       border-radius: 12px;
       padding: 20px;
     }
-    .enrichment-card h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #0C0A09;
-      margin-bottom: 8px;
-    }
+    .enrichment-card h4 { font-size: 15px; font-weight: 700; color: #0C0A09; margin-bottom: 8px; }
     .enrichment-card .credit-badge {
       display: inline-block;
       background: #EFEBFF;
@@ -232,29 +216,10 @@
       border-radius: 6px;
       margin-bottom: 10px;
     }
-    .enrichment-card p {
-      font-size: 14px;
-      color: #555;
-      line-height: 1.6;
-    }
+    .enrichment-card .credit-badge.free { background: #E8F5E9; color: #2E7D32; }
+    .enrichment-card .credit-badge.warning { background: #FFF8ED; color: #92600A; }
+    .enrichment-card p { font-size: 14px; color: #555; line-height: 1.6; }
 
-    /* ── Use-case tags ── */
-    .use-cases {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-    }
-    .use-case-tag {
-      background: #F3F2EC;
-      color: #555;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 8px;
-    }
-
-    /* ── Cost summary ── */
     .cost-summary {
       background: #fff;
       border: 1px solid #E9E9EB;
@@ -262,12 +227,7 @@
       padding: 20px;
       margin-top: 24px;
     }
-    .cost-summary h4 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #0C0A09;
-      margin-bottom: 12px;
-    }
+    .cost-summary h4 { font-size: 15px; font-weight: 700; color: #0C0A09; margin-bottom: 12px; }
     .cost-row {
       display: flex;
       justify-content: space-between;
@@ -276,30 +236,30 @@
       color: #555;
       border-bottom: 1px solid #F3F2EC;
     }
-    .cost-row:last-child {
-      border-bottom: none;
-      font-weight: 700;
-      color: #0C0A09;
-      padding-top: 10px;
-    }
+    .cost-row:last-child { border-bottom: none; font-weight: 700; color: #0C0A09; padding-top: 10px; }
+    .cost-row.subtotal { font-weight: 600; color: #6A49EC; border-bottom: 2px solid #EFEBFF; padding: 10px 0; }
 
-    /* ── Troubleshooting ── */
+    .code-block {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 12px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    .code-block .key { color: #7dd3fc; }
+    .code-block .str { color: #86efac; }
+
     .troubleshooting {
       margin-top: 48px;
       padding-top: 32px;
       border-top: 1px solid #E9E9EB;
     }
-    .troubleshooting h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #0C0A09;
-      margin-bottom: 16px;
-    }
-    .troubleshooting table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
+    .troubleshooting h3 { font-size: 18px; font-weight: 700; color: #0C0A09; margin-bottom: 16px; }
+    .troubleshooting table { width: 100%; border-collapse: collapse; font-size: 14px; }
     .troubleshooting th {
       text-align: left;
       padding: 10px 14px;
@@ -309,41 +269,7 @@
     }
     .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
     .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
-    .troubleshooting td {
-      padding: 10px 14px;
-      border-bottom: 1px solid #F3F2EC;
-      color: #555;
-    }
-
-    /* ── Flow diagram ── */
-    .flow-diagram {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
-      padding: 20px;
-      background: #fff;
-      border: 1px solid #E9E9EB;
-      border-radius: 12px;
-    }
-    .flow-step {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      background: #F8F6FF;
-      border: 1px solid #E0D9F7;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #3C04AA;
-    }
-    .flow-step img { height: 18px; }
-    .flow-arrow {
-      color: #BCBBC3;
-      font-size: 18px;
-    }
+    .troubleshooting td { padding: 10px 14px; border-bottom: 1px solid #F3F2EC; color: #555; }
 
     @media (max-width: 600px) {
       .enrichment-grid { grid-template-columns: 1fr; }
@@ -354,7 +280,6 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header class="header">
     <div class="header-logo">
       <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
@@ -363,24 +288,25 @@
     <span class="header-label">Automation Templates</span>
   </header>
 
-  <!-- Back -->
   <a href="integrations.html" class="back-link">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
     Back to templates
   </a>
 
-  <!-- Detail Hero -->
   <section class="detail-hero">
     <div class="detail-logos">
-      <div class="detail-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn"></div>
+      <div class="detail-logo">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#6A49EC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+      </div>
       <span class="detail-plus">+</span>
       <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
     </div>
-    <h1>Turn LinkedIn URLs into full contact profiles</h1>
-    <p>Paste a list of LinkedIn profile URLs — Clay scrapes the profile, then FullEnrich enriches with verified email and phone number. Outreach-ready in minutes.</p>
+    <h1>Company Signal → Decision Maker Outreach</h1>
+    <p>Monitor companies for buying signals (news, fundraising, hiring, promotions), find decision makers, enrich their contact info, and write personalized openers -all inside Clay.</p>
   </section>
 
-  <!-- Platform badge -->
   <div class="platform-badge">
     <div class="platform-badge-item">
       <img src="https://ib8nrja70n2lsqtp.public.blob.vercel-storage.com/production/products-clay-image-O9lRvGPiOvWPWiJUrJZnxHQDU0cXwW.png" alt="Clay" style="height: 18px;">
@@ -388,193 +314,302 @@
     </div>
   </div>
 
-  <!-- Steps -->
   <div class="steps-container">
 
     <div class="callout">
-      <strong>What this template does:</strong> Transforms LinkedIn profile URLs into complete contact records with verified emails and phone numbers. Paste URLs, Clay extracts the profile, FullEnrich finds the email and phone.
+      <strong>What this template does:</strong> Upload a CSV of target companies. Clay scans for recent buying signals (news, fundraising, hiring, promotions), finds the VP/Director of Sales at each company via FullEnrich, enriches their email + phone, and generates a personalized cold email opener referencing the signal.
 
       <div class="flow-diagram">
+        <div class="flow-step">Import CSV</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">Signals</div>
+        <span class="flow-arrow">→</span>
         <div class="flow-step">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn">
-          LinkedIn URL
+          <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich" style="border-radius: 3px;">
+          Decision Maker
         </div>
         <span class="flow-arrow">→</span>
         <div class="flow-step">
-          <img src="https://ib8nrja70n2lsqtp.public.blob.vercel-storage.com/production/products-clay-image-O9lRvGPiOvWPWiJUrJZnxHQDU0cXwW.png" alt="Clay" style="height: 16px;">
-          Profile details
-        </div>
-        <span class="flow-arrow">→</span>
-        <div class="flow-step">
-          <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich" style="height: 16px; border-radius: 3px;">
+          <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich" style="border-radius: 3px;">
           Email + Phone
         </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">AI Opener</div>
       </div>
 
       <br>
-      <a href="https://app.clay.com/shared-table/share_0td5zs4Y9ShukATP6WC" target="_blank" class="get-template-btn">
+      <a href="https://app.clay.com/shared-table/share_0tdlr71C6N3ToX6mJZm" target="_blank" class="get-template-btn">
         <img src="https://ib8nrja70n2lsqtp.public.blob.vercel-storage.com/production/products-clay-image-O9lRvGPiOvWPWiJUrJZnxHQDU0cXwW.png" alt="Clay">
         Get Template
       </a>
     </div>
 
-    <!-- Step 1 -->
+    <!-- STEP 1 -->
     <div class="step">
       <div class="step-number">1</div>
       <div class="step-content">
-        <div class="step-title">Create your table</div>
+        <div class="step-title">Import Companies (CSV Upload)</div>
         <div class="step-desc">
-          Click <strong>Get Template</strong> above to copy the Clay table into your workspace. Or create your own:
+          Upload a CSV with your target companies. Minimum required:
           <ul>
-            <li>Click <strong>Import from CSV</strong> in Clay and upload a CSV with one column: <code>LinkedIn URL</code></li>
-            <li>Or create a new table and add a basic text column called <code>LinkedIn URL</code></li>
-          </ul>
-          <br>
-          <strong>Accepted URL formats:</strong>
-          <table style="width:100%; border-collapse:collapse; margin-top:8px; font-size:13px;">
-            <thead>
-              <tr style="background:#F3F2EC;">
-                <th style="padding:8px 10px; text-align:left; font-weight:600;">LinkedIn URL</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding:8px 10px; border-bottom:1px solid #F3F2EC;"><code>https://www.linkedin.com/in/johndoe</code></td>
-              </tr>
-              <tr>
-                <td style="padding:8px 10px; border-bottom:1px solid #F3F2EC;"><code>https://linkedin.com/in/janesmith</code></td>
-              </tr>
-              <tr>
-                <td style="padding:8px 10px;"><code>linkedin.com/in/alexjohnson</code></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Step 2 -->
-    <div class="step">
-      <div class="step-number">2</div>
-      <div class="step-content">
-        <div class="step-title">Add LinkedIn Profile enrichment</div>
-        <div class="step-desc">
-          Add the <strong>"Enrich Person from LinkedIn"</strong> action column and map the input to your LinkedIn URL column. This extracts:
-          <ul>
-            <li><strong>Full Name</strong></li>
-            <li><strong>Current Job Title</strong></li>
-            <li><strong>Company Name</strong></li>
-            <li><strong>Company Domain</strong></li>
-            <li><strong>Location / Country</strong></li>
-            <li><strong>Work experience history</strong></li>
+            <li><strong>Company Name</strong> -e.g. Salesforce, HubSpot, Gong</li>
+            <li><strong>Company Domain</strong> -e.g. salesforce.com, hubspot.com</li>
           </ul>
         </div>
         <div class="enrichment-grid" style="grid-template-columns: 1fr;">
           <div class="enrichment-card">
-            <h4>Enrich Person from LinkedIn</h4>
-            <span class="credit-badge">0.5 credits / profile</span>
-            <p>Scrapes the LinkedIn profile to extract name, title, company, domain, location, and work history.</p>
+            <h4>CSV Import</h4>
+            <span class="credit-badge free">Free</span>
+            <p>Upload your target account list. One company per row with name and domain.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Step 3 -->
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Find Recent Signals (PredictLeads)</div>
+        <div class="step-desc">
+          Clay scans news, blogs, and PR sites for buying signals from the last 30-60 days:
+          <ul>
+            <li><strong>News</strong> -product launches, partnerships</li>
+            <li><strong>Fundraising</strong> -new funding rounds</li>
+            <li><strong>Hiring</strong> -job postings, team growth</li>
+            <li><strong>Promotions</strong> -leadership changes</li>
+          </ul>
+          Returns up to 100 events per company with summaries, categories, and dates.
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Company Signals (PredictLeads)</h4>
+            <span class="credit-badge">0.5 credits / company</span>
+            <p>Scans news, blogs, PR sites for recent buying signals. Returns event type, date, and summary.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
     <div class="step">
       <div class="step-number">3</div>
       <div class="step-content">
-        <div class="step-title">Add Work Email enrichment</div>
+        <div class="step-title">Extract Signal Details (Formulas)</div>
         <div class="step-desc">
-          Add the <strong>"FullEnrich Find Work Email"</strong> action column and map these inputs:
+          Automatically extracts the most recent signal into clean columns:
           <ul>
-            <li><strong>Full Name</strong> → from the "Enrich Person from LinkedIn" column</li>
-            <li><strong>Company Domain</strong> → from the LinkedIn enrichment (current company domain)</li>
-            <li><strong>LinkedIn URL</strong> → from your original LinkedIn URL column (for accuracy)</li>
+            <li><strong>Signal Type</strong> -e.g. "Product Launch"</li>
+            <li><strong>Signal Date</strong> -e.g. "2026-04-10"</li>
+            <li><strong>Signal Details</strong> -e.g. "Salesforce announces new AI-powered sales tools"</li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Columns (x3)</h4>
+            <span class="credit-badge free">Free</span>
+            <p>Extracts signal type, date, and details from the PredictLeads response into readable columns.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">Find Decision Maker (FullEnrich Search API)</div>
+        <div class="step-desc">
+          Calls FullEnrich's People Search API to find the sales leader at each company. Only runs if Company Domain exists.
+          <ul>
+            <li><strong>Targets:</strong> VP Sales, Director of Sales, Head of Sales, CRO</li>
+            <li><strong>Seniority:</strong> VP or Director level</li>
+            <li><strong>Returns:</strong> Full Name, Title, LinkedIn Profile</li>
+          </ul>
+
+          <div class="code-block">
+<span class="key">POST</span> https://app.fullenrich.com/api/v2/people/search<br><br>
+{<br>
+&nbsp;&nbsp;<span class="key">"limit"</span>: 1,<br>
+&nbsp;&nbsp;<span class="key">"current_company_domains"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"{{Company Domain}}"</span>, <span class="key">"exact_match"</span>: true }<br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;<span class="key">"current_position_titles"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"VP Sales"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Director of Sales"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Head of Sales"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"CRO"</span> }<br>
+&nbsp;&nbsp;]<br>
+}
+          </div>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>FullEnrich People Search API</h4>
+            <span class="credit-badge">~1 credit / search</span>
+            <p>Searches for VP/Director-level sales leaders. Returns full name, title, and LinkedIn profile. Uses your FullEnrich API key.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">Extract Contact Details (Formulas)</div>
+        <div class="step-desc">
+          Parses the FullEnrich API response:
+          <ul>
+            <li><strong>Full Name</strong> -e.g. "Sarah Johnson"</li>
+            <li><strong>Title</strong> -e.g. "VP of Sales"</li>
+            <li><strong>LinkedIn Profile</strong> -e.g. "linkedin.com/in/sarahjohnson"</li>
+          </ul>
+          Uses optional chaining (<code>?.</code>) -returns null if no match found.
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Columns (x3)</h4>
+            <span class="credit-badge free">Free</span>
+            <p>Extracts full name, title, and LinkedIn URL from the API response.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Enrich Work Email (FullEnrich)</div>
+        <div class="step-desc">
+          Uses FullEnrich's email waterfall to find verified work emails. Only runs if Full Name exists.
+          <ul>
+            <li><strong>Full Name</strong> → from Step 5</li>
+            <li><strong>Company Domain</strong> → from Step 1</li>
           </ul>
         </div>
         <div class="enrichment-grid" style="grid-template-columns: 1fr;">
           <div class="enrichment-card">
             <h4>FullEnrich Find Work Email</h4>
             <span class="credit-badge">1.5 credits / contact</span>
-            <p>Finds and verifies the person's professional work email address.</p>
+            <p>Finds verified work email using 15+ data providers, SMTP validation, and pattern matching.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Step 4 -->
+    <!-- STEP 7 -->
     <div class="step">
-      <div class="step-number">4</div>
+      <div class="step-number">7</div>
       <div class="step-content">
-        <div class="step-title">Add Mobile Phone enrichment</div>
+        <div class="step-title">Enrich Mobile Phone (FullEnrich)</div>
         <div class="step-desc">
-          Add the <strong>"FullEnrich Find Mobile Phone"</strong> action column and map these inputs:
+          Uses FullEnrich's phone waterfall to find direct mobile numbers. Only runs if Full Name exists.
           <ul>
-            <li><strong>Full Name</strong> → from the "Enrich Person from LinkedIn" column</li>
-            <li><strong>Company Domain</strong> → from the LinkedIn enrichment</li>
-            <li><strong>LinkedIn URL</strong> → from your original LinkedIn URL column (for accuracy)</li>
+            <li><strong>Full Name</strong> → from Step 5</li>
+            <li><strong>Company Domain</strong> → from Step 1</li>
           </ul>
         </div>
         <div class="enrichment-grid" style="grid-template-columns: 1fr;">
           <div class="enrichment-card">
             <h4>FullEnrich Find Mobile Phone</h4>
-            <span class="credit-badge">25 credits / contact</span>
-            <p>Finds the person's direct mobile phone number. Perfect for cold calling.</p>
+            <span class="credit-badge warning">25 credits / contact -Optional</span>
+            <p>Finds direct mobile phone number. Most expensive step -skip initially and only run for high-priority contacts.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Step 5 -->
+    <!-- STEP 8 -->
     <div class="step">
-      <div class="step-number">5</div>
+      <div class="step-number">8</div>
       <div class="step-content">
-        <div class="step-title">Run your enrichments</div>
+        <div class="step-title">Write Personalized Opener</div>
         <div class="step-desc">
-          Paste your LinkedIn URLs into the first column (one per row), then run the enrichments in order:
-          <ul>
-            <li><strong>First:</strong> Run the <strong>Enrich Person from LinkedIn</strong> column</li>
-            <li><strong>Then:</strong> Run <strong>FullEnrich Find Work Email</strong></li>
-            <li><strong>Finally:</strong> Run <strong>FullEnrich Find Mobile Phone</strong></li>
-          </ul>
-          You can run all rows at once or test with a few rows first.
+          AI writes a 2-3 sentence cold email opener that mentions the specific buying signal. Only runs if Work Email exists.
+          <br><br>
+          <strong>Example output:</strong>
+          <div style="background: #fff; border: 1px solid #E9E9EB; border-radius: 10px; padding: 16px; margin-top: 8px; font-size: 14px; color: #555; font-style: italic;">
+            Salesforce just had a Product Launch: Salesforce announces new AI-powered sales tools. This momentum shows your team is scaling fast -we help sales teams like yours grow faster with ready-to-use automation templates. Would love to show you how we can support your expansion.
+          </div>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>AI Personalized Sales Opener</h4>
+            <span class="credit-badge">~1-3 credits / contact</span>
+            <p>Uses Claude 3.5 Sonnet to generate a personalized opener referencing the company's buying signal.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Step 6 -->
+    <!-- STEP 9 -->
     <div class="step">
-      <div class="step-number">6</div>
+      <div class="step-number">9</div>
       <div class="step-content">
-        <div class="step-title">Export your enriched list</div>
+        <div class="step-title">Flag Outreach-Ready Contacts</div>
         <div class="step-desc">
-          All data sits in separate columns: name, title, company, email, phone. Export to:
+          Automatically marks <strong>"Yes"</strong> if a valid work email exists, <strong>"No"</strong> otherwise. Use this to filter your table and see only leads ready to export.
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Ready for Outreach</h4>
+            <span class="credit-badge free">Free</span>
+            <p>Formula that checks if email exists and is valid. Quick filter for exportable leads.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10 -->
+    <div class="step">
+      <div class="step-number">10</div>
+      <div class="step-content">
+        <div class="step-title">Export & Track Status</div>
+        <div class="step-desc">
+          Filter by <strong>"Ready for Outreach = Yes"</strong>, then export to:
           <ul>
-            <li><strong>CSV</strong> — for any tool</li>
-            <li><strong>CRM</strong> — push directly to HubSpot, Salesforce, etc.</li>
-            <li><strong>Email sequencer</strong> — Instantly, lemlist, Smartlead, etc.</li>
+            <li><strong>CSV</strong> -for any tool</li>
+            <li><strong>CRM</strong> -push to Salesforce, HubSpot, etc.</li>
+            <li><strong>Email sequencer</strong> -Instantly, lemlist, Smartlead, Outreach</li>
           </ul>
+          Use the <strong>Export Status</strong> column to track: "Exported", "Sent", "Replied", etc.
         </div>
       </div>
     </div>
 
     <!-- Cost summary -->
     <div class="cost-summary">
-      <h4>Cost per contact (full enrichment)</h4>
-      <div class="cost-row"><span>Enrich Person from LinkedIn</span><span>0.5 credits</span></div>
+      <h4>Cost per company</h4>
+      <div class="cost-row"><span>Company Signals (PredictLeads)</span><span>0.5 credits</span></div>
+      <div class="cost-row"><span>FullEnrich People Search API</span><span>~1 credit</span></div>
       <div class="cost-row"><span>FullEnrich Find Work Email</span><span>1.5 credits</span></div>
-      <div class="cost-row"><span>FullEnrich Find Mobile Phone</span><span>25 credits</span></div>
-      <div class="cost-row"><span>Total per contact</span><span>27 credits</span></div>
+      <div class="cost-row"><span>AI Sales Opener</span><span>~1-3 credits</span></div>
+      <div class="cost-row subtotal"><span>Core total (without phone)</span><span>4-6 credits</span></div>
+      <div class="cost-row"><span>FullEnrich Find Mobile Phone (optional)</span><span>25 credits</span></div>
+      <div class="cost-row"><span>Total with phone</span><span>29-31 credits</span></div>
     </div>
 
-    <!-- Pro tips -->
-    <div class="callout callout-warning">
-      <strong>Pro tips:</strong>
-      <ul style="margin-top: 8px;">
-        <li>Test with 2–3 LinkedIn URLs first before running on your full list</li>
-        <li>Not all profiles will have findable emails/phones — success rates vary by data availability</li>
-        <li>You can set up conditional runs to only find phones for contacts where email was found</li>
-      </ul>
+    <!-- Pro tip -->
+    <div class="callout callout-warning" style="margin-top: 32px;">
+      <strong>Pro tip:</strong> Skip mobile phone enrichment initially to save 25 credits per row. Only run it for high-priority contacts where you need a direct phone number for cold calling.
+    </div>
+
+    <!-- Execution order -->
+    <div class="callout">
+      <strong>How to execute this workflow:</strong>
+      <ol style="margin-top: 8px; padding-left: 20px;">
+        <li>Upload your CSV → companies are in the table</li>
+        <li><strong>Run</strong> Company Signals (PredictLeads) -test with 5-10 rows first</li>
+        <li>Signal formulas auto-calculate</li>
+        <li><strong>Run</strong> FullEnrich Search API</li>
+        <li>Decision maker formulas auto-populate</li>
+        <li><strong>Run</strong> FullEnrich Email (only rows with Full Name)</li>
+        <li><strong>Run</strong> FullEnrich Phone -optional, high-priority only</li>
+        <li><strong>Run</strong> AI Opener (only rows with Email)</li>
+        <li>Filter by "Ready for Outreach = Yes" → Export</li>
+      </ol>
     </div>
 
     <!-- Troubleshooting -->
@@ -585,10 +620,11 @@
           <tr><th>Problem</th><th>Solution</th></tr>
         </thead>
         <tbody>
-          <tr><td>Clay returns no profile data</td><td>The LinkedIn URL may be invalid or the profile is set to private. Double-check the URL format and try a public profile.</td></tr>
-          <tr><td>FullEnrich returns no email</td><td>Make sure Clay successfully scraped the name and company first — FullEnrich needs these fields to find the email.</td></tr>
-          <tr><td>Phone enrichment returns empty</td><td>Mobile numbers are harder to find. Some regions have lower coverage. You can set up conditional runs to skip phone lookup when no email was found.</td></tr>
-          <tr><td>Enrichment stuck on "running"</td><td>Wait a few minutes — large lists take time. If it stays stuck, try re-running the column on the affected rows.</td></tr>
+          <tr><td>No signals found</td><td>Company may be too small or hasn't had recent news. PredictLeads covers mostly mid-market and enterprise companies.</td></tr>
+          <tr><td>No decision maker found</td><td>Try broadening title filters (add "Sales Manager", "CRO", "Revenue"). Company may not have a public-facing sales leader.</td></tr>
+          <tr><td>API returns 401 error</td><td>Check your FullEnrich API key. It should be <code>Bearer YOUR_KEY</code> (with "Bearer " prefix).</td></tr>
+          <tr><td>Email enrichment returns nothing</td><td>Make sure Full Name and Company Domain are populated. LinkedIn URL improves match rates.</td></tr>
+          <tr><td>AI opener is generic</td><td>Make sure Signal Details and Company Name are populated before running the AI column.</td></tr>
         </tbody>
       </table>
     </div>

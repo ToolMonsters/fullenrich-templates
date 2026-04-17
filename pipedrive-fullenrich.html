@@ -324,9 +324,9 @@
           <div class="step-desc">
             Click the <strong>Use this Zap</strong> button above to open the template in Zapier. The Zap contains 3 pre-configured steps:
             <ul>
-              <li><strong>Trigger:</strong> Pipedrive — New Person (instant)</li>
-              <li><strong>Action 1:</strong> FullEnrich — Enrich Contact</li>
-              <li><strong>Action 2:</strong> Pipedrive — Update Person</li>
+              <li><strong>Trigger:</strong> Pipedrive - New Person (instant)</li>
+              <li><strong>Action 1:</strong> FullEnrich - Enrich Contact</li>
+              <li><strong>Action 2:</strong> Pipedrive - Update Person</li>
             </ul>
           </div>
         </div>
@@ -337,7 +337,7 @@
         <div class="step-content">
           <div class="step-title">Configure the Pipedrive trigger</div>
           <div class="step-desc">
-            Click on the first step (<strong>New Person</strong>). Connect your Pipedrive account. This is an <strong>instant trigger</strong> — the Zap fires immediately when a new person is created in Pipedrive, with no polling delay.
+            Click on the first step (<strong>New Person</strong>). Connect your Pipedrive account. This is an <strong>instant trigger</strong> - the Zap fires immediately when a new person is created in Pipedrive, with no polling delay.
           </div>
         </div>
       </div>
@@ -380,13 +380,13 @@
         <div class="step-content">
           <div class="step-title">Test and turn on</div>
           <div class="step-desc">
-            Click <strong>Test step</strong> on each step to verify everything works — create a test person in Pipedrive first. Check that the Email and Phone fields get updated correctly. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new person will now be automatically enriched.
+            Click <strong>Test step</strong> on each step to verify everything works - create a test person in Pipedrive first. Check that the Email and Phone fields get updated correctly. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new person will now be automatically enriched.
           </div>
         </div>
       </div>
 
       <div class="callout">
-        <strong>Note:</strong> This trigger is <strong>instant</strong> — the Zap fires immediately when a new person is created in Pipedrive. No polling delay.
+        <strong>Note:</strong> This trigger is <strong>instant</strong> - the Zap fires immediately when a new person is created in Pipedrive. No polling delay.
       </div>
 
       <!-- Troubleshooting -->
@@ -430,7 +430,7 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">FullEnrich — Enrich</div>
+          <div class="step-title">FullEnrich - Enrich</div>
           <div class="step-desc">
             Add a second module: <strong>FullEnrich → Enrich</strong>. Connect your FullEnrich API key. Map the fields from the Watch Persons module:
             <ul>
@@ -534,7 +534,7 @@
               <li><strong>Company Name</strong> → <code>{{ $json.data.org_name }}</code></li>
               <li><strong>Webhook URL</strong> → production URL of the callback webhook (Step 4)</li>
             </ul>
-            Add a <strong>Custom Field</strong> with key <code>person id</code> and value <code>{{ $json.data.id }}</code> — this passes the Pipedrive person ID through to the callback.
+            Add a <strong>Custom Field</strong> with key <code>person id</code> and value <code>{{ $json.data.id }}</code> - this passes the Pipedrive person ID through to the callback.
           </div>
         </div>
       </div>

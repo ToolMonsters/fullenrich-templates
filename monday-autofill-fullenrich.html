@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auto-fill Monday.com with targeted leads — FullEnrich</title>
+  <title>Auto-fill Monday.com with targeted leads - FullEnrich</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -318,10 +318,10 @@
           <div class="step-desc">
             Click <strong>Get Template</strong> above to download the blueprint JSON. In Make, go to <strong>Scenarios → Create a new scenario</strong>, click the <strong>...</strong> menu at the bottom and select <strong>Import Blueprint</strong>. Upload the JSON file. You'll see 4 modules:
             <ul>
-              <li><strong>Module 1:</strong> Monday.com — Watch Board Items (trigger on new items)</li>
-              <li><strong>Module 2:</strong> FullEnrich — Universal API Request (search for people)</li>
-              <li><strong>Module 3:</strong> Iterator — loop through each found contact</li>
-              <li><strong>Module 4:</strong> Monday.com — Create an Item (add leads to your Leads Found board)</li>
+              <li><strong>Module 1:</strong> Monday.com - Watch Board Items (trigger on new items)</li>
+              <li><strong>Module 2:</strong> FullEnrich - Universal API Request (search for people)</li>
+              <li><strong>Module 3:</strong> Iterator - loop through each found contact</li>
+              <li><strong>Module 4:</strong> Monday.com - Create an Item (add leads to your Leads Found board)</li>
             </ul>
           </div>
         </div>
@@ -334,16 +334,16 @@
           <div class="step-desc">
             You need two boards:
             <ul>
-              <li><strong>Search Criteria board</strong> — with columns:
+              <li><strong>Search Criteria board</strong> - with columns:
                 <ul>
-                  <li><strong>Job Title</strong> (text) — e.g. "VP Sales"</li>
-                  <li><strong>Industry</strong> (text) — e.g. "SaaS"</li>
-                  <li><strong>Country</strong> (text) — e.g. "United States"</li>
-                  <li><strong>Headcount Range</strong> (text) — e.g. "51-200"</li>
-                  <li><strong>Limit</strong> (number) — how many leads to find (e.g. 10)</li>
+                  <li><strong>Job Title</strong> (text) - e.g. "VP Sales"</li>
+                  <li><strong>Industry</strong> (text) - e.g. "SaaS"</li>
+                  <li><strong>Country</strong> (text) - e.g. "United States"</li>
+                  <li><strong>Headcount Range</strong> (text) - e.g. "51-200"</li>
+                  <li><strong>Limit</strong> (number) - how many leads to find (e.g. 10)</li>
                 </ul>
               </li>
-              <li><strong>Leads Found board</strong> — where the found contacts will be created as new items</li>
+              <li><strong>Leads Found board</strong> - where the found contacts will be created as new items</li>
             </ul>
             Add at least one item in the Search Criteria board so you can test the scenario.
           </div>
@@ -358,7 +358,7 @@
             Open each module and connect the required accounts:
             <ul>
               <li><strong>Module 1 (Watch Board Items):</strong> Connect your Monday.com account and select the <strong>Search Criteria</strong> board. Set Watch to <strong>New Items</strong>.</li>
-              <li><strong>Module 2 (FullEnrich):</strong> Connect your FullEnrich API key. The template already has the People Search endpoint and body configured — it maps Job Title, Industry, Country, Headcount Range, and Limit from your Monday.com item columns.</li>
+              <li><strong>Module 2 (FullEnrich):</strong> Connect your FullEnrich API key. The template already has the People Search endpoint and body configured - it maps Job Title, Industry, Country, Headcount Range, and Limit from your Monday.com item columns.</li>
               <li><strong>Module 4 (Create Item):</strong> Connect the same Monday.com account and select the <strong>Leads Found</strong> board.</li>
             </ul>
           </div>
@@ -366,7 +366,7 @@
       </div>
 
       <div class="callout callout-warning">
-        <strong>Important:</strong> The template maps column values using internal Monday.com column IDs (like <code>text_mm1mmjkr</code>). If your board has different column IDs, you'll need to re-map them. Click into Module 2 and update the body JSON to use your board's column IDs — you can find them by testing Module 1 first and checking the output.
+        <strong>Important:</strong> The template maps column values using internal Monday.com column IDs (like <code>text_mm1mmjkr</code>). If your board has different column IDs, you'll need to re-map them. Click into Module 2 and update the body JSON to use your board's column IDs - you can find them by testing Module 1 first and checking the output.
       </div>
 
       <div class="step">
@@ -374,7 +374,7 @@
         <div class="step-content">
           <div class="step-title">Configure the Iterator</div>
           <div class="step-desc">
-            Module 3 is an <strong>Iterator</strong> — it takes the array of people returned by FullEnrich and loops through each one. The template is pre-configured to iterate over <code>body.people</code>. No changes needed unless you've modified the FullEnrich response structure.
+            Module 3 is an <strong>Iterator</strong> - it takes the array of people returned by FullEnrich and loops through each one. The template is pre-configured to iterate over <code>body.people</code>. No changes needed unless you've modified the FullEnrich response structure.
           </div>
         </div>
       </div>
@@ -452,11 +452,11 @@
           <div class="step-desc">
             Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow → ⋯ (three-dot menu) → Import from URL</strong> and paste the URL. You'll see 5 nodes (with sticky notes explaining each step):
             <ul>
-              <li><strong>Monday.com Webhook</strong> — receives the POST event when a new item is created</li>
-              <li><strong>Challenge Response</strong> — replies to Monday.com's webhook verification handshake</li>
-              <li><strong>FullEnrich People Search</strong> — calls the People Search API with your criteria</li>
-              <li><strong>Split Results</strong> — splits the people array into individual items</li>
-              <li><strong>Create Monday.com Items</strong> — creates a new item per lead in your Leads Found board</li>
+              <li><strong>Monday.com Webhook</strong> - receives the POST event when a new item is created</li>
+              <li><strong>Challenge Response</strong> - replies to Monday.com's webhook verification handshake</li>
+              <li><strong>FullEnrich People Search</strong> - calls the People Search API with your criteria</li>
+              <li><strong>Split Results</strong> - splits the people array into individual items</li>
+              <li><strong>Create Monday.com Items</strong> - creates a new item per lead in your Leads Found board</li>
             </ul>
             <img src="n8ndemo.gif" alt="How to import a workflow in n8n" style="margin-top:12px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
           </div>
@@ -470,8 +470,8 @@
           <div class="step-desc">
             You need two boards:
             <ul>
-              <li><strong>Search Criteria board</strong> — with columns: Job Title (text), Industry (text), Location (text), Company Size (text), Number of Results (number)</li>
-              <li><strong>Leads Found board</strong> — with columns: First Name, Last Name, Job Title, Company, Domain, LinkedIn URL, Location</li>
+              <li><strong>Search Criteria board</strong> - with columns: Job Title (text), Industry (text), Location (text), Company Size (text), Number of Results (number)</li>
+              <li><strong>Leads Found board</strong> - with columns: First Name, Last Name, Job Title, Company, Domain, LinkedIn URL, Location</li>
             </ul>
           </div>
         </div>
@@ -488,16 +488,16 @@
               <li>Create: <strong>When item created → send webhook</strong></li>
               <li>Paste the n8n production URL as the destination</li>
             </ul>
-            The <strong>Challenge Response</strong> node automatically handles Monday.com's verification — no config needed.
+            The <strong>Challenge Response</strong> node automatically handles Monday.com's verification - no config needed.
           </div>
         </div>
       </div>
 
       <div class="callout callout-warning">
-        <strong>Important — Column IDs:</strong> The template uses placeholder column IDs like <code>YOUR_JOB_TITLE_COLUMN_ID</code> and <code>YOUR_FIRST_NAME_COL</code>. You <strong>must replace these</strong> with your actual Monday.com column IDs. To find your column IDs:
+        <strong>Important - Column IDs:</strong> The template uses placeholder column IDs like <code>YOUR_JOB_TITLE_COLUMN_ID</code> and <code>YOUR_FIRST_NAME_COL</code>. You <strong>must replace these</strong> with your actual Monday.com column IDs. To find your column IDs:
         <ul style="margin-top: 8px;">
           <li>Run the workflow once in test mode</li>
-          <li>Check the Webhook node output — you'll see the <code>columnValues</code> object with the real IDs (e.g. <code>text_mm1mmjkr</code>)</li>
+          <li>Check the Webhook node output - you'll see the <code>columnValues</code> object with the real IDs (e.g. <code>text_mm1mmjkr</code>)</li>
           <li>Replace all <code>YOUR_*</code> placeholders in both the <strong>FullEnrich People Search</strong> node and the <strong>Create Monday.com Items</strong> node</li>
         </ul>
       </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zero-Bounce Outreach with lemlist — FullEnrich</title>
+  <title>Zero-Bounce Outreach with lemlist - FullEnrich</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -273,7 +273,7 @@
       <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
     </div>
     <h1>Zero-Bounce Outreach with lemlist</h1>
-    <p>Automatically detect bounced emails in your lemlist campaigns, find a new verified email with FullEnrich, and re-add the lead — all without lifting a finger.</p>
+    <p>Automatically detect bounced emails in your lemlist campaigns, find a new verified email with FullEnrich, and re-add the lead - all without lifting a finger.</p>
   </section>
 
   <!-- Platform Tabs -->
@@ -309,8 +309,8 @@
           <div class="step-desc">
             Click the <strong>Use this Zap</strong> button above to open the pre-built Zap in Zapier. It contains 2 steps already configured:
             <ul>
-              <li><strong>Trigger:</strong> lemlist — New Activity (fires instantly when an email bounces)</li>
-              <li><strong>Action:</strong> FullEnrich — Enrich Contact (finds a new verified email)</li>
+              <li><strong>Trigger:</strong> lemlist - New Activity (fires instantly when an email bounces)</li>
+              <li><strong>Action:</strong> FullEnrich - Enrich Contact (finds a new verified email)</li>
             </ul>
           </div>
         </div>
@@ -357,11 +357,11 @@
       </div>
 
       <div class="callout">
-        <strong>Tip:</strong> This Zap enriches the bounced contact but doesn't re-add them to lemlist by default. Add a third step (<strong>lemlist — Add Lead to Campaign</strong>) to automatically re-create the lead with the new email in the same campaign.
+        <strong>Tip:</strong> This Zap enriches the bounced contact but doesn't re-add them to lemlist by default. Add a third step (<strong>lemlist - Add Lead to Campaign</strong>) to automatically re-create the lead with the new email in the same campaign.
       </div>
 
       <div class="callout callout-warning">
-        <strong>Instant trigger:</strong> This Zap uses an instant trigger — it fires immediately when an email bounces in lemlist, with no polling delay.
+        <strong>Instant trigger:</strong> This Zap uses an instant trigger - it fires immediately when an email bounces in lemlist, with no polling delay.
       </div>
 
       <!-- Troubleshooting -->
@@ -375,7 +375,7 @@
             <tr><td>FullEnrich returns no email</td><td>Some contacts can't be matched to a new email. Make sure firstName, lastName, and companyName are available in the lemlist lead data. Adding a LinkedIn URL improves match rates.</td></tr>
             <tr><td>Zap doesn't trigger</td><td>Make sure the Zap is published and your lemlist account is properly connected. Trigger a test bounce by sending to an invalid email.</td></tr>
             <tr><td>lemlist connection fails</td><td>Re-check your lemlist API key. Go to lemlist → Settings → Integrations → API to regenerate it if needed.</td></tr>
-            <tr><td>Want to re-add the lead automatically</td><td>Add a third step: <strong>lemlist — Add Lead to Campaign</strong>. Map the new email from FullEnrich and the campaign ID from the trigger.</td></tr>
+            <tr><td>Want to re-add the lead automatically</td><td>Add a third step: <strong>lemlist - Add Lead to Campaign</strong>. Map the new email from FullEnrich and the campaign ID from the trigger.</td></tr>
           </tbody>
         </table>
       </div>
@@ -403,9 +403,9 @@
           <div class="step-desc">
             Click <strong>Get Template</strong> above to download the blueprint JSON file. In Make, go to <strong>Scenarios → Create a new scenario</strong>, click the <strong>...</strong> menu at the bottom and select <strong>Import Blueprint</strong>. Upload the JSON file. You'll see 3 modules:
             <ul>
-              <li><strong>Module 1:</strong> lemlist — Activities (webhook trigger for bounced emails)</li>
-              <li><strong>Module 2:</strong> FullEnrich — Enrich Contact (finds new verified email)</li>
-              <li><strong>Module 3:</strong> lemlist — Add a Lead in a Campaign (re-creates the lead)</li>
+              <li><strong>Module 1:</strong> lemlist - Activities (webhook trigger for bounced emails)</li>
+              <li><strong>Module 2:</strong> FullEnrich - Enrich Contact (finds new verified email)</li>
+              <li><strong>Module 3:</strong> lemlist - Add a Lead in a Campaign (re-creates the lead)</li>
             </ul>
           </div>
         </div>
@@ -457,7 +457,7 @@
       </div>
 
       <div class="callout callout-warning">
-        <strong>Important:</strong> You must select your target campaign in Module 3. The blueprint has a placeholder — click the Campaign ID dropdown and select the campaign you want bounced leads re-added to.
+        <strong>Important:</strong> You must select your target campaign in Module 3. The blueprint has a placeholder - click the Campaign ID dropdown and select the campaign you want bounced leads re-added to.
       </div>
 
       <div class="step">
@@ -518,9 +518,9 @@
             <br><br>
             You'll see 3 nodes in a single flow:
             <ul>
-              <li><strong>Lemlist Trigger</strong> — detects bounced emails</li>
-              <li><strong>Start enrichment</strong> — sends the contact to FullEnrich</li>
-              <li><strong>Create a lead</strong> — re-adds the lead in lemlist with the new email</li>
+              <li><strong>Lemlist Trigger</strong> - detects bounced emails</li>
+              <li><strong>Start enrichment</strong> - sends the contact to FullEnrich</li>
+              <li><strong>Create a lead</strong> - re-adds the lead in lemlist with the new email</li>
             </ul>
           </div>
         </div>
@@ -606,7 +606,7 @@
       </div>
 
       <div class="callout">
-        <strong>How it works behind the scenes:</strong> The Lemlist Trigger uses a webhook — when an email bounces, lemlist sends the event to n8n instantly (no polling delay). FullEnrich then finds the best verified email using its waterfall of 15+ data providers, and the lead is re-created in the same campaign automatically.
+        <strong>How it works behind the scenes:</strong> The Lemlist Trigger uses a webhook - when an email bounces, lemlist sends the event to n8n instantly (no polling delay). FullEnrich then finds the best verified email using its waterfall of 15+ data providers, and the lead is re-created in the same campaign automatically.
       </div>
 
       <!-- Troubleshooting -->
@@ -620,7 +620,7 @@
             <tr><td>Trigger doesn't fire</td><td>Make sure the workflow is toggled <strong>Active</strong> and your lemlist API key is correctly connected. The trigger uses a webhook so it should fire instantly on bounce.</td></tr>
             <tr><td>FullEnrich returns no email</td><td>Some contacts can't be matched. Make sure firstName, lastName, and companyName are available in the lemlist lead data. Adding a LinkedIn URL improves match rates.</td></tr>
             <tr><td>Lead not re-created in lemlist</td><td>Check that the campaign ID is correct and that the campaign is still active. Also verify your lemlist API key has write permissions.</td></tr>
-            <tr><td>Duplicate leads in lemlist</td><td>lemlist may prevent adding a lead with an email that already exists in the campaign. This is expected — it means the lead was already fixed or the email didn't change.</td></tr>
+            <tr><td>Duplicate leads in lemlist</td><td>lemlist may prevent adding a lead with an email that already exists in the campaign. This is expected - it means the lead was already fixed or the email didn't change.</td></tr>
           </tbody>
         </table>
       </div>

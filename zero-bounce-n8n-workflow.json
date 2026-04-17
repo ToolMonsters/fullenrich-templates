@@ -1,5 +1,5 @@
 {
-  "name": "Zero-Bounce Outreach — Google Sheets + FullEnrich + Instantly",
+  "name": "Zero-Bounce Outreach - Google Sheets + FullEnrich + Instantly",
   "nodes": [
     {
       "parameters": {
@@ -161,7 +161,7 @@
     },
     {
       "parameters": {
-        "content": "## Step 2: FullEnrich\n\nConnect your FullEnrich API key.\n\nThis node sends each lead for email enrichment and verification. It only enriches **emails** (not phones).\n\nThe webhook URL is set automatically — FullEnrich will call it when done."
+        "content": "## Step 2: FullEnrich\n\nConnect your FullEnrich API key.\n\nThis node sends each lead for email enrichment and verification. It only enriches **emails** (not phones).\n\nThe webhook URL is set automatically - FullEnrich will call it when done."
       },
       "id": "a1b2c3d4-8888-4000-8000-000000000008",
       "name": "Sticky Note2",

@@ -328,9 +328,9 @@
           <div class="step-desc">
             Click the <strong>Use this Zap</strong> button above to open the template in Zapier. The Zap contains 3 pre-configured steps:
             <ul>
-              <li><strong>Trigger:</strong> Notion — New Data Source Item (instant)</li>
-              <li><strong>Action 1:</strong> FullEnrich — Enrich Contact</li>
-              <li><strong>Action 2:</strong> Notion — Update Data Source Item</li>
+              <li><strong>Trigger:</strong> Notion - New Data Source Item (instant)</li>
+              <li><strong>Action 1:</strong> FullEnrich - Enrich Contact</li>
+              <li><strong>Action 2:</strong> Notion - Update Data Source Item</li>
             </ul>
           </div>
         </div>
@@ -341,7 +341,7 @@
         <div class="step-content">
           <div class="step-title">Configure the Notion trigger</div>
           <div class="step-desc">
-            Click on the first step (<strong>New Data Source Item</strong>). Connect your Notion account, then select the <strong>Data Source</strong> (your Notion database). This is an <strong>instant trigger</strong> — the Zap fires immediately when a new item is created in your database, with no polling delay.
+            Click on the first step (<strong>New Data Source Item</strong>). Connect your Notion account, then select the <strong>Data Source</strong> (your Notion database). This is an <strong>instant trigger</strong> - the Zap fires immediately when a new item is created in your database, with no polling delay.
           </div>
         </div>
       </div>
@@ -384,13 +384,13 @@
         <div class="step-content">
           <div class="step-title">Test and turn on</div>
           <div class="step-desc">
-            Click <strong>Test step</strong> on each step to verify everything works — make sure at least one entry exists in your Notion database. Check that the Email and Phone properties get updated correctly. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new database entry will now be automatically enriched.
+            Click <strong>Test step</strong> on each step to verify everything works - make sure at least one entry exists in your Notion database. Check that the Email and Phone properties get updated correctly. Once confirmed, click <strong>Publish</strong> to turn the Zap on. Every new database entry will now be automatically enriched.
           </div>
         </div>
       </div>
 
       <div class="callout">
-        <strong>Note:</strong> This trigger is <strong>instant</strong> — unlike polling-based triggers, the Zap fires immediately when a new item is added to your Notion database. No delay.
+        <strong>Note:</strong> This trigger is <strong>instant</strong> - unlike polling-based triggers, the Zap fires immediately when a new item is added to your Notion database. No delay.
       </div>
 
       <!-- Troubleshooting -->
@@ -426,7 +426,7 @@
         <div class="step-content">
           <div class="step-title">Watch Events (instant trigger)</div>
           <div class="step-desc">
-            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Notion</strong> and select <strong>Watch Events</strong>. Connect your Notion account. This is an <strong>instant</strong> webhook-based trigger — the scenario runs immediately when a new page is created in your database, with no polling delay.
+            Go to <strong>make.com</strong> and click <strong>Create a new scenario</strong>. Add the first module: search for <strong>Notion</strong> and select <strong>Watch Events</strong>. Connect your Notion account. This is an <strong>instant</strong> webhook-based trigger - the scenario runs immediately when a new page is created in your database, with no polling delay.
           </div>
         </div>
       </div>
@@ -434,7 +434,7 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
-          <div class="step-title">FullEnrich — Enrich</div>
+          <div class="step-title">FullEnrich - Enrich</div>
           <div class="step-desc">
             Add a second module: <strong>FullEnrich → Enrich</strong>. Connect your FullEnrich API key. Map the fields from the Notion page properties:
             <ul>
@@ -549,7 +549,7 @@
               <li><strong>Company Domain</strong> → <code>{{ $json.Domain }}</code></li>
               <li><strong>Webhook URL</strong> → production URL of the callback webhook (Step 4)</li>
             </ul>
-            Add a <strong>Custom Field</strong> with key <code>ID</code> and value <code>{{ $json.id }}</code> — this passes the Notion page ID through to the callback.
+            Add a <strong>Custom Field</strong> with key <code>ID</code> and value <code>{{ $json.id }}</code> - this passes the Notion page ID through to the callback.
           </div>
         </div>
       </div>
@@ -557,7 +557,7 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Webhook (bottom flow — callback)</div>
+          <div class="step-title">Webhook (bottom flow - callback)</div>
           <div class="step-desc">
             Open the <strong>Webhook</strong> node (bottom flow). It's set to HTTP method <strong>POST</strong> with the path <code>fullenrich-callback</code>. Copy this node's <strong>production URL</strong> and paste it in the FullEnrich node's Webhook URL field (Step 3).
           </div>
