@@ -1,0 +1,154 @@
+{
+    "name": "Enrich New LinkedIn Connections with FullEnrich",
+    "flow": [
+        {
+            "id": 1,
+            "module": "heyreach:ConnectionRequestAccepted",
+            "version": 1,
+            "parameters": {
+                "__IMTHOOK__": 4066855
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTHOOK__": {
+                            "data": {
+                                "editable": "false"
+                            },
+                            "label": "My Connection Request Accepted webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTHOOK__",
+                        "type": "hook:heyreach3",
+                        "label": "Webhook",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "fullenrich:enrich",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 13824189
+            },
+            "mapper": {
+                "domain": "{{1.lead.company_url}}",
+                "lastname": "{{1.lead.last_name}}",
+                "firstname": "{{1.lead.first_name}}",
+                "company_name": "{{1.lead.company_name}}",
+                "enrich_fields": [
+                    "contact.emails",
+                    "contact.phones"
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "enrich_fields": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "fullenrich"
+                            },
+                            "label": "My FullEnrich connection (Workspace ID: 0a86b8c6-7de2-4516-b867-1097a54f9344)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:fullenrich",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "webhook_url",
+                        "type": "text",
+                        "label": "Webhook URL (optional)"
+                    },
+                    {
+                        "name": "firstname",
+                        "type": "text",
+                        "label": "First Name",
+                        "required": true
+                    },
+                    {
+                        "name": "lastname",
+                        "type": "text",
+                        "label": "Last Name",
+                        "required": true
+                    },
+                    {
+                        "name": "domain",
+                        "type": "text",
+                        "label": "Domain"
+                    },
+                    {
+                        "name": "company_name",
+                        "type": "text",
+                        "label": "Company Name"
+                    },
+                    {
+                        "name": "linkedin_url",
+                        "type": "text",
+                        "label": "LinkedIn URL"
+                    },
+                    {
+                        "name": "enrich_fields",
+                        "type": "select",
+                        "label": "Enrich with",
+                        "multiple": true,
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "contact.emails",
+                                "contact.phones"
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
