@@ -569,8 +569,8 @@
           <div class="step-desc">
             Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow</strong>, click the <strong>...</strong> menu in the top-right and select <strong>Import from URL</strong>. Paste the URL and click <strong>Import</strong>. You'll see 4 nodes arranged in two flows:
             <ul>
-              <li><strong>Top flow:</strong> Webhook → Start enrichment (FullEnrich)</li>
-              <li><strong>Bottom flow:</strong> Webhook1 → Change multiple column values (Monday.com)</li>
+              <li><strong>Top flow:</strong> Webhook - Monday.com → Start enrichment (FullEnrich)</li>
+              <li><strong>Bottom flow:</strong> Webhook - FullEnrich Callback → Update Monday.com Item</li>
             </ul>
             <img src="n8ndemo.gif" alt="How to import a workflow from URL in n8n" style="margin-top:12px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
           </div>
@@ -595,9 +595,9 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Configure the Webhook node (top flow)</div>
+          <div class="step-title">Configure the Webhook - Monday.com node (top flow)</div>
           <div class="step-desc">
-            Open the <strong>Webhook</strong> node (first node of the top flow). It's configured with HTTP method <strong>POST</strong> and path <code>monday-new-item</code>. Copy the <strong>production URL</strong> - you'll need to set up a webhook in Monday.com that points to this URL:
+            Open the <strong>Webhook - Monday.com</strong> node (first node of the top flow). It's configured with HTTP method <strong>POST</strong> and path <code>monday-new-item</code>. Copy the <strong>production URL</strong> - you'll need to set up a webhook in Monday.com that points to this URL:
             <ul>
               <li>In Monday.com, go to your board's <strong>Integrations</strong></li>
               <li>Add a webhook that fires <strong>When an item is created</strong></li>
@@ -615,7 +615,7 @@
             Open the <strong>Start enrichment</strong> (FullEnrich) node. Connect your FullEnrich API key. The template has:
             <ul>
               <li><strong>Enrichment Name</strong> → <code>Monday</code></li>
-              <li><strong>Webhook URL</strong> → the Webhook1 node's production URL (see Step 5)</li>
+              <li><strong>Webhook URL</strong> → the Webhook - FullEnrich Callback node's production URL (see Step 5)</li>
             </ul>
             Map the contact fields from the Monday.com webhook payload (item name, columns, etc.). You can also add Company Name, Domain, and LinkedIn URL if available in your board.
           </div>
@@ -625,9 +625,9 @@
       <div class="step">
         <div class="step-number">5</div>
         <div class="step-content">
-          <div class="step-title">Set up the Webhook1 node (bottom flow)</div>
+          <div class="step-title">Set up the Webhook - FullEnrich Callback node (bottom flow)</div>
           <div class="step-desc">
-            Open the <strong>Webhook1</strong> node. It's configured with HTTP method <strong>POST</strong>. Copy the <strong>production URL</strong> (the one <em>without</em> <code>webhook-test</code>) and paste it in the FullEnrich node's <strong>Webhook URL</strong> field from Step 4. This is where FullEnrich sends the enrichment results.
+            Open the <strong>Webhook - FullEnrich Callback</strong> node. It's configured with HTTP method <strong>POST</strong>. Copy the <strong>production URL</strong> (the one <em>without</em> <code>webhook-test</code>) and paste it in the FullEnrich node's <strong>Webhook URL</strong> field from Step 4. This is where FullEnrich sends the enrichment results.
           </div>
         </div>
       </div>
@@ -639,9 +639,9 @@
       <div class="step">
         <div class="step-number">6</div>
         <div class="step-content">
-          <div class="step-title">Configure Monday.com - Change Multiple Column Values</div>
+          <div class="step-title">Configure the Update Monday.com Item node</div>
           <div class="step-desc">
-            Open the <strong>Change multiple column values for a board item</strong> node. Connect your Monday.com account and configure:
+            Open the <strong>Update Monday.com Item</strong> node. Connect your Monday.com account and configure:
             <ul>
               <li><strong>Board ID</strong> → select your board</li>
               <li><strong>Item ID</strong> → mapped from the FullEnrich webhook response</li>
@@ -660,7 +660,7 @@
         <div class="step-content">
           <div class="step-title">Test the workflow</div>
           <div class="step-desc">
-            Click <strong>Test workflow</strong> in n8n, then create a new item in your Monday.com board. The top flow receives the event and sends the enrichment request to FullEnrich. After a few seconds, FullEnrich sends results to Webhook1, and the bottom flow updates your Monday.com item with the email and phone.
+            Click <strong>Test workflow</strong> in n8n, then create a new item in your Monday.com board. The top flow receives the event and sends the enrichment request to FullEnrich. After a few seconds, FullEnrich sends results to the Webhook - FullEnrich Callback node, and the bottom flow updates your Monday.com item with the email and phone.
           </div>
         </div>
       </div>
@@ -688,7 +688,7 @@
           </thead>
           <tbody>
             <tr><td>Top flow doesn't trigger</td><td>Check that the Monday.com webhook integration is set up correctly and points to the n8n Webhook <strong>production URL</strong>. The workflow must be toggled <strong>Active</strong>.</td></tr>
-            <tr><td>FullEnrich results never arrive</td><td>Make sure the FullEnrich node's Webhook URL uses the <strong>Webhook1 production URL</strong> (without <code>webhook-test</code>).</td></tr>
+            <tr><td>FullEnrich results never arrive</td><td>Make sure the FullEnrich node's Webhook URL uses the <strong>Webhook - FullEnrich Callback production URL</strong> (without <code>webhook-test</code>).</td></tr>
             <tr><td>FullEnrich returns no email</td><td>Map as many contact fields as possible (name, company, domain, LinkedIn URL). The more data you provide, the better the match rate.</td></tr>
             <tr><td>Monday.com update fails</td><td>Verify that the Board ID and Item ID are correctly configured, and that your Monday.com account has edit permissions on the board. Column IDs are case-sensitive.</td></tr>
           </tbody>

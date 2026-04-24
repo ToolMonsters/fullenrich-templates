@@ -534,7 +534,7 @@
         <div class="step-content">
           <div class="step-title">Attio Webhook (trigger)</div>
           <div class="step-desc">
-            Open the <strong>Webhook</strong> node. Set the HTTP method to <strong>POST</strong> and the path to <code>attio-new-entry</code>. Then go to <strong>Attio → Settings → Webhooks</strong>, create a new webhook for the event <code>list.entry.created</code>, and paste this node's <strong>production URL</strong>. The workflow will trigger instantly when a new entry is added to a list.
+            Open the <strong>Attio Webhook</strong> node. Set the HTTP method to <strong>POST</strong> and the path to <code>attio-new-entry</code>. Then go to <strong>Attio → Settings → Webhooks</strong>, create a new webhook for the event <code>list.entry.created</code>, and paste this node's <strong>production URL</strong>. The workflow will trigger instantly when a new entry is added to a list.
           </div>
         </div>
       </div>
@@ -542,7 +542,7 @@
       <div class="step">
         <div class="step-number">3</div>
         <div class="step-content">
-          <div class="step-title">Get Person (HTTP Request)</div>
+          <div class="step-title">Attio - Get Person (HTTP Request)</div>
           <div class="step-desc">
             Add an <strong>HTTP Request</strong> node. Set the URL to:
             <ul>
@@ -556,7 +556,7 @@
       <div class="step">
         <div class="step-number">4</div>
         <div class="step-content">
-          <div class="step-title">Get Company (HTTP Request)</div>
+          <div class="step-title">Attio - Get Company (HTTP Request)</div>
           <div class="step-desc">
             Add another <strong>HTTP Request</strong> node. Set the URL to:
             <ul>
@@ -591,7 +591,7 @@
         <div class="step-content">
           <div class="step-title">FullEnrich Callback Webhook (bottom flow)</div>
           <div class="step-desc">
-            Open the second <strong>Webhook</strong> node (bottom flow). It's set to HTTP method <strong>POST</strong> with the path <code>attio-fullenrich-callback</code>. Copy this node's <strong>production URL</strong> and paste it in the FullEnrich node's Webhook URL field (Step 5).
+            Open the <strong>FullEnrich Callback Webhook</strong> node (bottom flow). It's set to HTTP method <strong>POST</strong> with the path <code>attio-fullenrich-callback</code>. Copy this node's <strong>production URL</strong> and paste it in the FullEnrich node's Webhook URL field (Step 5).
           </div>
         </div>
       </div>
@@ -599,7 +599,7 @@
       <div class="step">
         <div class="step-number">7</div>
         <div class="step-content">
-          <div class="step-title">Update Person (HTTP Request)</div>
+          <div class="step-title">Attio - Update Person (HTTP Request)</div>
           <div class="step-desc">
             Add an <strong>HTTP Request</strong> node after the callback webhook. Set the method to <strong>PATCH</strong> and the URL to:
             <ul>

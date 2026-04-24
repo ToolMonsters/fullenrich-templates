@@ -418,7 +418,12 @@
         <div class="step-content">
           <div class="step-title">Import the workflow</div>
           <div class="step-desc">
-            Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow → ⋯ (three-dot menu) → Import from URL</strong> and paste the URL. The workflow includes both flows, the personal email filter, and sticky notes with setup instructions.
+            Click <strong>Copy Template URL</strong> above. In n8n, go to <strong>Workflows → Add Workflow → ⋯ (three-dot menu) → Import from URL</strong> and paste the URL. You'll see 4 nodes arranged in two flows:
+            <ul>
+              <li><strong>Top flow:</strong> Facebook Lead Ads Webhook → Filter Personal Email → FullEnrich - Reverse Email Lookup</li>
+              <li><strong>Bottom flow:</strong> FullEnrich Callback Webhook</li>
+            </ul>
+            Sticky notes inside the workflow provide extra setup instructions.
             <img src="n8ndemo.gif" alt="How to import a workflow in n8n" style="margin-top:12px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
           </div>
         </div>
@@ -475,7 +480,7 @@
         <div class="step-content">
           <div class="step-title">Test and go live</div>
           <div class="step-desc">
-            Submit a test lead via your Facebook Lead Ad form. The top flow filters the personal email, sends it to FullEnrich, and after a few seconds the callback webhook receives the enriched B2B profile. Verify the data reaches your CRM. Make sure both webhook nodes use their <strong>production URLs</strong>.
+            Submit a test lead via your Facebook Lead Ad form. The Filter Personal Email node filters the email, FullEnrich - Reverse Email Lookup sends it to the API, and after a few seconds the FullEnrich Callback Webhook node receives the enriched B2B profile. Verify the data reaches your CRM. Make sure both webhook nodes use their <strong>production URLs</strong>.
           </div>
         </div>
       </div>
@@ -489,7 +494,7 @@
           </thead>
           <tbody>
             <tr><td>Callback webhook never receives data</td><td>Make sure you replaced <code>YOUR_PRODUCTION_CALLBACK_WEBHOOK_URL</code> with the actual production URL and the workflow is <strong>Active</strong>.</td></tr>
-            <tr><td>Filter skips all leads</td><td>The Code node only passes personal email domains (Gmail, Yahoo, etc.). If your leads use work emails, adjust the filter logic.</td></tr>
+            <tr><td>Filter skips all leads</td><td>The <strong>Filter Personal Email</strong> node only passes personal email domains (Gmail, Yahoo, etc.). If your leads use work emails, adjust the filter logic in that node.</td></tr>
             <tr><td>401 error on HTTP Request</td><td>Check the Header Auth credential: name <code>Authorization</code>, value <code>Bearer YOUR_API_KEY</code>.</td></tr>
             <tr><td>No match found for email</td><td>Not all personal emails can be resolved to a B2B profile. 1 credit is only used when a match is found.</td></tr>
             <tr><td>Facebook webhook not firing</td><td>Verify you're using the <strong>production URL</strong> (not <code>webhook-test</code>) and that Facebook is configured to POST to it.</td></tr>
