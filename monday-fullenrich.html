@@ -445,6 +445,21 @@
       <div class="step">
         <div class="step-number">2</div>
         <div class="step-content">
+          <div class="step-title">Open the Make template</div>
+          <div class="step-desc">
+            Click the <strong>Get Template</strong> button above to open the scenario in Make. The template contains 3 pre-configured modules:
+            <ul>
+              <li><strong>Monday.com - Watch Board Items</strong> (instant trigger)</li>
+              <li><strong>FullEnrich - Enrich a Contact</strong></li>
+              <li><strong>Monday.com - Change Multiple Column Values</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
           <div class="step-title">Set up the Monday.com trigger - Watch Board Items</div>
           <div class="step-desc">
             The first module is <strong>Monday.com → Watch Board Items</strong>. This is an <strong>instant trigger</strong> (webhook-based) - it fires immediately when a new item is created on your board. Connect your Monday.com account and select your board.
@@ -453,7 +468,7 @@
       </div>
 
       <div class="step">
-        <div class="step-number">3</div>
+        <div class="step-number">4</div>
         <div class="step-content">
           <div class="step-title">Configure FullEnrich - Enrich a Contact</div>
           <div class="step-desc">
@@ -473,13 +488,13 @@
       </div>
 
       <div class="step">
-        <div class="step-number">4</div>
+        <div class="step-number">5</div>
         <div class="step-content">
           <div class="step-title">Configure Monday.com - Change Multiple Column Values</div>
           <div class="step-desc">
             The third module is <strong>Monday.com → Change Multiple Column Values</strong>. Connect the same Monday.com account and configure:
             <ul>
-              <li><strong>Board ID</strong> → select the same board as Step 2</li>
+              <li><strong>Board ID</strong> → select the same board as Step 3</li>
               <li><strong>Item ID</strong> → select the item to update (mapped from the trigger)</li>
               <li><strong>Column Values to Change:</strong></li>
             </ul>
@@ -492,7 +507,7 @@
       </div>
 
       <div class="step">
-        <div class="step-number">5</div>
+        <div class="step-number">6</div>
         <div class="step-content">
           <div class="step-title">Test the scenario</div>
           <div class="step-desc">
@@ -502,7 +517,7 @@
       </div>
 
       <div class="step">
-        <div class="step-number">6</div>
+        <div class="step-number">7</div>
         <div class="step-content">
           <div class="step-title">Activate the scenario</div>
           <div class="step-desc">
@@ -526,7 +541,7 @@
             <tr><td>FullEnrich returns no email</td><td>The template maps the item name as First Name. Make sure the item name contains the contact's name. Adding Company Name, Domain, or LinkedIn URL significantly improves match rates.</td></tr>
             <tr><td>Email/Phone not written back</td><td>Check that the column IDs in the Change Multiple Column Values module match your board's Email and Phone columns. Column IDs are case-sensitive.</td></tr>
             <tr><td>Scenario doesn't trigger</td><td>Make sure the webhook is properly connected to your board. Go to the Watch Board Items module and verify the webhook is active. The scenario must be toggled ON.</td></tr>
-            <tr><td>Wrong item gets updated</td><td>Verify that the Item ID in Step 4 is mapped from the trigger output, not hardcoded to a specific item.</td></tr>
+            <tr><td>Wrong item gets updated</td><td>Verify that the Item ID in Step 5 is mapped from the trigger output, not hardcoded to a specific item.</td></tr>
           </tbody>
         </table>
       </div>
