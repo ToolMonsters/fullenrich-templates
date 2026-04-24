@@ -362,7 +362,7 @@
 <tr><td>Zap doesn't fire</td><td>Make sure the Zap is published and that you're adding entries to the correct list. Test by adding a new entry manually.</td></tr>
 <tr><td>Duplicate enrichments</td><td>Zapier tracks which entries it has already processed. If you see duplicates, check that you don't have multiple Zaps running on the same list.</td></tr>
 </tbody>
-</table>","","<strong>What this scenario does:</strong> When a new contact is created in Attio, the scenario instantly fetches the person's details, sends them to FullEnrich for enrichment, then updates the Attio record with the verified email and phone number.<br/><br/>
+</table>","https://www.make.com/en/integration/18753-enrich-new-attio-contacts-with-fullenrich?templatePublicId=18753","<strong>What this scenario does:</strong> When a new contact is created in Attio, the scenario instantly fetches the person's details, sends them to FullEnrich for enrichment, then updates the Attio record with the verified email and phone number.<br/><br/>
 <strong>4 modules:</strong> Watch Entries → Get a Person → FullEnrich Enrich → Assert a Person","<div class=""step"">
 <div class=""step-number"">1</div>
 <div class=""step-content"">
@@ -1356,7 +1356,7 @@
 <tr><td>Slack reply not appearing</td><td>Make sure the Send Message step is connected to the correct channel and that the Zapier bot has permission to post in it.</td></tr>
 <tr><td>Zap doesn't fire</td><td>Make sure the Zap is published and that the Zapier Slack app is installed in your workspace with access to the selected channel.</td></tr>
 </tbody>
-</table>","","<strong>What this scenario does:</strong> When a new message containing a LinkedIn URL is posted in your Slack channel, FullEnrich enriches the profile with a verified email and phone number, then sends the results back to Slack.
+</table>","https://www.make.com/en/integration/18812-integration-slack-fullenrich?templatePublicId=18812","<strong>What this scenario does:</strong> When a new message containing a LinkedIn URL is posted in your Slack channel, FullEnrich enriches the profile with a verified email and phone number, then sends the results back to Slack.
         <br/><br/>
 <strong>3 modules:</strong> Slack Watch Events → FullEnrich Enrich (with LinkedIn URL filter) → Slack Send Message","<div class=""step"">
 <div class=""step-number"">1</div>
@@ -1916,7 +1916,7 @@
 <tr><td>Zap doesn't fire</td><td>Make sure the Zap is published and that Notion has granted access to the correct database. Re-authorize the connection if needed.</td></tr>
 <tr><td>Duplicate enrichments</td><td>Zapier tracks which items it has already processed. If you see duplicates, check that you don't have multiple Zaps running on the same database.</td></tr>
 </tbody>
-</table>","","<strong>What this scenario does:</strong> When a new page is added to your Notion database, the scenario instantly enriches the contact with FullEnrich and updates the same page with the verified email and phone number.<br/><br/>
+</table>","https://www.make.com/en/integration/18755-enrich-new-notion-database-entries-with-fullenrich?templatePublicId=18755","<strong>What this scenario does:</strong> When a new page is added to your Notion database, the scenario instantly enriches the contact with FullEnrich and updates the same page with the verified email and phone number.<br/><br/>
 <strong>3 modules:</strong> Watch Events (instant) → FullEnrich Enrich → Update a Database Item","<div class=""step"">
 <div class=""step-number"">1</div>
 <div class=""step-content"">
@@ -2132,7 +2132,7 @@
 <tr><td>Zap doesn't fire</td><td>Make sure the Zap is published. Create a new person in Pipedrive (not edit an existing one) to trigger it.</td></tr>
 <tr><td>Company name missing</td><td>Make sure the person is linked to an Organization in Pipedrive before creation, so the company name is available for enrichment.</td></tr>
 </tbody>
-</table>","","<strong>What this scenario does:</strong> When a new person is created in Pipedrive, FullEnrich finds the contact's verified email and phone number, then updates the same Pipedrive person with the enriched data. If no result is found, the field is set to ""N/A"".<br/><br/>
+</table>","https://www.make.com/en/integration/18777-enrich-new-pipedrive-contacts-with-fullenrich?templatePublicId=18777","<strong>What this scenario does:</strong> When a new person is created in Pipedrive, FullEnrich finds the contact's verified email and phone number, then updates the same Pipedrive person with the enriched data. If no result is found, the field is set to ""N/A"".<br/><br/>
 <strong>3 modules:</strong> Watch Persons (polling) → FullEnrich Enrich → Update a Person","<div class=""step"">
 <div class=""step-number"">1</div>
 <div class=""step-content"">
@@ -2330,7 +2330,7 @@
 <tr><td>Wrong fields mapped</td><td>Typeform answers are referenced by their question label. Make sure the question titles in your form match what you're mapping in Zapier.</td></tr>
 <tr><td>Want to store enriched data</td><td>Add a third action step (e.g. Google Sheets - Create Row, or HubSpot - Create Contact) to save the enriched email and phone somewhere useful.</td></tr>
 </tbody>
-</table>","","<strong>What this scenario does:</strong> When someone submits your Typeform, FullEnrich automatically enriches the respondent with verified B2B email and phone number. You can then add a third module (e.g. Google Sheets, CRM) to store the enriched data.<br/><br/>
+</table>","https://www.make.com/en/integration/18776-enrich-new-typeform-responses-with-fullenrich?templatePublicId=18776","<strong>What this scenario does:</strong> When someone submits your Typeform, FullEnrich automatically enriches the respondent with verified B2B email and phone number. You can then add a third module (e.g. Google Sheets, CRM) to store the enriched data.<br/><br/>
 <strong>2 modules:</strong> Watch Responses (polling) → FullEnrich Enrich","<div class=""step"">
 <div class=""step-number"">1</div>
 <div class=""step-content"">
