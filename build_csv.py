@@ -166,7 +166,10 @@ def extract_template_url(tab, platform):
     # Try anchor first.
     a = tab.select_one("a.get-template-btn")
     if a and a.get("href"):
-        return a["href"].strip()
+        href = a["href"].strip()
+        # Skip placeholder hrefs (e.g. href="#" for JS-triggered downloads).
+        if href and href != "#":
+            return href
 
     # n8n button → look up the script for the URL.
     btn = tab.select_one("button.get-template-btn")
@@ -289,11 +292,37 @@ def build_row(slug):
 
     logo_primary = ""
     logo_secondary = ""
-    logo_imgs = soup.select(".detail-logos img")
-    if len(logo_imgs) >= 1:
-        logo_primary = (logo_imgs[0].get("src") or "").strip()
-    if len(logo_imgs) >= 2:
-        logo_secondary = (logo_imgs[1].get("src") or "").strip()
+    # Walk .detail-logo wrappers in order, extracting img src where present.
+    # Clay-only pages use an inline <svg> for the first logo — fall back to
+    # the card's integration-logo img in index.html for that slug.
+    logo_wrappers = soup.select(".detail-logos > .detail-logo")
+    logo_urls = []
+    for wrap in logo_wrappers:
+        img = wrap.find("img")
+        if img and img.get("src"):
+            logo_urls.append(img["src"].strip())
+        else:
+            logo_urls.append(None)  # placeholder for SVG-only slot
+    if logo_urls and logo_urls[0] is None:
+        # Clay-only pages render the Clay mark as an inline SVG, so fall back
+        # to the Clay wordmark hosted by the marketing site.
+        if slug in TEMPLATES_CLAY_ONLY:
+            logo_urls[0] = (
+                "https://cdn.prod.website-files.com/61477f2c24a826836f969afe/"
+                "664ffc89ff539b531cc46813_Clay-logo-black-2024.webp"
+            )
+        else:
+            # Last-resort: look at the card's .integration-platforms img in index.html.
+            link = INDEX_SOUP.find("a", href=f"{slug}.html")
+            card = link.find_parent(class_="integration-card") if link else None
+            if card is not None:
+                plat = card.select_one(".integration-platforms img")
+                if plat and plat.get("src"):
+                    logo_urls[0] = plat["src"].strip() or None
+    if len(logo_urls) >= 1 and logo_urls[0]:
+        logo_primary = logo_urls[0]
+    if len(logo_urls) >= 2 and logo_urls[1]:
+        logo_secondary = logo_urls[1]
 
     is_clay_only = slug in TEMPLATES_CLAY_ONLY
     is_zapier_coming_soon = slug in TEMPLATES_TABBED_ZAPIER_COMING_SOON
