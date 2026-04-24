@@ -459,11 +459,14 @@
           <div class="step-desc">
             The second module is <strong>FullEnrich → Enrich a Contact</strong>. Connect your FullEnrich API key. The fields are pre-mapped from the template:
             <ul>
-              <li><strong>First Name</strong> → <code>pulseName</code> (the item name from Monday.com)</li>
-              <li><strong>Last Name</strong> → you can map a Last Name column from your board, or leave as-is</li>
+              <li><strong>First Name</strong> → <code>pulseName</code> (the full item name from Monday.com) <em>- see note below</em></li>
+              <li><strong>Last Name</strong> → map a Last Name column from your board if you have one, otherwise leave as-is</li>
               <li><strong>LinkedIn URL</strong> → map from your board's LinkedIn URL column (optional)</li>
               <li><strong>Enrich with</strong> → <code>contact.emails</code> and <code>contact.phones</code></li>
             </ul>
+            <div class="callout callout-warning" style="margin-top:12px;">
+              <strong>Note on <code>pulseName</code>:</strong> the template sends the entire Monday.com item name as First Name. If your items are named in full-name format (e.g. <code>John Doe</code>), FullEnrich receives <code>firstName="John Doe"</code> and no last name, which lowers the match rate. For best results, either name items with first name only, or add dedicated <strong>First Name</strong> / <strong>Last Name</strong> columns to your board and map them here instead of <code>pulseName</code>.
+            </div>
             You can also add <strong>Company Name</strong> and <strong>Domain</strong> if you have those columns in your board - this significantly improves match rates.
           </div>
         </div>

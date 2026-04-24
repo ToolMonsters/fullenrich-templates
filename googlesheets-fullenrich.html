@@ -309,7 +309,7 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this Zap does:</strong> When a new row is added to your Google Sheet (with First Name, Last Name, Company, and optionally Domain and LinkedIn URL), FullEnrich finds their verified email and phone number, then writes the results back to the Email and Phone columns in the same row.
+        <strong>What this Zap does:</strong> Every new row in your Google Sheet (with First Name, Last Name, Company Name, and optionally Company Domain and LinkedIn URL) triggers FullEnrich to find a verified email and phone number, which Zapier then writes back to the Email and Phone columns of the same row.
         <br><br>
         <a href="https://zapier.com/webintent/create-zap?template=255590358" target="_blank" class="get-template-btn">
           <img src="https://app.fullenrich.com/app/_app/immutable/assets/zapier.f1331444.svg" alt="Zapier">
@@ -361,7 +361,7 @@
               <li><strong>Spreadsheet</strong> → select the Google Sheet you created in Step 1</li>
               <li><strong>Worksheet</strong> → select the sheet (e.g. <code>Sheet1</code>)</li>
             </ul>
-            Click <strong>Test trigger</strong> - Zapier will pull a recent row from your spreadsheet. Make sure you see the First Name, Last Name, Company, and other fields from your test row.
+            Click <strong>Test trigger</strong> - Zapier will pull a recent row from your spreadsheet. Make sure you see the First Name, Last Name, Company Name, and other fields from your test row.
           </div>
         </div>
       </div>
@@ -415,7 +415,7 @@
             <tr><th>Problem</th><th>Solution</th></tr>
           </thead>
           <tbody>
-            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company are mapped correctly. Adding the company domain or LinkedIn URL improves match rates.</td></tr>
+            <tr><td>FullEnrich returns no email</td><td>Make sure First Name, Last Name, and Company Name are mapped correctly. Adding the company domain or LinkedIn URL improves match rates.</td></tr>
             <tr><td>Google Sheets update fails</td><td>Check that the row number is correctly mapped from Step 1, and that your Google account has edit permissions on the spreadsheet.</td></tr>
             <tr><td>Zap doesn't trigger</td><td>Ensure the trigger is set to <strong>New Spreadsheet Row</strong> (not Updated Row) and that you're adding rows to the correct sheet.</td></tr>
           </tbody>
@@ -430,7 +430,7 @@
     <div class="steps-container">
 
       <div class="callout">
-        <strong>What this scenario does:</strong> When a new row is added to your Google Sheet (with First Name, Last Name, Company, and optionally Domain and LinkedIn URL), FullEnrich finds their verified email and phone number, then writes the results back to the Email and Phone columns in the same row.
+        <strong>What this scenario does:</strong> When Make detects a new row in your Google Sheet (with First Name, Last Name, Company Name, and optionally Company Domain and LinkedIn URL), it sends the contact to FullEnrich for enrichment and updates the Email and Phone columns of that same row with the verified data.
         <br><br>
         <a href="https://www.make.com/en/templates/18718-automatically-find-verified-emails-and-phones-for-every-new-row-in-google-sheets-with-fullenrich" target="_blank" class="get-template-btn">
           <img src="https://app.fullenrich.com/app/_app/immutable/assets/make.d929597e.svg" alt="Make">
