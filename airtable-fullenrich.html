@@ -648,7 +648,7 @@
               <li><strong>Record ID</strong> → <code>{{ $json.body.datas[0].custom.id }}</code></li>
               <li><strong>Email</strong> → <code>{{ $json.body.datas[0].contact.most_probable_email }}</code></li>
               <li><strong>Phone</strong> → <code>{{ $json.body.datas[0].contact.most_probable_phone }}</code></li>
-              <li><strong>LinkedIn URL</strong> → <code>{{ $json.body.datas[0].contact.social_medias[0].url }}</code></li>
+              <li><strong>LinkedIn URL</strong> → <code>{{ $json.body.datas[0].contact.social_medias.find(s =&gt; s.type === 'LINKEDIN')?.url }}</code></li>
             </ul>
           </div>
         </div>
