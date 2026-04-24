@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Company Signal → Decision Maker Outreach -Clay + FullEnrich</title>
+  <title>Company Signal → Decision Maker Outreach - Clay + FullEnrich</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -422,9 +422,9 @@
         <div class="step-desc">
           Calls FullEnrich's People Search API to find the sales leader at each company. Only runs if Company Domain exists.
           <ul>
-            <li><strong>Targets:</strong> VP Sales, Director of Sales, Head of Sales, CRO</li>
+            <li><strong>Titles:</strong> Head of Sales, VP Sales, Chief Revenue Officer</li>
             <li><strong>Seniority:</strong> VP or Director level</li>
-            <li><strong>Returns:</strong> Full Name, Title, LinkedIn Profile</li>
+            <li><strong>Returns:</strong> Full Name, LinkedIn Profile, Country</li>
           </ul>
 
           <div class="code-block">
@@ -432,13 +432,16 @@
 {<br>
 &nbsp;&nbsp;<span class="key">"limit"</span>: 1,<br>
 &nbsp;&nbsp;<span class="key">"current_company_domains"</span>: [<br>
-&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"{{Company Domain}}"</span>, <span class="key">"exact_match"</span>: true }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"{{company_domain}}"</span>, <span class="key">"exact_match"</span>: true }<br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;<span class="key">"current_position_seniority_level"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"VP"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Director"</span> }<br>
 &nbsp;&nbsp;],<br>
 &nbsp;&nbsp;<span class="key">"current_position_titles"</span>: [<br>
-&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"VP Sales"</span> },<br>
-&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Director of Sales"</span> },<br>
 &nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Head of Sales"</span> },<br>
-&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"CRO"</span> }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"VP Sales"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Chief Revenue Officer"</span> }<br>
 &nbsp;&nbsp;]<br>
 }
           </div>
@@ -447,7 +450,7 @@
           <div class="enrichment-card">
             <h4>FullEnrich People Search API</h4>
             <span class="credit-badge">~1 credit / search</span>
-            <p>Searches for VP/Director-level sales leaders. Returns full name, title, and LinkedIn profile. Uses your FullEnrich API key.</p>
+            <p>Searches for VP/Director-level sales leaders. Returns full name, LinkedIn profile, and country. Uses your FullEnrich API key.</p>
           </div>
         </div>
       </div>
@@ -462,8 +465,8 @@
           Parses the FullEnrich API response:
           <ul>
             <li><strong>Full Name</strong> -e.g. "Sarah Johnson"</li>
-            <li><strong>Title</strong> -e.g. "VP of Sales"</li>
             <li><strong>LinkedIn Profile</strong> -e.g. "linkedin.com/in/sarahjohnson"</li>
+            <li><strong>Country</strong> -e.g. "United States"</li>
           </ul>
           Uses optional chaining (<code>?.</code>) -returns null if no match found.
         </div>
@@ -471,7 +474,7 @@
           <div class="enrichment-card">
             <h4>Formula Columns (x3)</h4>
             <span class="credit-badge free">Free</span>
-            <p>Extracts full name, title, and LinkedIn URL from the API response.</p>
+            <p>Extracts full name, LinkedIn URL, and country from the API response.</p>
           </div>
         </div>
       </div>
@@ -525,7 +528,7 @@
     <div class="step">
       <div class="step-number">8</div>
       <div class="step-content">
-        <div class="step-title">Write Personalized Opener</div>
+        <div class="step-title">Cold Email Opener (AI - Claude 3.5 Sonnet)</div>
         <div class="step-desc">
           AI writes a 2-3 sentence cold email opener that mentions the specific buying signal. Only runs if Work Email exists.
           <br><br>
@@ -536,7 +539,7 @@
         </div>
         <div class="enrichment-grid" style="grid-template-columns: 1fr;">
           <div class="enrichment-card">
-            <h4>AI Personalized Sales Opener</h4>
+            <h4>Cold Email Opener</h4>
             <span class="credit-badge">~1-3 credits / contact</span>
             <p>Uses Claude 3.5 Sonnet to generate a personalized opener referencing the company's buying signal.</p>
           </div>
@@ -562,30 +565,13 @@
       </div>
     </div>
 
-    <!-- STEP 10 -->
-    <div class="step">
-      <div class="step-number">10</div>
-      <div class="step-content">
-        <div class="step-title">Export & Track Status</div>
-        <div class="step-desc">
-          Filter by <strong>"Ready for Outreach = Yes"</strong>, then export to:
-          <ul>
-            <li><strong>CSV</strong> -for any tool</li>
-            <li><strong>CRM</strong> -push to Salesforce, HubSpot, etc.</li>
-            <li><strong>Email sequencer</strong> -Instantly, lemlist, Smartlead, Outreach</li>
-          </ul>
-          Use the <strong>Export Status</strong> column to track: "Exported", "Sent", "Replied", etc.
-        </div>
-      </div>
-    </div>
-
     <!-- Cost summary -->
     <div class="cost-summary">
       <h4>Cost per company</h4>
       <div class="cost-row"><span>Company Signals (PredictLeads)</span><span>0.5 credits</span></div>
       <div class="cost-row"><span>FullEnrich People Search API</span><span>~1 credit</span></div>
       <div class="cost-row"><span>FullEnrich Find Work Email</span><span>1.5 credits</span></div>
-      <div class="cost-row"><span>AI Sales Opener</span><span>~1-3 credits</span></div>
+      <div class="cost-row"><span>Cold Email Opener (Claude 3.5 Sonnet)</span><span>~1-3 credits</span></div>
       <div class="cost-row subtotal"><span>Core total (without phone)</span><span>4-6 credits</span></div>
       <div class="cost-row"><span>FullEnrich Find Mobile Phone (optional)</span><span>25 credits</span></div>
       <div class="cost-row"><span>Total with phone</span><span>29-31 credits</span></div>
