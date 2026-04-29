@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find &amp; enrich B2B contacts from Claude</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul { margin-top: 8px; padding-left: 20px; }
+    .step-desc li { margin-bottom: 4px; }
+    .step-desc a {
+      color: #6A49EC;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    .get-template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #6A49EC;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .get-template-btn:hover { background: #5638CC; }
+    .get-template-btn img { height: 18px; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Claude Skill</span>
+  </header>
+
+  <a href="mcp-recipes.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to Claude Skills
+  </a>
+
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Find &amp; enrich B2B contacts from Claude</h1>
+    <p>Describe the audience you want, the skill calibrates the search, validates the volume before any credit is spent, then delivers an enriched contact list ready for outreach.</p>
+  </section>
+
+  <div class="steps-container">
+
+    <div class="callout">
+      <strong>How it works:</strong> the skill plays the role of a B2B data strategist inside Claude. When you describe your ICP in plain English (titles, seniority, industry, location, headcount), the skill maps your request to FullEnrich's people-search filters, runs a free preview to validate volume, surfaces issues with the filters before they cost anything, and only enriches once you confirm the credit cost. The output is a clean enriched list (CSV download for large batches, inline table for small ones) ready to paste anywhere.
+      <br><br>
+      <a href="https://gist.github.com/ToolMonsters/28863225508b5513359c44fdb52f3802/archive/58a5bd1ded519f3a869882b0b02c1bdc754d070b.zip" class="get-template-btn">
+        <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        Download Skill
+      </a>
+    </div>
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Connect the FullEnrich MCP to Claude</div>
+        <div class="step-desc">
+          This skill needs only one MCP active in your Claude workspace:
+          <ul>
+            <li><strong>FullEnrich MCP</strong> at <code>https://mcp.fullenrich.com/mcp</code></li>
+          </ul>
+          New to MCPs? Follow the <a href="https://help.fullenrich.com/en/articles/14595910-connect-fullenrich-mcp-to-claude" target="_blank">FullEnrich MCP setup guide</a>.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Install the skill in Claude</div>
+        <div class="step-desc">
+          Click <strong>Download Skill</strong> above to grab the skill <code>.zip</code> file, then install it in Claude:
+          <ul>
+            <li>Open <strong>Customize</strong> in Claude</li>
+            <li>Click <strong>Create new skill</strong></li>
+            <li>Click the <strong>+</strong> button at the top</li>
+            <li>Choose <strong>Create Skill</strong></li>
+            <li>Pick <strong>Upload a skill</strong> and select the <code>.zip</code> you just downloaded</li>
+          </ul>
+          <img src="Claude Skill.gif" alt="How to install the skill in Claude" style="margin-top:14px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">Describe the audience you want</div>
+        <div class="step-desc">
+          Tell Claude what you are looking for in plain language. The skill activates on phrases like:
+          <ul>
+            <li><em>"Find me 20 VP Sales in Software Development companies in France, with verified emails"</em></li>
+            <li><em>"Build a list of HR directors at companies with 500+ employees in Germany"</em></li>
+            <li><em>"I need 10 Heads of Growth at startups in London, emails and phones"</em></li>
+          </ul>
+          You can give a precise brief or a rough one. If a critical filter is missing or vague (e.g. "find me CTOs" with no industry or company size), the skill asks back before running anything.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">The skill calibrates filters before spending credits</div>
+        <div class="step-desc">
+          Before any enrichment, the skill does three free things:
+          <ul>
+            <li>Checks your <strong>credit balance</strong> so you know what is available</li>
+            <li>Validates your <strong>industry term</strong> against FullEnrich's official taxonomy (e.g. you said "SaaS", the database stores it as "Software Development", the skill picks the right one)</li>
+            <li>Runs a <strong>preview search</strong> to count how many contacts match your filters and shows the first few</li>
+          </ul>
+          If the volume is too low for what you asked (e.g. you wanted 100 but only 12 match), the skill stops and suggests how to broaden the filters before proceeding.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">Confirm the cost, then enrich</div>
+        <div class="step-desc">
+          The skill never spends credits without an explicit go from you. Before enriching, it shows a one-line summary:
+          <br><br>
+          <em>"42 contacts found. Enriching 20 with work emails and mobile phones will cost ~220 credits. You have 1,500. Proceed?"</em>
+          <br><br>
+          On your "yes", the skill kicks off a single enrichment job, polls the status every 20 seconds, and reports progress in chat (<em>Enriching 14/20 completed</em>).
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Get the enriched contact list</div>
+        <div class="step-desc">
+          When the job is done, the skill exports the full dataset as a CSV. For small batches (≤20 contacts) you also get the table inline in the chat. Standard columns:
+          <ul>
+            <li>Full Name, Title, Company, Headcount, Location, LinkedIn URL, Work Email, Phone</li>
+          </ul>
+          The download link is presented at the bottom of the response. Note: FullEnrich CSV download links expire 24 hours after generation, so save the file locally if you need it later.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warning">
+      <strong>Built-in safeguards:</strong> the skill never runs an enrichment without showing you the cost first, never uses the API's default 10,000 limit (always uses the number you asked for), and never silently retries with different filters if a search fails. If a job title returns 0 matches, it explains that titles vary across companies/regions and suggests alternatives instead of guessing.
+    </div>
+
+    <div class="callout">
+      <strong>What is next?</strong> After delivering the list, the skill offers natural follow-ups: enrich more contacts from the same search, push the list to your CRM (using the FullEnrich + HubSpot, Attio, Monday, Notion, or Airtable skills), or draft personalized outreach from the enriched data.
+    </div>
+
+    <div class="troubleshooting">
+      <h3>Troubleshooting</h3>
+      <table>
+        <thead>
+          <tr><th>Problem</th><th>Solution</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude says the FullEnrich MCP is not connected</td><td>Open Claude settings and connect <code>https://mcp.fullenrich.com/mcp</code>. The skill resumes on the next message.</td></tr>
+          <tr><td>Search returns 0 contacts for a job title</td><td>Job titles are free text and vary across companies and regions. The skill explains this and suggests 2 to 3 close alternatives. Pick one and re-run.</td></tr>
+          <tr><td>Volume too low for the requested number</td><td>Filters are too narrow. The skill suggests which filter to broaden first (typically: relax the title, drop the industry, expand the location, or raise headcount range).</td></tr>
+          <tr><td>"CREDITS_INSUFFICIENT" on a contact</td><td>Despite the name, this status means <strong>no data was found</strong> for that contact, not that you are out of credits. The skill flags this clearly when it surfaces.</td></tr>
+          <tr><td>Industry filter rejected</td><td>Common terms like <em>SaaS</em>, <em>fintech</em>, or <em>tech</em> are not valid FullEnrich values. The skill auto-checks against the official taxonomy and proposes the closest match (typically <em>Software Development</em>, <em>Financial Services</em>, <em>Technology, Information and Internet</em>, etc.).</td></tr>
+          <tr><td>CSV download link no longer works</td><td>Export links expire after 24 hours. Ask Claude to <em>"re-export the last enrichment"</em> and the skill regenerates a fresh link.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search, enrich from Claude & push to HubSpot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-plus { font-size: 22px; font-weight: 500; color: #BCBBC3; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul { margin-top: 8px; padding-left: 20px; }
+    .step-desc li { margin-bottom: 4px; }
+    .step-desc a {
+      color: #6A49EC;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    .get-template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #6A49EC;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .get-template-btn:hover { background: #5638CC; }
+    .get-template-btn img { height: 18px; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Claude Skill</span>
+  </header>
+
+  <a href="mcp-recipes.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to Claude Skills
+  </a>
+
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo"><img src="https://www.svgrepo.com/show/331433/hubspot.svg" alt="HubSpot"></div>
+      <span class="detail-plus">+</span>
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Search, enrich from Claude &amp; push to HubSpot</h1>
+    <p>Run any FullEnrich search or enrichment in Claude and the results land in your HubSpot Contacts and chosen static list automatically. One-time setup, then zero friction.</p>
+  </section>
+
+  <div class="steps-container">
+
+    <div class="callout">
+      <strong>How it works:</strong> the skill listens in the background. The moment FullEnrich returns contacts (from a search, an enrich, or a bulk job), the skill grabs the results and upserts them into your HubSpot <strong>Contacts</strong> object using email as the unique key. New emails create new contacts, existing emails update the existing record. Every contact is then added to the static list you picked at setup, and HubSpot's native company-association kicks in automatically (each contact gets linked to the right company by email domain). You do not need to mention HubSpot in your message, the skill knows where to send them.
+      <br><br>
+      <a href="https://gist.github.com/ToolMonsters/8829ccb3949425025ad38903a620ff12/archive/ae3ea987c1f9eac90508b4a1e3020c57d045d7d2.zip" class="get-template-btn">
+        <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        Download Skill
+      </a>
+    </div>
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Connect both MCPs to Claude</div>
+        <div class="step-desc">
+          The skill needs two MCPs active in your Claude workspace before it can run anything:
+          <ul>
+            <li><strong>FullEnrich MCP</strong> at <code>https://mcp.fullenrich.com/mcp</code></li>
+            <li><strong>HubSpot MCP</strong> (the official HubSpot MCP server)</li>
+          </ul>
+          New to MCPs? Follow the <a href="https://help.fullenrich.com/en/articles/14595910-connect-fullenrich-mcp-to-claude" target="_blank">FullEnrich MCP setup guide</a>, the HubSpot one works the same way.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Install the skill in Claude</div>
+        <div class="step-desc">
+          Click <strong>Download Skill</strong> above to grab the skill <code>.zip</code> file, then install it in Claude:
+          <ul>
+            <li>Open <strong>Customize</strong> in Claude</li>
+            <li>Click <strong>Create new skill</strong></li>
+            <li>Click the <strong>+</strong> button at the top</li>
+            <li>Choose <strong>Create Skill</strong></li>
+            <li>Pick <strong>Upload a skill</strong> and select the <code>.zip</code> you just downloaded</li>
+          </ul>
+          <img src="Claude Skill.gif" alt="How to install the skill in Claude" style="margin-top:14px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">Answer 2 setup questions (one time only)</div>
+        <div class="step-desc">
+          The first time FullEnrich returns results, the skill stops to ask 2 quick questions and then saves your answers in Claude's memory for every future conversation:
+          <ul>
+            <li><strong>Which HubSpot static list?</strong> Paste the URL or type the name (e.g. "Inbound Leads", "Sales Pipeline"). It must be a <strong>static list</strong>, not an active list. Active lists are rule-based and HubSpot does not allow adding contacts manually to them. If you do not have a static list yet, create one in HubSpot first (Contacts, Lists, Create list, Static).</li>
+            <li><strong>Auto-push or confirm each time?</strong> Pick "auto" to never be asked again, or "confirm" to get a one-line prompt before every push.</li>
+          </ul>
+          The destination object is always <strong>Contacts</strong>, so you do not pick an object. There is no property-mapping step either, the skill adapts to your contact properties by itself (see step 5).
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">Use FullEnrich normally in chat</div>
+        <div class="step-desc">
+          From now on, just talk to Claude as usual: <em>"find me 50 VPs of Sales at fintech US"</em>, <em>"enrich this list of LinkedIn URLs"</em>, <em>"look up this email"</em>. As soon as FullEnrich returns contacts, the skill kicks in and prepares the push. You do not need to say "send to HubSpot", the skill already knows where they go.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">The skill adapts to your contact properties automatically</div>
+        <div class="step-desc">
+          Before pushing, the skill reads your Contacts object's properties and maps FullEnrich fields to standard HubSpot property names first, then falls back to fuzzy matching for custom properties:
+          <ul>
+            <li><code>email</code>, <code>phone</code>, <code>firstname</code>, <code>lastname</code>, <code>company</code>, <code>jobtitle</code>, <code>industry</code>, <code>city</code>, <code>country</code> get filled when the property exists</li>
+            <li><code>hs_linkedin_url</code> picks up the LinkedIn URL on workspaces that have it; otherwise the skill matches a custom field named <code>LinkedIn</code>, <code>Profile</code>, etc.</li>
+            <li>Whatever properties you have get filled, the rest is silently skipped</li>
+          </ul>
+          The skill <strong>never adds properties</strong>, <strong>never auto-creates enumeration options</strong>, and <strong>never sets <code>lifecyclestage</code> or <code>hubspot_owner_id</code></strong> (those properties trigger workflows and routing rules, the skill leaves them alone on purpose).
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Auto-push or confirm before each push</div>
+        <div class="step-desc">
+          Depending on the mode you picked at setup:
+          <ul>
+            <li><strong>Auto</strong>, the skill upserts the contacts, adds them to the list, lets HubSpot auto-associate companies, and posts a one-line recap with a link to the list.</li>
+            <li><strong>Confirm</strong>, the skill ends its message with <em>"Push these N contacts to [list name] in HubSpot?"</em> and waits for a yes before sending.</li>
+          </ul>
+          Want to switch modes or change the destination list later? Tell Claude <em>"change the HubSpot list"</em>, <em>"switch to confirm mode"</em>, or run <code>/setup</code>. To turn auto-push off entirely: <em>"stop pushing to HubSpot"</em>.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warning">
+      <strong>Built-in dedup &amp; company linking:</strong> every push uses HubSpot's native upsert with <code>email</code> as the unique key, so the same contact never lands twice. Companies are linked automatically thanks to HubSpot's default Contact, Company association by email domain (a contact created with <code>jane@acme.com</code> gets linked to the <code>acme.com</code> company, or a new company record is created if none exists). The skill never sets <code>lifecyclestage</code> or contact owner, so it never triggers your workflows or routing rules by accident.
+    </div>
+
+    <div class="troubleshooting">
+      <h3>Troubleshooting</h3>
+      <table>
+        <thead>
+          <tr><th>Problem</th><th>Solution</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude says an MCP is not connected</td><td>Open Claude settings and connect the missing MCP using its URL above. The skill resumes on the next message.</td></tr>
+          <tr><td>"That looks like an active list"</td><td>HubSpot active lists are rule-based and the skill cannot add contacts manually. Create a static list in HubSpot (Contacts, Lists, Create list, Static), then run <code>/setup</code>.</td></tr>
+          <tr><td>Some contacts fell back to create only (no upsert)</td><td>Those contacts had no email, so dedup was impossible. The skill still added them with the data available. Re-enrich them later when you have an email.</td></tr>
+          <tr><td>A property did not get filled</td><td>The fuzzy matcher could not align that property to a FullEnrich field. Use a more standard internal name (e.g. <code>email</code>, <code>phone</code>, <code>jobtitle</code>) and the next push picks it up.</td></tr>
+          <tr><td>Enumeration field came up empty</td><td>FullEnrich returned a value (e.g. <em>Fintech</em>) but the enum option does not exist on that property. Add it manually in HubSpot, or use a free-text property instead.</td></tr>
+          <tr><td>Contacts are not getting linked to companies</td><td>HubSpot's automatic company association may be disabled in your account. Check Settings, Objects, Companies, and re-enable "Automatically create and associate companies with contacts".</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

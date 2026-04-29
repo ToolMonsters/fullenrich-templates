@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulk-enrich a CSV of contacts from Claude</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul { margin-top: 8px; padding-left: 20px; }
+    .step-desc li { margin-bottom: 4px; }
+    .step-desc a {
+      color: #6A49EC;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    .get-template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #6A49EC;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .get-template-btn:hover { background: #5638CC; }
+    .get-template-btn img { height: 18px; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Claude Skill</span>
+  </header>
+
+  <a href="mcp-recipes.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to Claude Skills
+  </a>
+
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Bulk-enrich a CSV of contacts from Claude</h1>
+    <p>Drop a CSV of LinkedIn URLs, names, or names + companies into Claude. The skill parses, validates, runs the bulk enrichment with FullEnrich, and gives you back a merged CSV with verified emails and phone numbers.</p>
+  </section>
+
+  <div class="steps-container">
+
+    <div class="callout">
+      <strong>How it works:</strong> the skill plays the role of a data operations specialist inside Claude. It handles the boring parts of CSV enrichment: parses your file, detects column names (LinkedIn URL, Full Name, Company, Domain, etc.), shows you a preview to confirm the mapping, estimates the credit cost, and only runs the bulk enrichment after you say go. The output is a merged CSV with your original rows plus verified emails and phones, with existing email cells in your file always preserved.
+      <br><br>
+      <a href="https://gist.github.com/ToolMonsters/1be36af964272791e4674533d32336f7/archive/e2df408669d8aaa6915e1e2f11c0950e8193a481.zip" class="get-template-btn">
+        <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        Download Skill
+      </a>
+    </div>
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Connect the FullEnrich MCP to Claude</div>
+        <div class="step-desc">
+          This skill needs only one MCP active in your Claude workspace:
+          <ul>
+            <li><strong>FullEnrich MCP</strong> at <code>https://mcp.fullenrich.com/mcp</code></li>
+          </ul>
+          New to MCPs? Follow the <a href="https://help.fullenrich.com/en/articles/14595910-connect-fullenrich-mcp-to-claude" target="_blank">FullEnrich MCP setup guide</a>.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Install the skill in Claude</div>
+        <div class="step-desc">
+          Click <strong>Download Skill</strong> above to grab the skill <code>.zip</code> file, then install it in Claude:
+          <ul>
+            <li>Open <strong>Customize</strong> in Claude</li>
+            <li>Click <strong>Create new skill</strong></li>
+            <li>Click the <strong>+</strong> button at the top</li>
+            <li>Choose <strong>Create Skill</strong></li>
+            <li>Pick <strong>Upload a skill</strong> and select the <code>.zip</code> you just downloaded</li>
+          </ul>
+          <img src="Claude Skill.gif" alt="How to install the skill in Claude" style="margin-top:14px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">Drop your CSV in chat</div>
+        <div class="step-desc">
+          Upload a CSV with whichever columns you have. The skill recognizes any combination of these fields:
+          <ul>
+            <li><strong>LinkedIn URL</strong>, the strongest single identifier when present</li>
+            <li><strong>First Name</strong> + <strong>Last Name</strong> (or a single <strong>Full Name</strong> column)</li>
+            <li><strong>Company</strong> name, and optionally <strong>Domain</strong> (website)</li>
+          </ul>
+          Any other column you have in the file (status, owner, notes, etc.) is kept untouched in the merged output but ignored during enrichment. The skill activates when you say things like <em>"enrich this CSV"</em>, <em>"bulk enrich my file"</em>, or just by uploading the file with a short instruction.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">Confirm column mapping and the cost</div>
+        <div class="step-desc">
+          Before any credit is spent, the skill does three things:
+          <ul>
+            <li>Parses your CSV and shows the <strong>first 5 rows</strong> with the detected columns mapped to FullEnrich fields, so you can spot a wrong guess (e.g. an "Email" column that is actually a previous-employer email)</li>
+            <li>Flags rows with <strong>not enough data</strong> to enrich (no LinkedIn URL and no name+company) and tells you how many will be skipped</li>
+            <li>Calls <code>get_credits</code>, computes the <strong>estimated cost</strong> based on what you want (work email, phone, or both), and asks for explicit confirmation</li>
+          </ul>
+          Typical confirmation looks like: <em>"42 valid contacts. Enriching with work email + phone will cost ~462 credits. You have 1,500. Proceed?"</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">The skill normalizes and runs the bulk job</div>
+        <div class="step-desc">
+          Once you confirm, the skill cleans the data before sending: trims whitespace on names, normalizes LinkedIn URLs (strips locale paths like <code>/en</code> or <code>/fr</code> and trailing slashes, forces <code>https://</code>), and batches large files into chunks of 100 contacts. It then calls <code>enrich_bulk</code> in the background and polls the status every 20 seconds, showing progress in chat (<em>Enriching 67/100 completed</em>).
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Get the merged CSV back</div>
+        <div class="step-desc">
+          When the job finishes, the skill exports the full result as a CSV download link. For small files (≤20 contacts) you also get an inline table in chat with Full Name, Company, LinkedIn, Email, Phone, and the verification status (<code>DELIVERABLE</code>, <code>PROBABLY_VALID</code>, <code>CATCH_ALL</code>, etc.).
+          <br><br>
+          A quick summary follows: total contacts processed, emails found (count + %), phones found (count + %), and how many came back without a match. Every row also keeps its original columns from your input file. <strong>Existing email cells in your file are never overwritten</strong>, the skill only fills empty cells.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warning">
+      <strong>Built-in safeguards:</strong> the skill always shows a column-mapping preview before enriching, asks for explicit confirmation on the credit cost, normalizes LinkedIn URLs to avoid wasted lookups, batches files larger than 100 rows automatically, and preserves any existing data in your CSV. It also explains the misleading <code>CREDITS_INSUFFICIENT</code> status when it appears (it means "no data found", not "out of credits").
+    </div>
+
+    <div class="callout">
+      <strong>What is next?</strong> After delivering the enriched CSV, the skill offers natural follow-ups: push the contacts to your CRM (using the FullEnrich + HubSpot, Attio, Monday, Notion, or Airtable skills), draft personalized outreach from the enriched data, or upload another file.
+    </div>
+
+    <div class="troubleshooting">
+      <h3>Troubleshooting</h3>
+      <table>
+        <thead>
+          <tr><th>Problem</th><th>Solution</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude says the FullEnrich MCP is not connected</td><td>Open Claude settings and connect <code>https://mcp.fullenrich.com/mcp</code>. Re-upload the file on the next message.</td></tr>
+          <tr><td>"X rows have not enough data"</td><td>Those rows have neither a LinkedIn URL, nor a name + company. The skill skips them to avoid wasting credits. You can re-upload with more columns or accept the skip.</td></tr>
+          <tr><td>Wrong column was detected as the email field</td><td>The skill confirms the mapping in step 4. Tell it which column is the actual work email, or just say <em>"that column is a previous-employer email, ignore it"</em>.</td></tr>
+          <tr><td>Many contacts came back with <code>CREDITS_INSUFFICIENT</code></td><td>Despite the name, this status means <strong>no data was found</strong> for that contact, not that you are out of credits. Common when LinkedIn URLs are stale or company names are very generic.</td></tr>
+          <tr><td>CSV download link does not work anymore</td><td>Export links expire after 24 hours. Ask Claude to <em>"re-export the last enrichment"</em> and the skill regenerates a fresh link from the same enrichment job.</td></tr>
+          <tr><td>Bulk job took longer than expected</td><td>For files of 500+ rows, total processing can take several minutes. The skill polls in the background and shows live progress, no need to refresh anything.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

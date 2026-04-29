@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FullEnrich - MCP Recipes</title>
+  <title>FullEnrich - Claude Skills</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -122,6 +122,14 @@
       flex-direction: column;
       gap: 16px;
       cursor: default;
+      position: relative;
+    }
+    .integration-card:has(a.integration-btn:not(.btn-soon)) { cursor: pointer; }
+    .integration-card a.integration-btn:not(.btn-soon)::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
     }
     .integration-card:hover {
       border-color: #C3B5F7;
@@ -188,18 +196,31 @@
       height: 20px;
       opacity: 0.3;
     }
+    .integration-card:has(.integration-btn:not(.btn-soon)) .integration-platforms img {
+      opacity: 1;
+    }
     .integration-btn {
       padding: 6px 16px;
       border-radius: 8px;
       font-size: 13px;
       font-weight: 600;
-      background: #F3F2EC;
-      color: #797783;
+      color: #6A49EC;
+      background: #EFEBFF;
       border: none;
-      cursor: default;
-      pointer-events: none;
+      cursor: pointer;
+      transition: all 0.2s;
       text-decoration: none;
       display: inline-block;
+    }
+    .integration-btn:hover {
+      background: #6A49EC;
+      color: #fff;
+    }
+    .integration-btn.btn-soon {
+      background: #F3F2EC;
+      color: #797783;
+      cursor: default;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -212,67 +233,106 @@
     </div>
     <div class="header-divider"></div>
     <a href="integrations.html" class="header-nav">Automation Templates</a>
-    <a href="mcp-recipes.html" class="header-nav active">MCP Recipes</a>
+    <a href="mcp-recipes.html" class="header-nav active">Claude Skills</a>
 
   </header>
 
   <!-- Hero -->
   <section class="hero">
-    <h1>FullEnrich <em>MCP Recipes</em></h1>
-    <p>Connect FullEnrich to your favorite tools via MCP. Enrich, search, and send leads directly from Claude, ChatGPT, Mistral, or Manus.</p>
+    <h1>FullEnrich <em>Claude Skills</em></h1>
+    <p>Connect FullEnrich to your favorite tools via MCP. Enrich, search, and send leads directly from Claude.</p>
   </section>
 
   <!-- MCP Recipes Grid -->
   <section class="integrations-grid">
 
-    <!-- MCP Recipe: Monday.com -->
+    <!-- MCP Recipe: Full Prospecting (FullEnrich only) -->
     <div class="integration-card">
       <div class="integration-logos">
-        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqIvjWjRTI1JvYoPEfUp3ielEzlFHcJGfSjg&s" alt="Monday.com"></div>
-        <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Search, enrich & send leads to Monday.com - without leaving your AI</div>
-      <div class="integration-apps">Monday.com + FullEnrich MCP</div>
+      <div class="integration-title">Find & enrich a B2B prospect list matching your ICP</div>
+      <div class="integration-apps">FullEnrich MCP</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <a href="mcp-prospecting-fullenrich.html" class="integration-btn">Details</a>
       </div>
     </div>
 
-    <!-- MCP Recipe: Attio -->
+    <!-- MCP Recipe: Full CSV (FullEnrich only) -->
     <div class="integration-card">
       <div class="integration-logos">
-        <div class="integration-logo"><img src="https://media.licdn.com/dms/image/v2/C4D0BAQF16UXOMcHaCA/company-logo_200_200/company-logo_200_200/0/1670519496148/attio_logo?e=2147483647&v=beta&t=1Tgkqt6FWRN84JYVjo1GitVkZnUIe2cOX4x3syrRE-U" alt="Attio"></div>
-        <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Search, enrich & send leads to Attio - without leaving your AI</div>
-      <div class="integration-apps">Attio + FullEnrich MCP</div>
+      <div class="integration-title">Bulk-enrich a CSV of contacts</div>
+      <div class="integration-apps">FullEnrich MCP</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <a href="mcp-csv-fullenrich.html" class="integration-btn">Details</a>
       </div>
     </div>
 
-    <!-- MCP Recipe: Google Sheets -->
+    <!-- MCP Recipe: Full Lookalike (FullEnrich only) -->
     <div class="integration-card">
       <div class="integration-logos">
-        <div class="integration-logo"><img src="https://mailmeteor.com/logos/assets/PNG/Google_Sheets_Logo_512px.png" alt="Google Sheets"></div>
-        <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Enrich contacts & fill Google Sheets - without leaving your AI</div>
-      <div class="integration-apps">Google Sheets + FullEnrich MCP</div>
+      <div class="integration-title">Find lookalike profiles from any LinkedIn URL</div>
+      <div class="integration-apps">FullEnrich MCP</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <a href="mcp-lookalike-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Full Org (FullEnrich only) -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Map any company org chart & find the right contacts</div>
+      <div class="integration-apps">FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <a href="mcp-org-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Full Talent (FullEnrich only) -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Source & qualify candidates for any role</div>
+      <div class="integration-apps">FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <a href="mcp-talent-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Full Meeting Prep (FullEnrich only) -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Prep any meeting with a tactical brief</div>
+      <div class="integration-apps">FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <a href="mcp-meeting-fullenrich.html" class="integration-btn">Details</a>
       </div>
     </div>
 
@@ -283,13 +343,166 @@
         <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Search, enrich & send leads to HubSpot - without leaving your AI</div>
+      <div class="integration-title">Search, enrich & send leads to HubSpot</div>
       <div class="integration-apps">HubSpot + FullEnrich MCP</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <a href="mcp-hubspot-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Attio -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://media.licdn.com/dms/image/v2/C4D0BAQF16UXOMcHaCA/company-logo_200_200/company-logo_200_200/0/1670519496148/attio_logo?e=2147483647&v=beta&t=1Tgkqt6FWRN84JYVjo1GitVkZnUIe2cOX4x3syrRE-U" alt="Attio"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send leads to Attio</div>
+      <div class="integration-apps">Attio + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <a href="mcp-attio-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Monday.com -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqIvjWjRTI1JvYoPEfUp3ielEzlFHcJGfSjg&s" alt="Monday.com"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send leads to Monday.com</div>
+      <div class="integration-apps">Monday.com + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <a href="mcp-monday-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Notion -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" alt="Notion"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send leads to Notion</div>
+      <div class="integration-apps">Notion + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <a href="mcp-notion-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Airtable -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://images.seeklogo.com/logo-png/29/1/airtable-logo-png_seeklogo-294322.png" alt="Airtable"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send leads to Airtable</div>
+      <div class="integration-apps">Airtable + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <a href="mcp-airtable-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Granola (Granola + FullEnrich) -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_Ssw2m-xxh2DPBmEA9TqEYNRJO-Obx1kerg&s" alt="Granola"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Scan Granola meetings & enrich every person mentioned</div>
+      <div class="integration-apps">Granola + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <a href="mcp-granola-fullenrich.html" class="integration-btn">Details</a>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Fathom (Fathom + FullEnrich) -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAGQlKrBwxOuiKx1_YAxODRwWatNna4q-61A&s" alt="Fathom"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Scan Fathom meetings & enrich every person mentioned</div>
+      <div class="integration-apps">Fathom + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <span class="integration-btn btn-soon">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Salesforce -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://avatars.githubusercontent.com/u/453694?s=200" alt="Salesforce"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & send leads to Salesforce</div>
+      <div class="integration-apps">Salesforce + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <span class="integration-btn btn-soon">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Supabase -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://avatars.githubusercontent.com/u/54469796?s=200" alt="Supabase"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Find Supabase users with missing data & batch-enrich them with FullEnrich, no SQL needed</div>
+      <div class="integration-apps">Supabase + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <span class="integration-btn btn-soon">Coming soon</span>
+      </div>
+    </div>
+
+    <!-- MCP Recipe: Outreach -->
+    <div class="integration-card">
+      <div class="integration-logos">
+        <div class="integration-logo"><img src="https://static.integration.app/connectors/outreach-connector/logo.png" alt="Outreach"></div>
+        <span class="integration-plus">+</span>
+        <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+      </div>
+      <div class="integration-title">Search, enrich & drop leads into an Outreach sequence</div>
+      <div class="integration-apps">Outreach + FullEnrich MCP</div>
+      <div class="integration-footer">
+        <div class="integration-platforms">
+          <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        </div>
+        <span class="integration-btn btn-soon">Coming soon</span>
       </div>
     </div>
 
@@ -300,13 +513,13 @@
         <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Search, enrich & send emails automatically - without leaving your AI</div>
+      <div class="integration-title">Search, enrich & send emails automatically</div>
       <div class="integration-apps">Gmail + FullEnrich MCP</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <span class="integration-btn btn-soon">Coming soon</span>
       </div>
     </div>
 
@@ -317,30 +530,30 @@
         <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Enrich leads & trigger 3000+ web scrapers for ultra-deep research - without leaving your AI</div>
+      <div class="integration-title">Enrich leads & trigger 3000+ web scrapers for ultra-deep research</div>
       <div class="integration-apps">Apify Actors MCP + FullEnrich</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <span class="integration-btn btn-soon">Coming soon</span>
       </div>
     </div>
 
     <!-- MCP Recipe: Puppeteer Browser -->
     <div class="integration-card">
       <div class="integration-logos">
-        <div class="integration-logo"><img src="https://user-images.githubusercontent.com/10379601/29446482-04f7036a-841f-11e7-9872-91d1fc2ea683.png" alt="Puppeteer"></div>
+        <div class="integration-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl_OPxT2TiPrtxwIjYlt1EzqoJ6mYX2LK4xw&s" alt="Bright Data"></div>
         <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Enrich a lead & launch a full browser session to scrape their site live (pricing, news, job openings, tech stack) - without leaving your AI</div>
-      <div class="integration-apps">Puppeteer Browser MCP + FullEnrich</div>
+      <div class="integration-title">Scrape leads from the live web & enrich them instantly with FullEnrich</div>
+      <div class="integration-apps">Bright Data MCP + FullEnrich</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <span class="integration-btn btn-soon">Coming soon</span>
       </div>
     </div>
 
@@ -351,13 +564,13 @@
         <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Create a deck based on a website domain & enrich the right target to send it to - without leaving your AI</div>
+      <div class="integration-title">Create a deck based on a website domain & enrich the right target to send it to</div>
       <div class="integration-apps">Gamma + FullEnrich MCP</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <span class="integration-btn btn-soon">Coming soon</span>
       </div>
     </div>
 
@@ -368,13 +581,13 @@
         <span class="integration-plus">+</span>
         <div class="integration-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
       </div>
-      <div class="integration-title">Search, enrich & send emails - without leaving your AI</div>
+      <div class="integration-title">Search, enrich & send emails</div>
       <div class="integration-apps">Outlook / Microsoft 365 MCP + FullEnrich</div>
       <div class="integration-footer">
         <div class="integration-platforms">
           <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
         </div>
-        <span class="integration-btn">Coming soon</span>
+        <span class="integration-btn btn-soon">Coming soon</span>
       </div>
     </div>
 

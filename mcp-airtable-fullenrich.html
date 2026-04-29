@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search, enrich from Claude & push to Airtable</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-plus { font-size: 22px; font-weight: 500; color: #BCBBC3; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul { margin-top: 8px; padding-left: 20px; }
+    .step-desc li { margin-bottom: 4px; }
+    .step-desc a {
+      color: #6A49EC;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    .get-template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #6A49EC;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .get-template-btn:hover { background: #5638CC; }
+    .get-template-btn img { height: 18px; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Claude Skill</span>
+  </header>
+
+  <a href="mcp-recipes.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to Claude Skills
+  </a>
+
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo"><img src="https://images.seeklogo.com/logo-png/29/1/airtable-logo-png_seeklogo-294322.png" alt="Airtable"></div>
+      <span class="detail-plus">+</span>
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Search, enrich from Claude &amp; push to Airtable</h1>
+    <p>Run any FullEnrich search or enrichment in Claude and the results land in your Airtable table automatically. One-time setup, then zero friction.</p>
+  </section>
+
+  <div class="steps-container">
+
+    <div class="callout">
+      <strong>How it works:</strong> the skill listens in the background. The moment FullEnrich returns contacts (from a search, an enrich, or a bulk job), the skill grabs the results and pushes them to your Airtable table. If a record with the same email already exists, the skill updates it (PATCH-style, your existing values are preserved). If not, it creates a new row. You do not need to mention Airtable in your message, the skill knows where to send them, and it adapts to whatever fields exist in your table.
+      <br><br>
+      <a href="https://gist.github.com/ToolMonsters/8d59e1aaecff9250de68ab3472663670/archive/fcb74152ef804257742d100b333f84c7f0aa3419.zip" class="get-template-btn">
+        <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        Download Skill
+      </a>
+    </div>
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Connect both MCPs to Claude</div>
+        <div class="step-desc">
+          The skill needs two MCPs active in your Claude workspace before it can run anything:
+          <ul>
+            <li><strong>FullEnrich MCP</strong> at <code>https://mcp.fullenrich.com/mcp</code></li>
+            <li><strong>Airtable MCP</strong> (any standard implementation, e.g. the Composio or community Airtable MCP server)</li>
+          </ul>
+          New to MCPs? Follow the <a href="https://help.fullenrich.com/en/articles/14595910-connect-fullenrich-mcp-to-claude" target="_blank">FullEnrich MCP setup guide</a>, the Airtable one works the same way.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Install the skill in Claude</div>
+        <div class="step-desc">
+          Click <strong>Download Skill</strong> above to grab the skill <code>.zip</code> file, then install it in Claude:
+          <ul>
+            <li>Open <strong>Customize</strong> in Claude</li>
+            <li>Click <strong>Create new skill</strong></li>
+            <li>Click the <strong>+</strong> button at the top</li>
+            <li>Choose <strong>Create Skill</strong></li>
+            <li>Pick <strong>Upload a skill</strong> and select the <code>.zip</code> you just downloaded</li>
+          </ul>
+          <img src="Claude Skill.gif" alt="How to install the skill in Claude" style="margin-top:14px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">Answer 2 setup questions (one time only)</div>
+        <div class="step-desc">
+          The first time FullEnrich returns results, the skill stops to ask 2 quick questions and then saves your answers in Claude's memory for every future conversation:
+          <ul>
+            <li><strong>Paste your Airtable URL.</strong> Open the table you want in your browser and copy the URL from the address bar (it looks like <code>https://airtable.com/appXXX/tblYYY/...</code>). The skill extracts both the base ID and the table ID automatically, no need to find them yourself.</li>
+            <li><strong>Auto-push or confirm each time?</strong> Pick "auto" to never be asked again, or "confirm" to get a one-line prompt before every push.</li>
+          </ul>
+          That is the whole setup. There is no field-mapping step because the skill adapts to your table schema by itself (see step 5).
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">Use FullEnrich normally in chat</div>
+        <div class="step-desc">
+          From now on, just talk to Claude as usual: <em>"find me 50 VPs of Sales at fintech US"</em>, <em>"enrich this list of LinkedIn URLs"</em>, <em>"look up this email"</em>. As soon as FullEnrich returns contacts, the skill kicks in and prepares the push. You do not need to say "send to Airtable", the skill already knows where they go.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">The skill adapts to your Airtable fields automatically</div>
+        <div class="step-desc">
+          Before pushing, the skill reads your table schema and fuzzy-matches FullEnrich fields to your existing fields:
+          <ul>
+            <li><code>Email</code>, <code>Work Email</code>, <code>Mail</code> → email</li>
+            <li><code>Phone</code>, <code>Mobile</code>, <code>Tel</code> → phone</li>
+            <li><code>Company</code>, <code>Organization</code>, <code>Account</code> → company name</li>
+            <li><code>Title</code>, <code>Role</code>, <code>Position</code> → job title</li>
+            <li><code>LinkedIn</code>, <code>Profile</code>, <code>LI</code> → LinkedIn URL</li>
+            <li>Plus industry, location, seniority, etc.</li>
+          </ul>
+          Whatever fields you have get filled. The rest is silently skipped. The skill <strong>never adds fields</strong> to your table, <strong>never auto-creates select options</strong>, and <strong>never populates linked-record fields</strong> (those are flagged in the report and left for you to map manually if needed).
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Auto-push or confirm before each push</div>
+        <div class="step-desc">
+          Depending on the mode you picked at setup:
+          <ul>
+            <li><strong>Auto</strong>, the skill pushes silently and posts a one-line recap with a link to the Airtable table.</li>
+            <li><strong>Confirm</strong>, the skill ends its message with <em>"Push these N contacts to [table name] in Airtable?"</em> and waits for a yes before sending.</li>
+          </ul>
+          Want to switch modes or change the destination table later? Tell Claude <em>"change the Airtable table"</em>, <em>"switch to confirm mode"</em>, or run <code>/setup</code>. To turn auto-push off entirely: <em>"stop pushing to Airtable"</em>.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warning">
+      <strong>Built-in dedup:</strong> Airtable has no native upsert, so the skill simulates one. For each contact with an email, the skill searches the table by email first. If found, it updates the row (PATCH-style, only the fields you provide get touched). If not found, it creates a new row. Contacts without an email are always created (no dedup possible). If your table has no email field at all, the skill flags it in the report and creates new rows with no dedup.
+    </div>
+
+    <div class="troubleshooting">
+      <h3>Troubleshooting</h3>
+      <table>
+        <thead>
+          <tr><th>Problem</th><th>Solution</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude says an MCP is not connected</td><td>Open Claude settings and connect the missing MCP using its URL above. The skill resumes on the next message.</td></tr>
+          <tr><td>"This is not a valid Airtable URL"</td><td>Make sure you copied the URL with the table open. It must include both <code>app...</code> (base ID) and <code>tbl...</code> (table ID). A base homepage URL alone will not work.</td></tr>
+          <tr><td>No dedup happened, all contacts created as new</td><td>Your table has no field that the skill could recognize as an email field. Add a field named <code>Email</code> (or rename an existing one) and the next push will dedup.</td></tr>
+          <tr><td>A field did not get filled</td><td>The fuzzy matcher could not align that field name to a FullEnrich field. Rename it to a more standard name (e.g. <code>Email</code>, <code>Phone</code>, <code>Title</code>) and the next push picks it up.</td></tr>
+          <tr><td>Single-select / multi-select field is empty</td><td>FullEnrich returned a value (e.g. <em>Fintech</em>) but the option does not exist on that select. Add it manually in Airtable, or use a text field instead.</td></tr>
+          <tr><td>"Linked-record field skipped" warning</td><td>Linked-record fields (e.g. a Companies link) need a record ID from the linked table, which the skill cannot resolve safely. Fill those manually for now.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

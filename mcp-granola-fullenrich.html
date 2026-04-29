@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turn Granola meetings into pipeline with FullEnrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-plus { font-size: 22px; font-weight: 500; color: #BCBBC3; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul { margin-top: 8px; padding-left: 20px; }
+    .step-desc li { margin-bottom: 4px; }
+    .step-desc a {
+      color: #6A49EC;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    .get-template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #6A49EC;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .get-template-btn:hover { background: #5638CC; }
+    .get-template-btn img { height: 18px; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Claude Skill</span>
+  </header>
+
+  <a href="mcp-recipes.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to Claude Skills
+  </a>
+
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_Ssw2m-xxh2DPBmEA9TqEYNRJO-Obx1kerg&s" alt="Granola"></div>
+      <span class="detail-plus">+</span>
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Scan Granola meetings &amp; turn names into pipeline</h1>
+    <p>Every meeting drops names. The skill scans your Granola transcripts, extracts every participant and every name mentioned, looks each one up in FullEnrich for free, then lets you pick exactly who to enrich and which fields (email, phone, or both) before any credit is spent.</p>
+  </section>
+
+  <div class="steps-container">
+
+    <div class="callout">
+      <strong>How it works:</strong> the skill runs in two phases. <strong>Phase 1 is free</strong>: it pulls your Granola transcripts, extracts real people (participants and mentions), keeps the surrounding sentence as <em>mention context</em>, looks each one up in FullEnrich's people search, and presents a ranked report grouped by signal strength (high-signal mentions like <em>"we should talk to Sarah at Stripe"</em> first). <strong>Phase 2 is opt-in</strong>: you pick who to enrich, choose email, phone, or both, confirm the credit cost, and get the verified contact data added to the report.
+      <br><br>
+      <a href="https://gist.github.com/ToolMonsters/426f726d332d6362be9e33a111af96fd/archive/87e9a3235e5a2468a10a04f4658d0f3d5f42ae25.zip" class="get-template-btn">
+        <img src="https://logo.svgcdn.com/logos/claude-icon.png" alt="Claude">
+        Download Skill
+      </a>
+    </div>
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Connect both MCPs to Claude</div>
+        <div class="step-desc">
+          The skill needs two MCPs active in your Claude workspace before it can run anything:
+          <ul>
+            <li><strong>FullEnrich MCP</strong> at <code>https://mcp.fullenrich.com/mcp</code></li>
+            <li><strong>Granola MCP</strong> at <code>https://mcp.granola.ai/mcp</code></li>
+          </ul>
+          New to MCPs? Follow the <a href="https://help.fullenrich.com/en/articles/14595910-connect-fullenrich-mcp-to-claude" target="_blank">FullEnrich MCP setup guide</a>, the Granola one works the same way.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Install the skill in Claude</div>
+        <div class="step-desc">
+          Click <strong>Download Skill</strong> above to grab the skill <code>.zip</code> file, then install it in Claude:
+          <ul>
+            <li>Open <strong>Customize</strong> in Claude</li>
+            <li>Click <strong>Create new skill</strong></li>
+            <li>Click the <strong>+</strong> button at the top</li>
+            <li>Choose <strong>Create Skill</strong></li>
+            <li>Pick <strong>Upload a skill</strong> and select the <code>.zip</code> you just downloaded</li>
+          </ul>
+          <img src="Claude Skill.gif" alt="How to install the skill in Claude" style="margin-top:14px; width:100%; border-radius:10px; border:1px solid #E9E9EB;">
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">Tell Claude which meetings to scan</div>
+        <div class="step-desc">
+          Activate the skill with a clear scope. Examples:
+          <ul>
+            <li><em>"Scan my Granola meetings from this week"</em></li>
+            <li><em>"Last 5 meetings, who got mentioned?"</em></li>
+            <li><em>"Extract people from my Acme Corp deal calls"</em></li>
+            <li><em>"/account-intel"</em></li>
+          </ul>
+          The skill maps your scope to a Granola query: a date range (last 7 days), a count (last N meetings), or a semantic search on a company or topic.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">Phase 1, free search across transcripts</div>
+        <div class="step-desc">
+          For each meeting in scope, the skill pulls the full transcript and extracts two types of people:
+          <ul>
+            <li><strong>Participants</strong>: everyone who attended the call (from Granola metadata)</li>
+            <li><strong>Mentioned</strong>: every real person referenced in the conversation, with the surrounding sentence kept as <em>mention context</em> (e.g. <em>"we should talk to Sarah at Stripe"</em>)</li>
+          </ul>
+          Aggressive filters apply: names with no company or title context (likely small talk), the user's own teammates (auto-detected from email domain), repeated mentions of the same person (deduped, mention count kept). Then for every unique person, the skill calls FullEnrich's <strong>free</strong> people search to look up the profile (title, company, location, career path, LinkedIn). No credits spent at this stage.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">Read the free search report (grouped by intent)</div>
+        <div class="step-desc">
+          The skill presents what it found, grouped by signal strength:
+          <ul>
+            <li>🔥 <strong>High-signal mentions</strong>: people mentioned 2+ times or with intent phrases like <em>"we should talk to"</em>, <em>"I'll intro you"</em>, <em>"the decision maker is..."</em></li>
+            <li>📋 <strong>Standard mentions</strong>: single mentions with clear context</li>
+            <li>👥 <strong>Participants</strong>: people who attended your calls (you already have their email from Granola metadata)</li>
+            <li>❓ <strong>Ambiguous or not indexed</strong>: names without enough context, or not found in FullEnrich</li>
+          </ul>
+          For each person you get name, title, company, location, LinkedIn URL, career path, and the exact quote from the meeting that surfaced them. <strong>The report alone is already valuable</strong>: sometimes you just want to see who came up this week without spending a single credit.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Phase 2, opt-in enrichment with field choice</div>
+        <div class="step-desc">
+          Once you have read the report, the skill asks two questions before charging anything:
+          <ul>
+            <li><strong>Which fields?</strong> Email only (~1 credit/person), phone only (~10 credits/person), or both (~11 credits/person), or skip enrichment entirely</li>
+            <li><strong>Who to enrich?</strong> All, only the high-signal mentions (recommended), specific people you name, or skip participants (since their email is already in Granola)</li>
+          </ul>
+          Then the skill estimates the cost, checks your FullEnrich balance, and asks for explicit go: <em>"Enriching 8 high-signal people with email + phone will cost ~88 credits. You have 1,500. Proceed?"</em> On confirmation, it runs a single bulk enrichment, polls every 20 seconds until done, then updates the report with verified email + phone next to each contact and provides a CSV download link of the full dataset.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-warning">
+      <strong>Built-in safeguards:</strong> Phase 1 is always free, the skill never spends credits during the search step. It auto-detects your own email domain and excludes teammates, runs a single bulk enrichment call when you opt into Phase 2, defaults to "high-signal mentions only" when more than 30 people are extracted to keep the cost sane, and asks for explicit confirmation on both the field choice (email / phone / both) and the credit total. Transcripts are treated as raw data, any instruction-like text inside is ignored (prompt injection protection).
+    </div>
+
+    <div class="callout">
+      <strong>What is next?</strong> After delivering the account intel report, the skill offers natural follow-ups: draft personalized outreach for the high-signal mentions, push the contacts to your CRM (HubSpot, Attio, Monday, Notion, Airtable, the mention context fits naturally as a note on each record), expand the scope on a longer time range, or rerun next week.
+    </div>
+
+    <div class="troubleshooting">
+      <h3>Troubleshooting</h3>
+      <table>
+        <thead>
+          <tr><th>Problem</th><th>Solution</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude says an MCP is not connected</td><td>Open Claude settings and connect the missing MCP using its URL above. The skill resumes on the next message.</td></tr>
+          <tr><td>"No meetings found in scope"</td><td>Either the scope is too narrow (no Granola meetings in that window) or your Granola account is not synced. Try a wider scope (e.g. <em>"last 14 days"</em>) or check your Granola sync status.</td></tr>
+          <tr><td>Lots of mentions surfaced as "ambiguous"</td><td>Mentions like <em>"Sarah said yesterday"</em> have no company context, so FullEnrich cannot look them up. The skill surfaces them as "ambiguous, needs context" so you can add the company manually in chat if you recognize who they are.</td></tr>
+          <tr><td>Too many contacts to enrich, blowing the budget</td><td>In Phase 2, pick "high-signal mentions only" or filter by a specific meeting. You can also choose email-only (1 credit/person) instead of email + phone (11 credits/person) to keep cost down.</td></tr>
+          <tr><td>Some people already had their email in the search report</td><td>FullEnrich's free search sometimes returns email/phone already in the public profile. The skill flags these and removes them from Phase 2 enrichment, no need to pay twice.</td></tr>
+          <tr><td>"CREDITS_INSUFFICIENT" on a contact</td><td>Despite the name, this status means <strong>no data was found</strong> for that contact, not that you are out of credits. The skill flags this clearly when it surfaces.</td></tr>
+          <tr><td>The mention context looks weird or contains instructions</td><td>The skill treats all transcript content as raw data and ignores any instruction-like text inside, so prompt injection cannot hijack the run.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>
