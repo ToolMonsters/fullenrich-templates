@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inbound Emails → Account Intel - Clay + FullEnrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-plus { font-size: 22px; font-weight: 500; color: #BCBBC3; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    .platform-badge {
+      max-width: 800px;
+      margin: 40px auto 0;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid #E9E9EB;
+    }
+    .platform-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #6A49EC;
+      border-bottom: 2px solid #6A49EC;
+      margin-bottom: -2px;
+    }
+    .platform-badge-item img { height: 18px; }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul { margin-top: 8px; padding-left: 20px; }
+    .step-desc li { margin-bottom: 4px; }
+
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    .get-template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #6A49EC;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .get-template-btn:hover { background: #5638CC; }
+    .get-template-btn img { height: 18px; }
+
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #E9E9EB;
+      border-radius: 12px;
+      flex-wrap: nowrap;
+    }
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      background: #F8F6FF;
+      border: 1px solid #E0D9F7;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #3C04AA;
+      white-space: nowrap;
+    }
+    .flow-step img { height: 16px; }
+    .flow-arrow { color: #BCBBC3; font-size: 16px; }
+
+    .enrichment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .enrichment-card {
+      background: #fff;
+      border: 1px solid #E9E9EB;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .enrichment-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .enrichment-card p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+
+    .code-block {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 12px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    .code-block .key { color: #7dd3fc; }
+    .code-block .str { color: #86efac; }
+    .code-block .num { color: #fca5a5; }
+
+    .section-divider {
+      margin: 48px 0 32px;
+      padding-top: 32px;
+      border-top: 2px solid #EFEBFF;
+    }
+    .section-divider h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.02em;
+    }
+    .section-divider .table-label {
+      display: inline-block;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .section-divider p {
+      font-size: 15px;
+      color: #555;
+      margin-top: 6px;
+    }
+
+    .priority-list {
+      background: #fff;
+      border: 1px solid #E9E9EB;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+    .priority-list ol {
+      padding-left: 20px;
+      margin-top: 6px;
+    }
+    .priority-list li {
+      margin-bottom: 4px;
+      color: #555;
+    }
+    .priority-list li strong { color: #0C0A09; }
+
+    @media (max-width: 600px) {
+      .enrichment-grid { grid-template-columns: 1fr; }
+      .flow-diagram { flex-direction: column; flex-wrap: wrap; }
+      .flow-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Automation Templates</span>
+  </header>
+
+  <a href="integrations.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to templates
+  </a>
+
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#6A49EC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </div>
+      <span class="detail-plus">+</span>
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Inbound Emails → Account Intel</h1>
+    <p>Drop a single inbound email address. The template identifies the sender, picks their most senior role using a priority logic (Founder &gt; C-Level &gt; VP), and surfaces 5 to 10 other decision makers at the same company, automatically routed to a linked table ready for outreach.</p>
+  </section>
+
+  <div class="platform-badge">
+    <div class="platform-badge-item">
+      <img src="https://ib8nrja70n2lsqtp.public.blob.vercel-storage.com/production/products-clay-image-O9lRvGPiOvWPWiJUrJZnxHQDU0cXwW.png" alt="Clay" style="height: 18px;">
+      Clay
+    </div>
+  </div>
+
+  <div class="steps-container">
+
+    <div class="callout">
+      <strong>What this template does:</strong> turns a single inbound email (demo request, trial signup, support ticket) into a full buying committee map. Phase by phase: reverse-lookup the sender via FullEnrich, extract their most senior current role (with priority logic), then search the same company for other VP+ executives and route them into a linked table. End-to-end in about 60 seconds.
+
+      <div class="flow-diagram">
+        <div class="flow-step">Inbound email</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich" style="border-radius: 3px;">
+          Reverse lookup
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich" style="border-radius: 3px;">
+          Priority role
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich" style="border-radius: 3px;">
+          Buying committee
+        </div>
+      </div>
+
+      <br>
+      <a href="https://app.clay.com/shared-workbook/share_0tf3a1hyftmFuAxMFAC" target="_blank" class="get-template-btn">
+        <img src="https://ib8nrja70n2lsqtp.public.blob.vercel-storage.com/production/products-clay-image-O9lRvGPiOvWPWiJUrJZnxHQDU0cXwW.png" alt="Clay">
+        Get Template
+      </a>
+    </div>
+
+    <!-- TABLE 1 -->
+    <div class="section-divider">
+      <span class="table-label">Table 1</span>
+      <h2>Inbound Emails</h2>
+      <p>Receives each inbound email and runs the full identification + account-expansion pipeline.</p>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Inbound Email (Text input)</div>
+        <div class="step-desc">
+          Entry point of the workflow. A text field that holds the email address to process. Filled manually, pasted from Slack, or pushed in via Zapier/Make when a new inbound hits your CRM, your form, or your shared inbox.
+          <ul>
+            <li><strong>Example:</strong> <code>benjamin@fullenrich.com</code> or <code>cohen.yonathan@hotmail.fr</code></li>
+            <li>One email per row</li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Inbound Email column</h4>
+            <p>Raw email address that triggers all downstream enrichment. Compatible with CSV import, Zapier, Make, or manual entry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">FullEnrich Reverse Email Lookup (HTTP API POST)</div>
+        <div class="step-desc">
+          Kicks off FullEnrich's reverse-email-lookup async job. The API responds immediately with an enrichment ID that subsequent columns use to poll for results.
+          <ul>
+            <li><strong>Method:</strong> POST</li>
+            <li><strong>Endpoint:</strong> <code>https://app.fullenrich.com/api/v2/contact/reverse/email/bulk</code></li>
+            <li><strong>Auto-run:</strong> ON when Inbound Email is not empty</li>
+          </ul>
+
+          <div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"name"</span>: <span class="str">"Reverse Lookup - {{Inbound Email}}"</span>,<br>
+&nbsp;&nbsp;<span class="key">"data"</span>: [{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"email"</span>: <span class="str">"{{Inbound Email}}"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"custom"</span>: { <span class="key">"source"</span>: <span class="str">"clay_template"</span> }<br>
+&nbsp;&nbsp;}]<br>
+}
+          </div>
+          <br>
+          <strong>Output:</strong> <code>{ "enrichment_id": "3c90c3cc-0d44-..." }</code>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>FullEnrich Reverse Email Lookup (HTTP API)</h4>
+            <p>Initiates the async reverse-email-lookup. Returns an enrichment ID that the next columns use to fetch the full profile.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">Enrichment ID (Formula)</div>
+        <div class="step-desc">
+          Extracts the UUID from the POST response so the next column can use it to poll the results endpoint.
+          <ul>
+            <li><strong>Formula:</strong> <code>{{FullEnrich Reverse Email Lookup.enrichment_id}}</code></li>
+            <li><strong>Output:</strong> clean UUID string, e.g. <code>3c90c3cc-0d44-4b50-8888-8dd25736052a</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (UUID extraction)</h4>
+            <p>Pulls the enrichment ID out of the POST response so the next column knows which job to fetch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">FullEnrich Results (HTTP API GET)</div>
+        <div class="step-desc">
+          Polls the results endpoint with the enrichment ID until FullEnrich returns the full profile.
+          <ul>
+            <li><strong>Method:</strong> GET</li>
+            <li><strong>Endpoint:</strong> <code>https://app.fullenrich.com/api/v2/contact/reverse/email/bulk/{{Enrichment ID}}</code></li>
+            <li><strong>Auto-run:</strong> ON when Enrichment ID is not empty</li>
+            <li><strong>Delay:</strong> 30 seconds before first call (allows processing time)</li>
+            <li><strong>Retries:</strong> up to 3, on status codes 404, 425, 500, 502, 503</li>
+          </ul>
+          The response carries the full enriched profile: full name, current and historical jobs (in <code>employment.all[]</code>), location, LinkedIn URL.
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>FullEnrich Results (HTTP API)</h4>
+            <p>Polls FullEnrich until the profile is ready, with retry logic to handle the async processing window.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">Person Full Name (Formula)</div>
+        <div class="step-desc">
+          Extracts the contact's full name straight from the enrichment response.
+          <ul>
+            <li><strong>Path:</strong> <code>data[0].profile.full_name</code></li>
+            <li><strong>Example:</strong> <em>"Yonathan Cohen"</em></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (full_name)</h4>
+            <p>Pulls the verified full name from the enriched profile. Used in Step 6 and routed to Table 2 as the source person.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Person Title (Formula with Priority Logic)</div>
+        <div class="step-desc">
+          The enrichment response includes every current and past job in <code>employment.all[]</code>. This formula picks the most relevant current title using a <strong>seniority priority ranking</strong>:
+          <br><br>
+          <strong>Founder &gt; C-Level (CEO/CTO/CFO/CRO/CMO/COO) &gt; VP &gt; Director &gt; Head &gt; Partner &gt; Senior &gt; Manager &gt; Lead &gt; any other non-Unknown</strong>
+          <br><br>
+          Filters <code>employment.all</code> for current jobs with defined seniority, ranks by the list above, and returns the <code>.title</code> of the highest-priority match. Falls back to <code>employment.current.title</code> if no match.
+          <ul>
+            <li><strong>Example:</strong> <em>"Founder"</em>, not <em>"Template Builder"</em> when both roles are listed as current</li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (priority-ranked title)</h4>
+            <p>Surfaces the contact's most senior current title, avoiding "Unknown" or junior roles when the profile has multiple current positions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step">
+      <div class="step-number">7</div>
+      <div class="step-content">
+        <div class="step-title">Person Seniority (Formula with Priority Logic)</div>
+        <div class="step-desc">
+          Same priority logic as Step 6, but returns the <code>.seniority</code> field of the highest-priority current role.
+          <ul>
+            <li><strong>Example:</strong> <em>"Founder"</em></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (priority-ranked seniority)</h4>
+            <p>Returns the seniority label of the most relevant current role. Useful for sorting and filtering downstream.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="step">
+      <div class="step-number">8</div>
+      <div class="step-content">
+        <div class="step-title">Company Name (Formula with Priority Logic)</div>
+        <div class="step-desc">
+          Extracts <code>.company.name</code> from the highest-priority current role.
+          <ul>
+            <li><strong>Example:</strong> <em>"Tool Monsters"</em></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (priority-ranked company)</h4>
+            <p>The company tied to the most senior current role. Routed to Table 2 as the source company for traceability.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 9 -->
+    <div class="step">
+      <div class="step-number">9</div>
+      <div class="step-content">
+        <div class="step-title">Company Domain (Formula with Priority Logic)</div>
+        <div class="step-desc">
+          Extracts <code>.company.domain</code> from the highest-priority current role. <strong>Critical field:</strong> used in Step 13 to search the rest of the buying committee.
+          <ul>
+            <li><strong>Example:</strong> <em>"toolmonsters.com"</em></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (priority-ranked domain)</h4>
+            <p>The company domain tied to the most senior current role. Feeds the People Search in Step 13.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10 -->
+    <div class="step">
+      <div class="step-number">10</div>
+      <div class="step-content">
+        <div class="step-title">Company Industry (Formula with Priority Logic)</div>
+        <div class="step-desc">
+          Extracts <code>.company.industry.main_industry</code> from the highest-priority current role.
+          <ul>
+            <li><strong>Example:</strong> <em>"Technology, Information and Internet"</em></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (priority-ranked industry)</h4>
+            <p>The industry of the most relevant current company. Useful for segmenting inbound by vertical.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 11 -->
+    <div class="step">
+      <div class="step-number">11</div>
+      <div class="step-content">
+        <div class="step-title">Country (Formula)</div>
+        <div class="step-desc">
+          Extracts the contact's country directly from the profile location.
+          <ul>
+            <li><strong>Path:</strong> <code>data[0].profile.location.country</code></li>
+            <li><strong>Example:</strong> <em>"France"</em></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (country)</h4>
+            <p>The contact's country, used to qualify inbound leads by geo before triggering the buying-committee search.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 12 -->
+    <div class="step">
+      <div class="step-number">12</div>
+      <div class="step-content">
+        <div class="step-title">Person LinkedIn URL (Formula)</div>
+        <div class="step-desc">
+          Extracts the LinkedIn profile URL.
+          <ul>
+            <li><strong>Path:</strong> <code>data[0].profile.social_profiles.professional_network.url</code></li>
+            <li><strong>Example:</strong> <em>https://www.linkedin.com/in/yonathan-cohen</em></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (linkedin url)</h4>
+            <p>The contact's LinkedIn URL. Useful for manual research, CRM enrichment, and follow-up context.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 13 -->
+    <div class="step">
+      <div class="step-number">13</div>
+      <div class="step-content">
+        <div class="step-title">FullEnrich Search (HTTP API POST)</div>
+        <div class="step-desc">
+          The core value of the template. Uses the Company Domain from Step 9 to find 5 to 10 other decision makers with VP-plus seniority at the same company.
+          <ul>
+            <li><strong>Method:</strong> POST</li>
+            <li><strong>Endpoint:</strong> <code>https://app.fullenrich.com/api/v2/people/search</code></li>
+            <li><strong>Auto-run:</strong> ON when Company Domain is not empty</li>
+          </ul>
+
+          <div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"limit"</span>: <span class="num">5</span>,<br>
+&nbsp;&nbsp;<span class="key">"current_company_domains"</span>: [{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"value"</span>: <span class="str">"{{Domain}}"</span>, <span class="key">"exact_match"</span>: <span class="num">true</span><br>
+&nbsp;&nbsp;}],<br>
+&nbsp;&nbsp;<span class="key">"current_position_seniority_level"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"VP"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Director"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Head"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"Founder"</span> },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="key">"value"</span>: <span class="str">"C-Level"</span> }<br>
+&nbsp;&nbsp;]<br>
+}
+          </div>
+          <br>
+          Adjust the <code>limit</code> and the seniority filters to match your ICP (e.g. add Manager + Senior if you sell to IT, or remove Director + Head if you target C-suite only).
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>FullEnrich People Search API</h4>
+            <p>Returns the buying committee as a JSON array of VP-plus executives at the same company. Ready to expand into Table 2.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 14 -->
+    <div class="step">
+      <div class="step-number">14</div>
+      <div class="step-content">
+        <div class="step-title">Send table data (Send to Linked Table)</div>
+        <div class="step-desc">
+          Clay's native <strong>Send Table Data</strong> action pushes every person from the search response into a new row in Table 2.
+          <ul>
+            <li><strong>Array source:</strong> <code>{{FullEnrich Search.people}}</code></li>
+            <li><strong>Mode:</strong> one new row per person in the array</li>
+            <li><strong>Destination:</strong> Account Decision Makers (Table 2)</li>
+            <li><strong>Traceability:</strong> the inbound email, the original sender, and the company name from Table 1 are carried over to every row in Table 2 so each decision maker links back to its source</li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Send Table Data (Clay Native)</h4>
+            <p>Fans out each executive into its own row in Table 2 for outreach. Preserves the inbound email and source person for context.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE 2 -->
+    <div class="section-divider">
+      <span class="table-label">Table 2</span>
+      <h2>Account Decision Makers</h2>
+      <p>Auto-populated from Step 14. Each row is one VP-plus executive at the same company as the inbound sender, with all 11 columns mapped from the people array and the source context carried over from Table 1.</p>
+    </div>
+
+    <!-- STEP 15 -->
+    <div class="step">
+      <div class="step-number">15</div>
+      <div class="step-content">
+        <div class="step-title">Decision Maker Full Name (Mapped)</div>
+        <div class="step-desc">
+          Auto-filled from the search response.
+          <ul>
+            <li><strong>Source:</strong> <code>{{full_name}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Decision Maker Full Name</h4>
+            <p>The executive's full name as returned by FullEnrich's People Search.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 16 -->
+    <div class="step">
+      <div class="step-number">16</div>
+      <div class="step-content">
+        <div class="step-title">Decision Maker Title (Mapped)</div>
+        <div class="step-desc">
+          Auto-filled with the executive's current job title.
+          <ul>
+            <li><strong>Source:</strong> <code>{{employment.current.title}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Decision Maker Title</h4>
+            <p>The current job title. Useful for prioritizing who in the buying committee to approach first.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 17 -->
+    <div class="step">
+      <div class="step-number">17</div>
+      <div class="step-content">
+        <div class="step-title">Decision Maker Seniority (Mapped)</div>
+        <div class="step-desc">
+          Auto-filled with the seniority of the current role.
+          <ul>
+            <li><strong>Source:</strong> <code>{{employment.current.seniority}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Decision Maker Seniority</h4>
+            <p>The seniority label (VP, Director, C-Level, Founder, etc.). Lets you sort the committee by rank.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18 -->
+    <div class="step">
+      <div class="step-number">18</div>
+      <div class="step-content">
+        <div class="step-title">Decision Maker Company Name (Mapped)</div>
+        <div class="step-desc">
+          Auto-filled with the current company name. Should match the source person's company.
+          <ul>
+            <li><strong>Source:</strong> <code>{{employment.current.company.name}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Decision Maker Company Name</h4>
+            <p>The current employer name. A consistency check against the inbound sender's company.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 19 -->
+    <div class="step">
+      <div class="step-number">19</div>
+      <div class="step-content">
+        <div class="step-title">Decision Maker Company Domain (Mapped)</div>
+        <div class="step-desc">
+          Auto-filled with the current company domain.
+          <ul>
+            <li><strong>Source:</strong> <code>{{employment.current.company.domain}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Decision Maker Company Domain</h4>
+            <p>The corporate domain. Useful for generating email patterns or matching against your CRM accounts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 20 -->
+    <div class="step">
+      <div class="step-number">20</div>
+      <div class="step-content">
+        <div class="step-title">Decision Maker LinkedIn URL (Mapped)</div>
+        <div class="step-desc">
+          Auto-filled with the LinkedIn profile URL.
+          <ul>
+            <li><strong>Source:</strong> <code>{{social_profiles.professional_network.url}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Decision Maker LinkedIn URL</h4>
+            <p>The LinkedIn profile. Use it for personalized outreach or manual qualification.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 21 -->
+    <div class="step">
+      <div class="step-number">21</div>
+      <div class="step-content">
+        <div class="step-title">Decision Maker Country (Mapped)</div>
+        <div class="step-desc">
+          Auto-filled with the executive's country.
+          <ul>
+            <li><strong>Source:</strong> <code>{{location.country}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Decision Maker Country</h4>
+            <p>Country of the decision maker. Useful for geo-based outreach assignment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 22 -->
+    <div class="step">
+      <div class="step-number">22</div>
+      <div class="step-content">
+        <div class="step-title">Decision Maker City (Mapped)</div>
+        <div class="step-desc">
+          Auto-filled with the executive's city.
+          <ul>
+            <li><strong>Source:</strong> <code>{{location.city}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Decision Maker City</h4>
+            <p>City of the decision maker. Useful for in-person event invitations or local meetings.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 23 -->
+    <div class="step">
+      <div class="step-number">23</div>
+      <div class="step-content">
+        <div class="step-title">Source Inbound Email (Carried Over)</div>
+        <div class="step-desc">
+          The original inbound email from Table 1, carried over for traceability.
+          <ul>
+            <li><strong>Source:</strong> <code>{{Inbound Emails.Inbound Email}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Source Inbound Email</h4>
+            <p>Each decision maker links back to the inbound email that triggered the workflow. Critical for tracking which inbound generated which contacts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 24 -->
+    <div class="step">
+      <div class="step-number">24</div>
+      <div class="step-content">
+        <div class="step-title">Source Person Name (Carried Over)</div>
+        <div class="step-desc">
+          The original sender's name from Table 1, carried over for context.
+          <ul>
+            <li><strong>Source:</strong> <code>{{Inbound Emails.Person Full Name}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Source Person Name</h4>
+            <p>The name of the person who first reached out. Useful when crafting personalized outreach that references the inbound contact.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 25 -->
+    <div class="step">
+      <div class="step-number">25</div>
+      <div class="step-content">
+        <div class="step-title">Source Company (Carried Over)</div>
+        <div class="step-desc">
+          The source company name from Table 1, carried over for context.
+          <ul>
+            <li><strong>Source:</strong> <code>{{Inbound Emails.Company Name}}</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Source Company</h4>
+            <p>The company tied to the original inbound. A second reference, alongside the email, that makes account-mapping unambiguous.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Execution order -->
+    <div class="callout" style="margin-top: 32px;">
+      <strong>How to execute this workflow:</strong>
+      <ol style="margin-top: 8px; padding-left: 20px;">
+        <li>Drop one or more inbound emails into Column 1 of Table 1</li>
+        <li>Column 2 fires the reverse-lookup POST automatically</li>
+        <li>Column 3 extracts the enrichment ID, Column 4 polls the results every 30 seconds until ready</li>
+        <li>Columns 5 to 12 auto-extract the person + company fields using the seniority priority logic</li>
+        <li><strong>Run</strong> Column 13 to fetch the buying committee (auto-runs when Company Domain is filled)</li>
+        <li>Column 14 routes the people array into Table 2 as new rows, one per executive</li>
+        <li>Open Table 2 and export, push to CRM, or feed into your outreach workflow</li>
+      </ol>
+    </div>
+
+    <!-- Use cases -->
+    <div class="callout callout-warning">
+      <strong>When to use this template:</strong>
+      <ul style="margin-top: 8px;">
+        <li><strong>Sales</strong> receiving inbound demo requests or trial signups, wanting to multi-thread the account</li>
+        <li><strong>RevOps</strong> building buying-committee maps from CRM email fields</li>
+        <li><strong>Customer Success</strong> spotting expansion when support tickets come from new contacts at an existing customer</li>
+        <li><strong>Partnerships</strong> mapping decision makers when interest comes from a junior employee</li>
+      </ul>
+      Not ideal for high-volume cold outbound (use a different template) or personal emails with no company affiliation (will return empty).
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="troubleshooting">
+      <h3>Troubleshooting</h3>
+      <table>
+        <thead>
+          <tr><th>Problem</th><th>Solution</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reverse lookup returns no profile</td><td>Personal emails (gmail, hotmail, etc.) often have no enrichment data tied to them. The workflow will return empty profile fields and skip the company-search step.</td></tr>
+          <tr><td>Person Title comes back as "Unknown" or a junior role</td><td>The profile has no current role with mapped seniority. The priority logic falls back to <code>employment.current</code> when nothing matches. Pick the next person at the same company manually if needed.</td></tr>
+          <tr><td>Column 4 keeps failing on GET</td><td>FullEnrich's reverse-lookup is async. The 30-second delay + retry on 404/425/500/502/503 handles most cases. If it still fails after 3 retries, the email is likely not indexed.</td></tr>
+          <tr><td>Column 13 returns zero decision makers</td><td>The domain is either too small (under 10 employees) or the seniority filters are too narrow. Add Manager + Senior to the search body, or drop the filter entirely to surface anyone at the company.</td></tr>
+          <tr><td>API returns 401</td><td>Check your FullEnrich API key in the Authorization header. It should be <code>Bearer YOUR_KEY</code>.</td></tr>
+          <tr><td>Want different ICP filters</td><td>Edit the seniority list in Column 13. To target IT, add Manager and Senior. To target C-suite only, remove Director and Head.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>

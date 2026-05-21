@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bounced Email Recovery - Clay + FullEnrich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: #FBF8F6;
+      color: #2C2A36;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid #E9E9EB;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo { display: flex; align-items: center; gap: 10px; }
+    .header-logo img { height: 24px; }
+    .header-divider { width: 1px; height: 24px; background: #E9E9EB; }
+    .header-label { font-size: 15px; font-weight: 500; color: #797783; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 32px 40px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #797783;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #6A49EC; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .detail-hero {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 0 40px;
+    }
+    .detail-logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .detail-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid #E9E9EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      overflow: hidden;
+    }
+    .detail-logo img { width: 36px; height: 36px; object-fit: contain; }
+    .detail-plus { font-size: 22px; font-weight: 500; color: #BCBBC3; }
+    .detail-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .detail-hero p {
+      font-size: 16px;
+      color: #797783;
+      max-width: 600px;
+    }
+
+    .platform-badge {
+      max-width: 800px;
+      margin: 40px auto 0;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid #E9E9EB;
+    }
+    .platform-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #6A49EC;
+      border-bottom: 2px solid #6A49EC;
+      margin-bottom: -2px;
+    }
+    .platform-badge-item img { height: 18px; }
+
+    .steps-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-content { flex: 1; }
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .step-desc code {
+      background: #F3F2EC;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: #6A49EC;
+    }
+    .step-desc ul { margin-top: 8px; padding-left: 20px; }
+    .step-desc li { margin-bottom: 4px; }
+
+    .callout {
+      background: #EFEBFF;
+      border-left: 4px solid #6A49EC;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 32px 0;
+      font-size: 14px;
+      color: #3C04AA;
+      line-height: 1.7;
+    }
+    .callout strong { font-weight: 700; }
+
+    .callout-warning {
+      background: #FFF8ED;
+      border-left-color: #E89A0C;
+      color: #92600A;
+    }
+
+    .get-template-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #6A49EC;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .get-template-btn:hover { background: #5638CC; }
+    .get-template-btn img { height: 18px; }
+
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #E9E9EB;
+      border-radius: 12px;
+      flex-wrap: nowrap;
+    }
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      background: #F8F6FF;
+      border: 1px solid #E0D9F7;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #3C04AA;
+      white-space: nowrap;
+    }
+    .flow-step img { height: 16px; }
+    .flow-arrow { color: #BCBBC3; font-size: 16px; }
+
+    .enrichment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .enrichment-card {
+      background: #fff;
+      border: 1px solid #E9E9EB;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .enrichment-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 8px;
+    }
+    .enrichment-card p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .troubleshooting {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E9E9EB;
+    }
+    .troubleshooting h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0C0A09;
+      margin-bottom: 16px;
+    }
+    .troubleshooting table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .troubleshooting th {
+      text-align: left;
+      padding: 10px 14px;
+      background: #F3F2EC;
+      font-weight: 600;
+      color: #0C0A09;
+    }
+    .troubleshooting th:first-child { border-radius: 8px 0 0 8px; }
+    .troubleshooting th:last-child { border-radius: 0 8px 8px 0; }
+    .troubleshooting td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #F3F2EC;
+      color: #555;
+    }
+
+    .code-block {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 12px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+    .code-block .key { color: #7dd3fc; }
+    .code-block .str { color: #86efac; }
+    .code-block .num { color: #fca5a5; }
+
+    .section-divider {
+      margin: 48px 0 32px;
+      padding-top: 32px;
+      border-top: 2px solid #EFEBFF;
+    }
+    .section-divider h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0C0A09;
+      letter-spacing: -0.02em;
+    }
+    .section-divider .table-label {
+      display: inline-block;
+      background: #EFEBFF;
+      color: #6A49EC;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .section-divider p {
+      font-size: 15px;
+      color: #555;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .enrichment-grid { grid-template-columns: 1fr; }
+      .flow-diagram { flex-direction: column; flex-wrap: wrap; }
+      .flow-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://framerusercontent.com/images/yyQy6O9iI8m11Nmj5L5RvQjqc.svg?scale-down-to=512&width=1834&height=335" alt="FullEnrich">
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-label">Automation Templates</span>
+  </header>
+
+  <a href="integrations.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    Back to templates
+  </a>
+
+  <section class="detail-hero">
+    <div class="detail-logos">
+      <div class="detail-logo">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#6A49EC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          <path d="m16 19 2 2 4-4"/>
+        </svg>
+      </div>
+      <span class="detail-plus">+</span>
+      <div class="detail-logo"><img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich"></div>
+    </div>
+    <h1>Bounced Email Recovery</h1>
+    <p>Recover contacts when their work email bounces because they changed jobs. The template searches FullEnrich's employment history for the person behind the bounced domain, finds where they work now, and returns their new verified email and mobile phone.</p>
+  </section>
+
+  <div class="platform-badge">
+    <div class="platform-badge-item">
+      <img src="https://ib8nrja70n2lsqtp.public.blob.vercel-storage.com/production/products-clay-image-O9lRvGPiOvWPWiJUrJZnxHQDU0cXwW.png" alt="Clay" style="height: 18px;">
+      Clay
+    </div>
+  </div>
+
+  <div class="steps-container">
+
+    <div class="callout">
+      <strong>What this template does:</strong> when a work email bounces because the person left the company, this single-path workflow recovers them in 12 columns. It pulls a name hint and the old company domain out of the bounced address, searches FullEnrich for people whose employment history includes that domain with a matching name, extracts the best match's current identity, then runs a final enrichment to return their new verified work email and mobile phone for re-outreach.
+
+      <div class="flow-diagram">
+        <div class="flow-step">Bounced email</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">Name hint + old domain</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">
+          <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich" style="border-radius: 3px;">
+          Search
+        </div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">Best match</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">
+          <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/223b2855-2cb7-4488-9d5c-10e6c875a0bf.jpeg" alt="FullEnrich" style="border-radius: 3px;">
+          New email + phone
+        </div>
+      </div>
+
+      <br>
+      <a href="https://app.clay.com/shared-workbook/share_0tf90lzBxYEahPz5HZN" target="_blank" class="get-template-btn">
+        <img src="https://ib8nrja70n2lsqtp.public.blob.vercel-storage.com/production/products-clay-image-O9lRvGPiOvWPWiJUrJZnxHQDU0cXwW.png" alt="Clay">
+        Get Template
+      </a>
+    </div>
+
+    <!-- SEARCH FALLBACK -->
+    <div class="section-divider">
+      <span class="table-label">Search</span>
+      <h2>Find where the person works now</h2>
+      <p>Turns the bounced email into a search against FullEnrich's employment history, then extracts the best match's current company.</p>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Bounced Email (Text input)</div>
+        <div class="step-desc">
+          Entry point. The bounced work email address you want to recover.
+          <ul>
+            <li><strong>Example:</strong> <code>frederic@granum.com</code></li>
+            <li>One email per row, filled manually, via CSV import, or pushed from your bounce list</li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Bounced Email column</h4>
+            <p>The raw bounced email. Everything downstream works to recover the person behind it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Name Hint (Formula)</div>
+        <div class="step-desc">
+          Extracts and cleans the name part of the bounced email for fuzzy matching.
+          <ul>
+            <li><strong>Example:</strong> <code>frederic</code> from <code>frederic@granum.com</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (name hint)</h4>
+            <p>A cleaned name token used to fuzzy-match the right person among past employees of the old domain.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">Old Company Domain (Formula)</div>
+        <div class="step-desc">
+          Extracts the domain from the bounced email.
+          <ul>
+            <li><strong>Example:</strong> <code>granum.com</code> from <code>frederic@granum.com</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Column (old domain)</h4>
+            <p>The domain where the person used to work. Used as the past-company filter in the search.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">FullEnrich Search (HTTP API POST)</div>
+        <div class="step-desc">
+          Searches FullEnrich's People Search API for people whose employment history includes the old domain, filtered by the name hint.
+          <ul>
+            <li><strong>Method:</strong> POST</li>
+            <li><strong>Endpoint:</strong> <code>https://app.fullenrich.com/api/v2/people/search</code></li>
+            <li><strong>Auto-run:</strong> ON when Old Company Domain is not empty</li>
+          </ul>
+
+          <div class="code-block">
+{<br>
+&nbsp;&nbsp;<span class="key">"limit"</span>: <span class="num">3</span>,<br>
+&nbsp;&nbsp;<span class="key">"past_company_domains"</span>: [{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"value"</span>: <span class="str">"{{Old Company Domain}}"</span><br>
+&nbsp;&nbsp;}],<br>
+&nbsp;&nbsp;<span class="key">"person_names"</span>: [{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"value"</span>: <span class="str">"{{Name Hint}}"</span><br>
+&nbsp;&nbsp;}]<br>
+}
+          </div>
+          <br>
+          Returns the top 3 matches ranked by relevance. This works because FullEnrich stores employment history, so a person who left the old company still shows it in their past roles.
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>FullEnrich People Search API</h4>
+            <p>Finds the person via their past employer + name, then returns their current company. The path that catches job changers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">Search Result Formulas (Columns 5 to 11)</div>
+        <div class="step-desc">
+          A group of formula columns that parse the top (best) match from the search response into clean, usable fields:
+          <ul>
+            <li><strong>Name</strong> &rarr; the recovered person's full name</li>
+            <li><strong>Title</strong> &rarr; their current job title after the move</li>
+            <li><strong>Company</strong> &rarr; the company they work at now</li>
+            <li><strong>Domain</strong> &rarr; their new company's domain</li>
+            <li><strong>LinkedIn</strong> &rarr; their LinkedIn profile URL</li>
+          </ul>
+          The first result is the best match. These columns feed the final enrichment.
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Formula Columns (Name, Title, Company, Domain, LinkedIn)</h4>
+            <p>Parses the top search match into the person's new identity after the job change. Everything the final enrichment needs to find their new contact details.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINAL ENRICHMENT -->
+    <div class="section-divider">
+      <span class="table-label">Enrich</span>
+      <h2>Final Enrichment</h2>
+      <p>Uses the recovered identity to find the person's new verified work email and mobile phone for re-outreach.</p>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Find Work Email (FullEnrich Native)</div>
+        <div class="step-desc">
+          FullEnrich's native email-finding action, fed with the recovered identity:
+          <ul>
+            <li><strong>Full Name</strong> &rarr; <code>{{Name}}</code></li>
+            <li><strong>Company Domain</strong> &rarr; <code>{{Domain}}</code></li>
+            <li><strong>LinkedIn URL</strong> &rarr; <code>{{LinkedIn}}</code></li>
+          </ul>
+          Returns verified emails with a confidence score.
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>FullEnrich Find Work Email</h4>
+            <p>Finds the new verified work email at the person's current company.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step">
+      <div class="step-number">7</div>
+      <div class="step-content">
+        <div class="step-title">Find Mobile Phone (FullEnrich Native)</div>
+        <div class="step-desc">
+          FullEnrich's native phone-finding action, fed with the same recovered identity. Returns a verified mobile number when available, so re-engagement is not limited to email.
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>FullEnrich Find Mobile Phone</h4>
+            <p>Adds a verified mobile number to the recovered contact for multichannel re-outreach.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="step">
+      <div class="step-number">8</div>
+      <div class="step-content">
+        <div class="step-title">Most Probable Email (Formula)</div>
+        <div class="step-desc">
+          Extracts the highest-confidence email from the enrichment response.
+          <ul>
+            <li><strong>Example:</strong> <code>frederic@granum.com</code> bounced &rarr; recovered <code>frederic@fullenrich.com</code></li>
+          </ul>
+        </div>
+        <div class="enrichment-grid" style="grid-template-columns: 1fr;">
+          <div class="enrichment-card">
+            <h4>Most Probable Email (formula)</h4>
+            <p>The single best recovered email, ready for re-engagement outreach or CRM write-back.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example scenario -->
+    <div class="callout callout-warning" style="margin-top: 32px;">
+      <strong>The workflow in action:</strong>
+      <ul style="margin-top: 8px;">
+        <li><strong>Job change:</strong> <code>frederic@granum.com</code> bounced &rarr; name hint <code>frederic</code>, old domain <code>granum.com</code> &rarr; search past_company=granum.com, name~frederic &rarr; Frederic Mathieu now CMO at FullEnrich &rarr; recovered <code>frederic@fullenrich.com</code> plus his mobile phone.</li>
+      </ul>
+    </div>
+
+    <!-- Execution order -->
+    <div class="callout">
+      <strong>How to execute this workflow:</strong>
+      <ol style="margin-top: 8px; padding-left: 20px;">
+        <li>Drop your bounced emails into the Bounced Email column</li>
+        <li>The Name Hint and Old Company Domain formulas parse the address automatically</li>
+        <li>The FullEnrich Search POST fires on the old domain + name hint</li>
+        <li>The Search Result formulas extract the best match's new identity</li>
+        <li>Find Work Email and Find Mobile Phone run on the recovered identity</li>
+        <li>Filter on recovered emails and push them back to your CRM or re-engagement sequence</li>
+      </ol>
+    </div>
+
+    <!-- Use cases -->
+    <div class="callout callout-warning">
+      <strong>When to use this template:</strong>
+      <ul style="margin-top: 8px;">
+        <li><strong>Re-engagement campaigns</strong> where contacts went cold because they changed jobs</li>
+        <li><strong>Cleaning bounced lists</strong> from old outreach campaigns</li>
+        <li><strong>Account-based sales</strong> where a buyer moved to a new company</li>
+        <li><strong>Event follow-ups</strong> where attendee emails bounced months later</li>
+      </ul>
+      You need the bounced email address itself, not just a name. Run it quarterly on your bounce list to catch job changes in bulk.
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="troubleshooting">
+      <h3>Troubleshooting</h3>
+      <table>
+        <thead>
+          <tr><th>Problem</th><th>Solution</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Search returns 0 matches</td><td>The person may not be indexed, or the name hint is too specific. Try loosening the name match, or verify the old domain was parsed correctly.</td></tr>
+          <tr><td>Wrong person matched</td><td>Common first names at large old employers can mismatch. Increase the search limit and add a manual review step on the top 3 results before the final enrichment.</td></tr>
+          <tr><td>Final email comes back empty</td><td>The person was found but their new company email pattern could not be verified. The LinkedIn URL from the search formulas improves match rates, make sure it is populated.</td></tr>
+          <tr><td>No mobile phone returned</td><td>Mobile coverage varies by region and seniority. The work email still recovers independently, phone is a bonus when available.</td></tr>
+          <tr><td>API returns 401</td><td>Check your FullEnrich API key in the Authorization header. It should be <code>Bearer YOUR_KEY</code>.</td></tr>
+          <tr><td>Recovery rate lower than expected</td><td>Recovery depends on data recency. Recent job-changers recover best. Very old bounces (2+ years) are harder to match.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>
